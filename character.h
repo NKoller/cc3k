@@ -1,9 +1,9 @@
 #ifndef character_h
 #define character_h
 
+#include "observer.h"
 #include "subject.h"
 #include "stats.h"
-#include <stdio.h>
 
 class Character: public Subject {
     char name;
@@ -14,10 +14,12 @@ public:
     void notifyObservers(Stats s);
     bool move();
     Stats getStats();
+    void setStats(Stats s);
+    char getName();
     virtual void defend(Character &attacker);
     virtual void attack(/*Shade*/ Character &defender);
-  
-  /* 
+
+  /*
     virtual void defend(Character &attacker);
     virtual void attack(Human &defender);
     virtual void attack(Dwarf &defender);
@@ -32,9 +34,9 @@ public:
     virtual void attack(Troll &defender);
     virtual void attack(Goblin &defender);
    */
- 
+
    ~Character();
-    
+
 };
 
 #endif
