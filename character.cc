@@ -36,9 +36,9 @@ int calcDamage(Character &defender,Character &attacker) {
  float damage1 = ((100/(100+defender.Def))*Attacker.Atk);
  int damage2 = ((100/(100+defender.Def))*Attacker.Atk);
  if(damage1 > damange 2) {
-  return damage +1;
+  return damage2 + 1;
  }
- return damage 2;
+ return damage2;
 }
 
 
