@@ -1,5 +1,5 @@
-#ifndef character_h
-#define character_h
+#ifndef _CHARACTER_H_
+#define _CHARACTER_H_
 
 #include "observer.h"
 #include "subject.h"
