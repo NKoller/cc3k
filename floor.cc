@@ -1,56 +1,48 @@
-#include "floor.h"
+//#include "floor.h"
+#include "cell.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <sstream>
 using namespace std;
 
-void readingFile() {
-    ifstream file {"input.txt"};
-    string str;
-    while(true) {
-        file>>str;
-        if(file.fail()) {
-            break;
-        }
-        istringstream ss;
-        char ch;
-        vector <char> temp;
-        while(ss >> ch) {
-            temp.emplace_back(ch);
-        }
-    }
+string readingFile() {
+    ifstream file {"empty.txt"};
+	stringstream result;
+    result << file.rdbuf();
+	return result.str();
 }
 
-void readingInput(vector <char> temp) {
-    string s; //this should technically be char but I dont know why its giving me an error
-    for(int row=0; row < 50; ++row) {
-      vector <Cell> rowVec;
-        for(int col=0; col < 50; ++col) {
-            s = grid[row][col];
-     if(s == "|") {
-         cout<<"Cell pointing at nullptr"<<endl;
-     }
-     else if(s == "-") {
-         cout<<"Cell pointing at nullptr"<<endl;
-     }
-     else if(s == ".") {
-         cout<<"Create normal cell here"<<endl;
-     }
-     else if(s == "+") {
-         cout<<"Create door cell here"<<endl;
-     }
-     else if(s == "#") {
-        cout<<"Create passage cell here"<<endl;
-     }
-     else if(s == " ") {
-         cout<<"Create no cell here"<<endl;
-     }
-     else {
-         return;
-     }
-  }
- }
+void readingInput(string input) {
+    vector<vector<Cell *>> map;
+	int i = 0;
+	int row = 0;
+    while(i < input.length()) {
+		map.emplace_back();
+		while(input[i] != '\n' && i < input.length()) {
+			if(input[i] == ' ' || input[i] == '|' || input[i] == '-') {
+				map[row].emplace_back(nullptr);
+			}
+			else if(input[i] == '.') {
+				map[row].emplace_back(new Cell{Cell::Floor});
+			}
+			else if(input[i] == '+') {
+				map[row].emplace_back(new Cell{Cell::Door});
+			}
+			else if(input[i] == '#') {
+				map[row].emplace_back(new Cell{Cell::Passage});
+			}
+			else {
+				// throw i/o exception?
+			}
+			++i;
+		}
+		++row;
+	}
 }
 
-void attach()
+int main() {
+	string f = readingFile();
+	cout << f << endl;
+	readingInput(f);
+}
