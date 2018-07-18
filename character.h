@@ -5,13 +5,17 @@ ifndef character_h
 
 class Character: public Subject {
     char name;
+    Stats status;
+    bool canMove;
 public:
-    Character(int hp, int atk, int def, int gold, char name);
-     Stats status;
-    void notifyObservers(Stats S);
+    Character(char name);
+    void notifyObservers(Stats s);
     bool move();
     Stats getStats();
-    void setStats(Stats s);
+    virtual void defend(Character &attacker);
+    virtual void attack(Shade &defender);
+  
+  /* 
     virtual void defend(Character &attacker);
     virtual void attack(Human &defender);
     virtual void attack(Dwarf &defender);
@@ -25,7 +29,9 @@ public:
     virtual void attack(Vampire &defender);
     virtual void attack(Troll &defender);
     virtual void attack(Goblin &defender);
-    ~Character();
+   */
+ 
+   ~Character();
     
 };
 
