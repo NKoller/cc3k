@@ -9,18 +9,18 @@ void Character::notifyObservers() {
 }
 
 Stats Character::getStats() {
- return {HP, Atk, Def, Gold};
+ return Stats{status.HP, status.Atk, status.Def, status.Gold};
 }
 
 void Character::setStats(Stats s) {
-    this->HP = s.HP;
-    this->Atk = s.Atk;
-    this->Def = s.Def;
-    this->Gold = s.Gold;
+    status.HP = s.HP;
+    status.Atk = s.Atk;
+    status.Def = s.Def;
+    status.Gold = s.Gold;
 }
 
 bool Character::move() {
- return (!(name == "D"));
+ return canMove;
 }
 
 //helper
@@ -35,7 +35,7 @@ void change(int &type, const int amt) {
 int calcDamage(Character &defender,Character &attacker) {
  float damage1 = ((100/(100+defender.Def))*Attacker.Atk);
  int damage2 = ((100/(100+defender.Def))*Attacker.Atk);
- if(damage1 > damange 2) {
+ if(damage1 > damage2) {
   return damage2 + 1;
  }
  return damage2;

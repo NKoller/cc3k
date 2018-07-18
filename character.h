@@ -1,6 +1,8 @@
-ifndef character_h
+#ifndef character_h
 #define character_h
 
+#include "subject.h"
+#include "stats.h"
 #include <stdio.h>
 
 class Character: public Subject {
@@ -13,7 +15,7 @@ public:
     bool move();
     Stats getStats();
     virtual void defend(Character &attacker);
-    virtual void attack(Shade &defender);
+    virtual void attack(/*Shade*/ Character &defender);
   
   /* 
     virtual void defend(Character &attacker);

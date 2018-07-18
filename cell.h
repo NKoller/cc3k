@@ -11,6 +11,7 @@ class Cell: public Observer, public Subject {
 	//Character *myChar;
 	//Item *myItem;
 public:
+    Info getInfo();
 	Cell(CellType type);
 	CellType getType() const;
 	//bool addItem(Item *);
