@@ -8,6 +8,10 @@ void Character::notifyObservers(Stats s) {
    //for (auto &ob : observers) { ob->notify(*this);}
 }
 
+char Character::getName() {
+   return name;
+}
+
 Stats Character::getStats() {
  return Stats{status.HP, status.Atk, status.Def, status.Gold};
 }
