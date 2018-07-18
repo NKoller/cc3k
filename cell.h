@@ -12,6 +12,7 @@ class Cell: public Observer, public Subject {
 	//Item *myItem;
 public:
 	Cell(CellType type);
+	CellType getType() const;
 	//bool addItem(Item *);
 	//bool addChar(Character *);
 	//bool moveChar(Direction);
