@@ -1,5 +1,6 @@
 #include "character.h"
 #include "stats.h"
+using namespace std;
 
 Character::Character(char name): name{name} {}
 
