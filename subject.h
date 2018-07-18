@@ -13,7 +13,9 @@ protected:
 	void setState(State newS);
 public:
 	void attach(Observer *o);
-	void notifyObservers() const;
+	void notifyObservers();
 	State getState() const;
 	virtual ~Subject() = 0;
-}
+};
+
+#endif

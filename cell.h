@@ -17,6 +17,6 @@ public:
 	//bool moveChar(Direction);
 	void notify(Subject &from) override;
 	//void notifyDisplay()
-}
+};
 
 #endif

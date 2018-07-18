@@ -15,8 +15,8 @@ string readingFile() {
 
 void readingInput(string input) {
     vector<vector<Cell *>> map;
-	int i = 0;
-	int row = 0;
+	unsigned int i = 0;
+	unsigned int row = 0;
     while(i < input.length()) {
 		map.emplace_back();
 		while(input[i] != '\n' && i < input.length()) {
@@ -24,13 +24,13 @@ void readingInput(string input) {
 				map[row].emplace_back(nullptr);
 			}
 			else if(input[i] == '.') {
-				map[row].emplace_back(new Cell{Cell::Floor});
+				map[row].emplace_back(new Cell{CellType::Floor});
 			}
 			else if(input[i] == '+') {
-				map[row].emplace_back(new Cell{Cell::Door});
+				map[row].emplace_back(new Cell{CellType::Door});
 			}
 			else if(input[i] == '#') {
-				map[row].emplace_back(new Cell{Cell::Passage});
+				map[row].emplace_back(new Cell{CellType::Passage});
 			}
 			else {
 				// throw i/o exception?
