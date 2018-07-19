@@ -12,8 +12,10 @@ bool checkWin(Floor *f, int &floorsBeaten, const int MAX_FLOORS){
         floorsBeaten += 1;
         return (floorsBeaten == MAX_FLOORS);
     }
+	
     return false;
 }
+
 bool quitPrompt(){
     cout << "Would you like to play again? Y/n" << endl;
     string s;
@@ -22,17 +24,19 @@ bool quitPrompt(){
 }
 
 int main(){
+	const string file = "empty.txt";
 	string s1, s2;
-    Floor *f = new Floor("empty.txt");
+    Floor *f = new Floor{file};
     const int MAX_FLOORS = 5;
     int floorsBeaten = 0;
 	while (true){
+		cout << *f;
 		cin >> s1;
 		if (s1 == "q"){
 			cout << "quit" << endl;
             if (quitPrompt()){
                 delete f; 
-                f = new Floor("empty.txt"); 
+                f = new Floor{file}; 
                 floorsBeaten = 0;
                 continue;
             } //needs more
@@ -81,14 +85,18 @@ int main(){
             cin >> s2;
             cout << s1 << " " << s2 << endl;
         }
-        if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
+        if (f->gameOver()){
+			floorsBeaten += 1;
+			if (floorsBeaten == MAX_FLOORS){
+				if (quitPrompt()){
                     delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    contiinue;
-                }
-                break;
-            }
+               	    f = new Floor{file};
+               		floorsBeaten = 0;
+                   	continue;
+               	}
+				break;
+			}
+			f = new Floor{file};
+		}
     }
 }

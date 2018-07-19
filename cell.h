@@ -16,12 +16,12 @@ class Cell: public Observer, public Subject {
 	Character *myChar;
 	Item *myItem;
 public:
-    Info getInfo();
+    Info getInfo() override;
 	Cell(CellType type, unsigned int row, unsigned int col);
 	CellType getType() const;
-	//bool addItem(Item *);
-	//bool addChar(Character *);
-	//bool moveChar(Direction);
+	//bool addItem(Item *i);
+	//bool addChar(Character *c);
+	//bool moveChar(int direction);
 	void notify(Subject &from) override;
 	//void notifyDisplay()
 };

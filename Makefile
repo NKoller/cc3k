@@ -1,11 +1,11 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -Wall -MMD -g -Werror=vla
-OBJECTS=floor.o cell.o observer.o subject.o state.o
+OBJECTS=main.o floor.o textdisplay.o cell.o observer.o subject.o state.o info.o
 DEPENDS=${OBJECTS:.o=.d}
-EXEC=floor
+EXEC=main
 
 ${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o wew
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o cc3k
 
 -include ${DEPENDS}
 

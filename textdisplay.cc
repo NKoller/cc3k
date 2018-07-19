@@ -1,10 +1,12 @@
 #include "textdisplay.h"
+#include "info.h"
 #include <string>
 #include <iostream>
 
 using namespace std;
+
 TextDisplay::TextDisplay(string s){
-    int ind = 0, r = 0;
+    unsigned int ind = 0, r = 0;
     cells.emplace_back();
     while (ind < s.size()){
         if (s[ind] == '\n'){
@@ -17,21 +19,22 @@ TextDisplay::TextDisplay(string s){
     }
 }
 
-void TextDisplay::notify(Cell &cell){
-    if (cell.getInfo().item_name == 0){
+void TextDisplay::notify(Subject &cell){
+    if (cell.getInfo().itemName == 0){
         cells[cell.getInfo().row][cell.getInfo().col] = 
-            cell.getInfo().character_name;
+            cell.getInfo().characterName;
     } else {
     cells[cell.getInfo().row][cell.getInfo().col] = 
-            cell.getInfo().item_name;
+            cell.getInfo().itemName;
     }
 }
 
 ostream &operator<<(ostream &out, const TextDisplay &td){
-    for (int i = 0; i < td.cells.size(); ++i){
-        for (int j = 0; j < td.cells[i].size(); ++j){
-            cout << td.cells[i][j];
+    for (unsigned int i = 0; i < td.cells.size(); ++i){
+        for (unsigned int j = 0; j < td.cells[i].size(); ++j){
+            out << td.cells[i][j];
         }
-        cout << endl;
+        out << endl;
     }
+	return out;
 }

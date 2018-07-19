@@ -5,6 +5,7 @@
 #include "state.h"
 
 class Observer;
+class Info;
 
 class Subject {
 	std::vector<Observer *> observers;
@@ -16,6 +17,7 @@ public:
 	void notifyObservers();
 	State getState() const;
 	virtual ~Subject() = 0;
+	virtual Info getInfo() = 0;
 };
 
 #endif

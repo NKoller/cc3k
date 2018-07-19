@@ -1,59 +1,20 @@
-//#include "floor.h"
+#include "floor.h"
 #include "cell.h"
-#include <iostream>
+#include <iostream> // REMOOVVVEEEE
 #include <fstream>
 #include <vector>
 #include <sstream>
 using namespace std;
 
-enum class Direction { NW, N, NE, W, E, SW, S, SE };
-
-struct Coords {
-	unsigned int r;
-	unsigned int c;
-};
-
-vector<vector<Cell *>> map;
-vector<vector<Coords>> chambers;
-
-void addObsRecurse(vector<vector<bool>> &added, unsigned int r, unsigned int c) {
-	if (added[r][c]) return;
-	added[r][c] = true;
-	for (unsigned int i = r-1; i <= r+1; ++i) {
-		for (unsigned int j = c-1; j <= c+1; ++j) {
-			if (i == r && j == c) {
-				continue;
-			}
-			else if (map[i][j] && i >= 0 && j >= 0 && i < map.size() && j < map[0].size()) {
-				map[r][c]->attach(map[i][j]);
-				addObsRecurse(added, i, j);
-			} else {
-				map[r][c]->attach(nullptr);
-			}
-		}
-	}
-	// add text display observer
+string Floor::readFile(string name) {
+	ifstream file{name};
+	stringstream result;
+	result << file.rdbuf();
+	return result.str();
 }
 
-void addObservers() {
-	vector<vector<bool>> added;
-	for (unsigned int i = 0; i < map.size(); ++i) {
-		added.emplace_back();
-		for (unsigned int j = 0; j < map[i].size(); ++j) {
-			added[i].emplace_back(false);
-		}
-	}
-	for (unsigned int r = 0; r < map.size(); ++r) {
-		for (unsigned int c = 0; c < map[r].size(); ++c) {
-			if (map[r][c]) {
-				addObsRecurse(added, r, c);
-				return;
-			}
-		}
-	}
-}
-
-void initializeChamber(vector<vector<bool>> &added, int chamber_num, unsigned int r, unsigned int c) {
+void Floor::initializeChamber(vector<vector<bool>> &added, int chamber_num,
+                              unsigned int r, unsigned int c) {
 	if (map[r][c] && !added[r][c] && map[r][c]->getType() == CellType::Floor) {
 		chambers[chamber_num].emplace_back(Coords{r, c});
 		added[r][c] = true;
@@ -67,7 +28,7 @@ void initializeChamber(vector<vector<bool>> &added, int chamber_num, unsigned in
 	}
 }
 
-void findChambers() {
+void Floor::findChambers() {
 	vector<vector<bool>> added;
 	for (unsigned int i = 0; i < map.size(); ++i) {
 		added.emplace_back();
@@ -87,14 +48,56 @@ void findChambers() {
 	}
 }
 
-string readingFile() {
-    ifstream file {"empty.txt"};
-	stringstream result;
-    result << file.rdbuf();
-	return result.str();
+void Floor::addObsRecurse(vector<vector<bool>> &added,
+                          unsigned int r, unsigned int c) {
+	if (added[r][c]) return;
+	added[r][c] = true;
+	for (unsigned int i = r-1; i <= r+1; ++i) {
+		for (unsigned int j = c-1; j <= c+1; ++j) {
+			if (i == r && j == c) {
+				continue;
+			}
+			else if (map[i][j] && i >= 0 && j >= 0 && i < map.size() && j < map[0].size()) {
+				map[r][c]->attach(map[i][j]);
+				addObsRecurse(added, i, j);
+			} else {
+				map[r][c]->attach(nullptr);
+			}
+		}
+	}
+	map[r][c]->attach(td);
 }
 
-void readingInput(string input) {
+void Floor::addObservers() {
+	vector<vector<bool>> added;
+	for (unsigned int i = 0; i < map.size(); ++i) {
+		added.emplace_back();
+		for (unsigned int j = 0; j < map[i].size(); ++j) {
+			added[i].emplace_back(false);
+		}
+	}
+	for (unsigned int r = 0; r < map.size(); ++r) {
+		for (unsigned int c = 0; c < map[r].size(); ++c) {
+			if (map[r][c]) {
+				addObsRecurse(added, r, c);
+				return;
+			}
+		}
+	}
+}
+
+void Floor::spawn() {
+	player.r = 3;
+	player.c = 3;
+}
+
+void Floor::moveEnemies() {
+
+}
+
+Floor::Floor(string file) {
+	string input = readFile(file);
+	// Initialize 2-D Cell vector
 	unsigned int i = 0;
 	unsigned int row = 0;
 	unsigned int width = 0;
@@ -122,29 +125,33 @@ void readingInput(string input) {
 		++i;
 		++row;
 	}
-}
-
-int main(int n, char *args[]) {
-	string f = readingFile();
-	readingInput(f);
+	// Initialize display
+	td = new TextDisplay{input};
+	// Initialize chambers and observers
 	findChambers();
 	addObservers();
-	/*Cell *test = map[stoi(args[1])][stoi(args[2])];
-	if (!test) {
-		cout << "empty" << endl;
-		return 0;
+	// Span characters and items
+	spawn();
+}
+
+Floor::~Floor() {
+	for (auto &r : map) {
+		for (auto &c : r) {
+			delete c;
+		}
 	}
-	if (test->getType() == CellType::Floor) {
-		cout << "floor" << endl;
-	} else if (test->getType() == CellType::Passage) {
-		cout << "passage" << endl;
-	} else if (test->getType() == CellType::Door) {
-		cout << "door" << endl;
-	} else if (test->getType() == CellType::Stairs) {
-		cout << "stairs" << endl;
-	} else {
-		cout << "???" << endl;
-	}
-	cout << "------------" << endl;
-	test->notifyObservers();*/
+	delete td;
+}
+
+void Floor::movePlayer(Direction dir) {
+	cout << "moved <3" << endl;
+	//map[player.r][player.c]->moveCharacter(Direction);
+}
+
+bool Floor::gameOver() const {
+	return map[player.r][player.c]->getType() == CellType::Stairs;
+}
+
+ostream &operator<<(ostream &out, const Floor &f) {
+	return out << *(f.td);
 }
