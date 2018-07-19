@@ -6,7 +6,18 @@ Cell::Cell(CellType type, unsigned int row, unsigned int col):
 		Subject{},
 		type{type}, row{row}, col{col} {}
 
-void Cell::notify(Subject &from) {}
+void Cell::notify(Subject &from) {
+	/*just for testing:
+	if (type == CellType::Floor) {
+		std::cout << "floor" << std::endl;
+	} else if (type == CellType::Passage) {
+		std::cout << "passage" << std::endl;
+	} else if (type == CellType::Door) {
+		std::cout << "door" << std::endl;
+	} else {
+		std::cout << "stairs" << std::endl;
+	}*/
+}
 
 CellType Cell::getType() const {
 	return type;

@@ -7,7 +7,7 @@ void Subject::attach(Observer *o) {
 
 void Subject::notifyObservers() {
 	for (auto &ob : observers) {
-		ob->notify(*this);
+		if (ob) ob->notify(*this);
 	}
 }
 

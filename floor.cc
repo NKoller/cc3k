@@ -6,6 +6,8 @@
 #include <sstream>
 using namespace std;
 
+enum class Direction { NW, N, NE, W, E, SW, S, SE };
+
 struct Coords {
 	unsigned int r;
 	unsigned int c;
@@ -19,11 +21,10 @@ void addObsRecurse(vector<vector<bool>> &added, unsigned int r, unsigned int c) 
 	added[r][c] = true;
 	for (unsigned int i = r-1; i <= r+1; ++i) {
 		for (unsigned int j = c-1; j <= c+1; ++j) {
-			if (!(i == r && j == c) &&
-			    i >= 0 && j >= 0 &&
-			    i < map.size() && j < map[0].size() &&
-				map[i][j]) {
-
+			if (i == r && j == c) {
+				continue;
+			}
+			else if (map[i][j] && i >= 0 && j >= 0 && i < map.size() && j < map[0].size()) {
 				map[r][c]->attach(map[i][j]);
 				addObsRecurse(added, i, j);
 			} else {
@@ -123,9 +124,27 @@ void readingInput(string input) {
 	}
 }
 
-int main() {
+int main(int n, char *args[]) {
 	string f = readingFile();
 	readingInput(f);
 	findChambers();
 	addObservers();
+	/*Cell *test = map[stoi(args[1])][stoi(args[2])];
+	if (!test) {
+		cout << "empty" << endl;
+		return 0;
+	}
+	if (test->getType() == CellType::Floor) {
+		cout << "floor" << endl;
+	} else if (test->getType() == CellType::Passage) {
+		cout << "passage" << endl;
+	} else if (test->getType() == CellType::Door) {
+		cout << "door" << endl;
+	} else if (test->getType() == CellType::Stairs) {
+		cout << "stairs" << endl;
+	} else {
+		cout << "???" << endl;
+	}
+	cout << "------------" << endl;
+	test->notifyObservers();*/
 }
