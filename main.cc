@@ -39,115 +39,21 @@ int main(){
             break;
 		}
 		if (s1 == "no"){
-            cout << s1 << endl;
             f->movePlayer(Direction::N);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-			continue;
 		}	else if (s1 == "so"){
             f->movePlayer(Direction::S);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "ea"){
             f->movePlayer(Direction::E);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "we"){
             f->movePlayer(Direction::W);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "ne"){
             f->movePlayer(Direction::NE);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "nw"){
             f->movePlayer(Direction::NW);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "se"){
             f->movePlayer(Direction::SE);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "sw"){
             f->movePlayer(Direction::SW);
-            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
-                if (quitPrompt()){
-                    delete f;
-                    f = new Floor("empty.txt");
-                    floorsBeaten = = 0;
-                    continue;
-                }
-                break;
-            }
-
-            cout << s1 << endl;
-			continue;
 		}	else if (s1 == "s"){
             cout << s1 << endl;
 			continue;
@@ -175,5 +81,14 @@ int main(){
             cin >> s2;
             cout << s1 << " " << s2 << endl;
         }
+        if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    contiinue;
+                }
+                break;
+            }
     }
 }
