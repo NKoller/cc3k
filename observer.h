@@ -2,6 +2,7 @@
 #define _OBSERVER_H_
 
 class Subject;
+class Cell;
 
 class Observer {
 public:

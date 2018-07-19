@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-class stats {
+class Stats {
     int HP;
     int Atk;
     int Def;
