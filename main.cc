@@ -1,36 +1,151 @@
 #include <iostream>
 #include <string>
+#include "floor.h"
 using namespace std;
+
+bool playAgainHuh(string s){
+    return (s == "Y");
+}
+
+bool checkWin(Floor *f, int &floorsBeaten, const int MAX_FLOORS){
+    if (f->gameOver()){
+        floorsBeaten += 1;
+        return (floorsBeaten == MAX_FLOORS);
+    }
+    return false;
+}
+bool quitPrompt(){
+    cout << "Would you like to play again? Y/n" << endl;
+    string s;
+    cin >> s;
+    return playAgainHuh(s);
+}
+
 int main(){
 	string s1, s2;
+    Floor *f = new Floor("empty.txt");
+    const int MAX_FLOORS = 5;
+    int floorsBeaten = 0;
 	while (true){
 		cin >> s1;
 		if (s1 == "q"){
 			cout << "quit" << endl;
+            if (quitPrompt()){
+                delete f; 
+                f = new Floor("empty.txt"); 
+                floorsBeaten = 0;
+                continue;
+            } //needs more
             break;
 		}
 		if (s1 == "no"){
             cout << s1 << endl;
+            f->movePlayer(Direction::N);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
 			continue;
 		}	else if (s1 == "so"){
+            f->movePlayer(Direction::S);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "ea"){
+            f->movePlayer(Direction::E);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
+
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "we"){
+            f->movePlayer(Direction::W);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
+
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "ne"){
+            f->movePlayer(Direction::NE);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
+
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "nw"){
+            f->movePlayer(Direction::NW);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
+
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "se"){
+            f->movePlayer(Direction::SE);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
+
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "sw"){
+            f->movePlayer(Direction::SW);
+            if (checkWin(f, floorsBeaten, MAX_FLOORS)){
+                if (quitPrompt()){
+                    delete f;
+                    f = new Floor("empty.txt");
+                    floorsBeaten = = 0;
+                    continue;
+                }
+                break;
+            }
+
             cout << s1 << endl;
 			continue;
 		}	else if (s1 == "s"){
