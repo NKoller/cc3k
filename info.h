@@ -7,7 +7,8 @@ struct Info {
   CellType type;
   char itemName;
   char characterName;
-  int location;
+  unsigned int row;
+  unsigned int col;
 };
 
 #endif

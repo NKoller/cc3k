@@ -1,7 +1,7 @@
 #include "cell.h"
 #include "info.h"
 
-Cell::Cell(CellType type,int row,int col):
+Cell::Cell(CellType type, unsigned int row, unsigned int col):
 		Observer{},
 		Subject{},
 		type{type}, row{row}, col{col} {}

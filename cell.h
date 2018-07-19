@@ -11,13 +11,13 @@ enum class CellType { Floor, Passage, Door, Stairs };
 
 class Cell: public Observer, public Subject {
 	CellType type;
-    int row;
-    int col;
+    unsigned int row;
+    unsigned int col;
 	Character *myChar;
 	Item *myItem;
 public:
     Info getInfo();
-	Cell(CellType type, int row, int col);
+	Cell(CellType type, unsigned int row, unsigned int col);
 	CellType getType() const;
 	//bool addItem(Item *);
 	//bool addChar(Character *);
