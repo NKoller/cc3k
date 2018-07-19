@@ -1,9 +1,10 @@
 #include "cell.h"
+#include "info.h"
 
-Cell::Cell(CellType type):
+Cell::Cell(CellType type,int row,int col):
 		Observer{},
 		Subject{},
-		type{type} {}
+		type{type}, row{row}, col{col} {}
 
 void Cell::notify(Subject &from) {}
 
@@ -11,18 +12,18 @@ CellType Cell::getType() const {
 	return type;
 }
 
-Info Cel::getInfo(){
+Info Cell::getInfo(){
     char itemName;
     char characterName;
     if (myItem == nullptr){
         itemName = 0;
     } else{
-        itemName = myItem.getName();
+       // itemName = myItem->getName();
     }
     if (myChar == nullptr){
         characterName = 0;
     } else{
-        characterName = myChar.getName();
+       // characterName = myChar->getName();
     }
-
+    return Info {type, itemName, characterName, row, col};
 }
