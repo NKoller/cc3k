@@ -12,7 +12,7 @@ class Character: public Subject {
 public:
     Character(char name, bool canMove, Stats status);
     bool moves();
-    Stats getStats();
+    Stats getStats() const;
     //void setStats(Stats s);
     char getName();
     virtual void defend(Character &attacker);

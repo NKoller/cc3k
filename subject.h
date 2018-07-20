@@ -5,7 +5,7 @@
 #include "state.h"
 
 class Observer;
-class Info;
+struct Info;
 
 class Subject {
 	State s;

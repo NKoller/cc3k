@@ -1,0 +1,2 @@
+floor.o: floor.cc floor.h cell.h subject.h state.h observer.h \
+  textdisplay.h shade.h player.h character.h stats.h info.h dwarf.h

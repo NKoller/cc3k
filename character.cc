@@ -8,7 +8,7 @@ char Character::getName() {
    return name;
 }
 
-Stats Character::getStats() {
+Stats Character::getStats() const {
  return status;
 }
 
