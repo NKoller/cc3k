@@ -10,14 +10,13 @@ class Character: public Subject {
     Stats status;
     bool canMove;
 public:
-    Character(char name);
-    void notifyObservers(Stats s);
-    bool move();
+    Character(char name, bool canMove, Stats status);
+    bool moves();
     Stats getStats();
-    void setStats(Stats s);
+    //void setStats(Stats s);
     char getName();
-    virtual void defend(Character &attacker);
-    virtual void attack(/*Shade*/ Character &defender);
+    //virtual void defend(Character &attacker);
+    //virtual void attack(Shade &defender);
 
   /*
     virtual void defend(Character &attacker);
@@ -35,8 +34,7 @@ public:
     virtual void attack(Goblin &defender);
    */
 
-   ~Character();
-
+   virtual ~Character();
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include "cell.h"
 #include "textdisplay.h"
 
-enum class Direction { NW, N, NE, W, E, SW, S, SE };
+enum Direction { NW, N, NE, W, E, SW, S, SE };
 
 class Floor {
 	struct Coords {

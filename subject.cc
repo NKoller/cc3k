@@ -1,6 +1,10 @@
 #include "subject.h"
 #include "observer.h"
 
+void Subject::setState(State newS) {
+	s = newS;
+}
+
 void Subject::attach(Observer *o) {
 	observers.emplace_back(o);
 }
@@ -16,3 +20,5 @@ State Subject::getState() const {
 }
 
 Subject::~Subject() {}
+
+//Info Subject::getInfo() {}

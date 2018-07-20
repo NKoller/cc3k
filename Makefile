@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -Wall -MMD -g -Werror=vla
-OBJECTS=main.o floor.o textdisplay.o cell.o observer.o subject.o state.o info.o
+OBJECTS=main.o floor.o textdisplay.o cell.o observer.o subject.o state.o info.o stats.o character.o player.o shade.o
 DEPENDS=${OBJECTS:.o=.d}
 EXEC=main
 

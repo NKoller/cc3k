@@ -8,16 +8,16 @@ class Observer;
 class Info;
 
 class Subject {
-	std::vector<Observer *> observers;
 	State s;
 protected:
+	std::vector<Observer *> observers;
 	void setState(State newS);
 public:
 	void attach(Observer *o);
 	void notifyObservers();
 	State getState() const;
 	virtual ~Subject() = 0;
-	virtual Info getInfo() = 0;
+	//virtual Info getInfo();
 };
 
 #endif

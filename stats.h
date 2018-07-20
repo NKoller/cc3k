@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-class Stats {
+struct Stats {
     int HP;
     int Atk;
     int Def;

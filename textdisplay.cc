@@ -20,13 +20,22 @@ TextDisplay::TextDisplay(string s){
 }
 
 void TextDisplay::notify(Subject &cell){
-    if (cell.getInfo().itemName == 0){
-        cells[cell.getInfo().row][cell.getInfo().col] = 
-            cell.getInfo().characterName;
-    } else {
-    cells[cell.getInfo().row][cell.getInfo().col] = 
-            cell.getInfo().itemName;
-    }
+	//cout << "NOTIFIED" << endl;
+	if (cell.getState() != State::CharacterMoved) return;
+	Info in = static_cast<Cell *>(&cell)->getInfo();
+    if (in.characterName){
+        cells[in.row][in.col] = in.characterName;
+    } else if (in.itemName) {
+    	cells[in.row][in.col] = in.itemName;
+    } else if (in.type == CellType::Floor) {
+		cells[in.row][in.col] = '.';
+	} else if (in.type == CellType::Passage) {
+		cells[in.row][in.col] = '#';
+	} else if (in.type == CellType::Door) {
+		cells[in.row][in.col] = '+';
+	} else {
+		cells[in.row][in.col] = '\\';
+	}
 }
 
 ostream &operator<<(ostream &out, const TextDisplay &td){

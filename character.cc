@@ -1,33 +1,30 @@
-include "character.h"
+#include "character.h"
 #include "stats.h"
-using namespace std;
 
-Character::Character(char name): name{name} {}
-
-void Character::notifyObservers(Stats s) {
-   //for (auto &ob : observers) { ob->notify(*this);}
-}
+Character::Character(char name, bool canMove, Stats status):
+	name{name}, canMove{canMove}, status{status} {}
 
 char Character::getName() {
    return name;
 }
 
 Stats Character::getStats() {
- return Stats{status.HP, status.Atk, status.Def, status.Gold};
+ return status;
 }
 
-
+/*
 void Character::setStats(Stats s) {
     status.HP = s.HP;
     status.Atk = s.Atk;
     status.Def = s.Def;
     status.Gold = s.Gold;
-}
+}*/
 
-bool Character::move() {
+bool Character::moves() {
  return canMove;
 }
 
+/*
 //helper
 void change(int &type, const int amt) {
  type += amt;
@@ -49,8 +46,6 @@ int calcDamage(Character &defender,Character &attacker) {
 
 void Character::defend(Character &attacker) {
  attacker.attack(*this);
-}
-
-void attack() {}
+}*/
 
 Character::~Character() {}

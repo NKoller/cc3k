@@ -1,5 +1,7 @@
 #include "floor.h"
 #include "cell.h"
+#include "shade.h"
+#include "info.h" // REMOVE
 #include <iostream> // REMOOVVVEEEE
 #include <fstream>
 #include <vector>
@@ -87,8 +89,11 @@ void Floor::addObservers() {
 }
 
 void Floor::spawn() {
-	player.r = 3;
-	player.c = 3;
+	int play_r = 3;
+	int play_c = 3;
+	map[play_r][play_c]->addChar(new Shade{});
+	player.r = play_r;
+	player.c = play_c;
 }
 
 void Floor::moveEnemies() {
@@ -100,28 +105,28 @@ Floor::Floor(string file) {
 	// Initialize 2-D Cell vector
 	unsigned int i = 0;
 	unsigned int row = 0;
-	unsigned int width = 0;
     while(i < input.length()) {
 		map.emplace_back();
+		unsigned int col = 0;
 		while(input[i] != '\n' && i < input.length()) {
 			if(input[i] == ' ' || input[i] == '|' || input[i] == '-') {
 				map[row].emplace_back(nullptr);
 			}
 			else if(input[i] == '.') {
-				map[row].emplace_back(new Cell{CellType::Floor, row, i - row*width});
+				map[row].emplace_back(new Cell{CellType::Floor, row, col});
 			}
 			else if(input[i] == '+') {
-				map[row].emplace_back(new Cell{CellType::Door, row, i - row*width});
+				map[row].emplace_back(new Cell{CellType::Door, row, col});
 			}
 			else if(input[i] == '#') {
-				map[row].emplace_back(new Cell{CellType::Passage, row, i - row*width});
+				map[row].emplace_back(new Cell{CellType::Passage, row, col});
 			}
 			else {
 				// throw i/o exception?
 			}
 			++i;
+			++col;
 		}
-		if (!width) width = i;
 		++i;
 		++row;
 	}
@@ -144,8 +149,30 @@ Floor::~Floor() {
 }
 
 void Floor::movePlayer(Direction dir) {
-	cout << "moved <3" << endl;
-	//map[player.r][player.c]->moveCharacter(Direction);
+	//cout << "moved <3" << endl;
+	if (map[player.r][player.c]->moveChar(dir)) {
+		if (dir == Direction::N){
+				player.r -= 1;
+		} else if (dir == Direction::S){
+				player.r += 1;
+		} else if (dir == Direction::E){
+				player.c += 1;
+		} else if (dir == Direction::W){
+				player.c -= 1;
+		} else if (dir == Direction::NE){
+				player.r -= 1;
+				player.c += 1;
+		} else if (dir == Direction::NW){
+				player.r -= 1;
+				player.c -= 1;
+		} else if (dir == Direction::SE){
+				player.r += 1;
+				player.c += 1;
+		} else if (dir == Direction::SW){
+				player.r += 1;
+				player.c -= 1;
+		} 
+	}
 }
 
 bool Floor::gameOver() const {

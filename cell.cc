@@ -1,5 +1,8 @@
 #include "cell.h"
 #include "info.h"
+#include "character.h"
+#include <assert.h> //REMOVE
+#include <iostream> //REMOVE
 
 Cell::Cell(CellType type, unsigned int row, unsigned int col):
 		Observer{},
@@ -24,17 +27,42 @@ CellType Cell::getType() const {
 }
 
 Info Cell::getInfo(){
-    char itemName;
-    char characterName;
+	char characterName;
+    char itemName = 0;
+	/*
     if (myItem == nullptr){
         itemName = 0;
     } else{
+		itemName = '?';
        // itemName = myItem->getName();
-    }
+    }*/
     if (myChar == nullptr){
         characterName = 0;
     } else{
-       // characterName = myChar->getName();
+        characterName = myChar->getName();
     }
     return Info {type, itemName, characterName, row, col};
+}
+
+bool Cell::addChar(Character *c) {
+	if (myChar) return false;
+	myChar = c;
+	setState(State::CharacterMoved);
+	notifyObservers();
+	return true;
+}
+
+bool Cell::moveChar(int dir) {
+	assert(myChar);
+	if (!observers[dir]) return false;
+
+	bool added = static_cast<Cell *>(observers[dir])->addChar(myChar);
+	if (added) {
+		myChar = nullptr;
+		setState(State::CharacterMoved);
+		notifyObservers();
+		return true;
+	} else {
+		return false;
+	}
 }
