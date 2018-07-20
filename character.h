@@ -15,7 +15,7 @@ public:
     Stats getStats();
     //void setStats(Stats s);
     char getName();
-    //virtual void defend(Character &attacker);
+    virtual void defend(Character &attacker);
     //virtual void attack(Shade &defender);
 
   /*

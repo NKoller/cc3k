@@ -43,9 +43,9 @@ int calcDamage(Character &defender,Character &attacker) {
  return damage2;
 }
 
-
+*/
 void Character::defend(Character &attacker) {
- attacker.attack(*this);
-}*/
+ //attacker.attack(*this);
+}
 
 Character::~Character() {}
