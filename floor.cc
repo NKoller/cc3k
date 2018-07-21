@@ -15,6 +15,9 @@ string Floor::readFile(string name) {
 	return result.str();
 }
 
+// map[player.row][player.col]myChar.attack(DIRECTION)
+//
+
 void Floor::initializeChamber(vector<vector<bool>> &added, int chamber_num,
                               unsigned int r, unsigned int c) {
 	if (map[r][c] && !added[r][c] && map[r][c]->getType() == CellType::Floor) {
@@ -95,6 +98,10 @@ void Floor::spawn() {
 	player.r = play_r;
 	player.c = play_c;
 }
+
+/*void Floor::playerAttack(Direction dir){
+    map[player.r][player.c].attack(dir);    
+}*/
 
 void Floor::moveEnemies() {
 

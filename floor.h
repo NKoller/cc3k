@@ -5,8 +5,7 @@
 #include <vector>
 #include "cell.h"
 #include "textdisplay.h"
-
-enum Direction { NW, N, NE, W, E, SW, S, SE };
+#include "direction.h"
 
 class Floor {
 	struct Coords {
@@ -33,7 +32,7 @@ public:
 	~Floor();
 	void movePlayer(Direction dir);
 	bool gameOver() const;
-
+    void playerAttack(Direction dir);
 	friend std::ostream &operator<<(std::ostream &out, const Floor &f);
 };
 
