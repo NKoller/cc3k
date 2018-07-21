@@ -8,7 +8,7 @@ char Character::getName() {
    return name;
 }
 
-Stats Character::getStats() {
+Stats Character::getStats() const {
  return status;
 }
 
@@ -43,9 +43,9 @@ int calcDamage(Character &defender,Character &attacker) {
  return damage2;
 }
 
-
+*/
 void Character::defend(Character &attacker) {
- attacker.attack(*this);
-}*/
+ //attacker.attack(*this);
+}
 
 Character::~Character() {}

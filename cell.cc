@@ -9,17 +9,29 @@ Cell::Cell(CellType type, unsigned int row, unsigned int col):
 		Subject{},
 		type{type}, row{row}, col{col} {}
 
-void Cell::notify(Subject &from) {
-	/*just for testing:
-	if (type == CellType::Floor) {
-		std::cout << "floor" << std::endl;
-	} else if (type == CellType::Passage) {
-		std::cout << "passage" << std::endl;
-	} else if (type == CellType::Door) {
-		std::cout << "door" << std::endl;
+int Cell::directionTo(unsigned int r, unsigned int c) const {
+	assert(!(r == row && c == col));
+	if (r < row) {
+		if (c < col) return 0;
+		else if (c == col) return 1;
+		else return 2;
+	} else if (r == row) {
+		if (c < col) return 3;
+		else return 4;
 	} else {
-		std::cout << "stairs" << std::endl;
-	}*/
+		if (c < col) return 5;
+		else if (c == col) return 6;
+		else return 7;
+	}
+}
+
+void Cell::notify(Subject &from) {
+	if (from.getState() == State::PlayerHere) {
+		Info in = static_cast<Cell *>(&from)->getInfo(); // really bad
+		playerDir = directionTo(in.row, in.col);
+	} else if (from.getState() == State::PlayerGone) {
+		playerDir = -1;
+	}
 }
 
 CellType Cell::getType() const {
@@ -44,25 +56,41 @@ Info Cell::getInfo(){
     return Info {type, itemName, characterName, row, col};
 }
 
-bool Cell::addChar(Character *c) {
+bool Cell::addChar(Character *c, bool isPlayer) {
 	if (myChar) return false;
 	myChar = c;
-	setState(State::CharacterMoved);
+	if (isPlayer) {
+		setState(State::PlayerHere);
+		hasPlayer = true;
+	}
+	else {
+		setState(State::CharacterMoved);
+	}
 	notifyObservers();
 	return true;
 }
 
 bool Cell::moveChar(int dir) {
 	assert(myChar);
-	if (!observers[dir]) return false;
+	if (!observers[dir] || !myChar->moves()) return false;
 
-	bool added = static_cast<Cell *>(observers[dir])->addChar(myChar);
+	bool added = static_cast<Cell *>(observers[dir])->addChar(myChar, hasPlayer);
 	if (added) {
 		myChar = nullptr;
-		setState(State::CharacterMoved);
+		if (hasPlayer) setState(State::CharacterMoved);
+		else setState(State::PlayerGone);
+		hasPlayer = false;
 		notifyObservers();
 		return true;
 	} else {
 		return false;
 	}
+}
+
+void Cell::charAttack(int dir) {
+	static_cast<Cell *>(observers[dir])->charDefend(*myChar);
+}
+
+void Cell::charDefend(Character &attacker) {
+	myChar->defend(attacker);
 }

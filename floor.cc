@@ -6,6 +6,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include "dwarf.h"
 using namespace std;
 
 string Floor::readFile(string name) {
@@ -97,6 +98,13 @@ void Floor::spawn() {
 	map[play_r][play_c]->addChar(new Shade{});
 	player.r = play_r;
 	player.c = play_c;
+
+
+       int enemy_r = 4;
+       int enemy_c = 5;
+       map[enemy_r][enemy_c]->addChar(new Dwarf{});
+      // enemy.r = enemy_r;
+       //enemy.c = enemy_c;
 }
 
 /*void Floor::playerAttack(Direction dir){
