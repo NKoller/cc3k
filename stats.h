@@ -4,10 +4,10 @@
 #include <stdio.h>
 
 struct Stats {
-    int HP;
-    int Atk;
-    int Def;
-    int Gold;
+    double HP;
+    double Atk;
+    double Def;
+    double Gold;
 };
 
 #endif

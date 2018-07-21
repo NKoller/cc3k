@@ -46,17 +46,17 @@ void Character::checkIfDead() {
 		std::cout << "Oh noey! " << name << " died! :(" << std::endl;
 	}
 }
-int Character::calcDamage(int atk, int def) {
+double Character::calcDamage(int atk, int def) {
 	float damage = (100.0 / (100 + def)) * atk;
 	int trunc = damage;
 	return (damage > trunc)? trunc + 1 : trunc;
 }
 
-int Character::attack(Shade &defender) {
+double Character::attack(Shade &defender) {
 	return calcDamage(status.Atk, defender.getStats().Def);
 }
 
-int Character::attack(Dwarf &defender) {
+double Character::attack(Dwarf &defender) {
 	return calcDamage(status.Atk, defender.getStats().Def);
 }
 
