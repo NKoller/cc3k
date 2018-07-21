@@ -1,5 +1,8 @@
-int randNum() {
- int x = rand() % 1 + chambers.size();
- 
- return x;
+srand(time(NULL));
+
+Coord randNum() {
+ int x = rand() % chambers.size();
+ auto vec = chambers [x];
+ int y = rand() % vec.size();
+ return vec[y];
 }
