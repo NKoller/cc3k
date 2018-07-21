@@ -1,8 +1,15 @@
 #include "character.h"
 #include "stats.h"
+#include "dwarf.h"
+#include "shade.h"
 
 Character::Character(char name, bool canMove, Stats status):
 	name{name}, canMove{canMove}, status{status} {}
+
+void Character::attach(Observer *o) {
+	if(observers.size()) observers.pop_back();
+	observers.emplace_back(o);
+}
 
 char Character::getName() {
    return name;
@@ -24,28 +31,33 @@ bool Character::moves() {
  return canMove;
 }
 
-/*
-//helper
+/*//helper
 void change(int &type, const int amt) {
  type += amt;
  if(type < 0) {
    type = 0;
  }
+}*/
+
+void Character::checkIfDead() {
+	if (status.HP < 0) {
+		setState(State::CharacterDied);
+		notifyObservers();
+		std::cout << "Oh noey! " << name << " died! :(" << std::endl;
+	}
+}
+int Character::calcDamage(int atk, int def) {
+	float damage = (100.0 / (100 + def)) * atk;
+	int trunc = damage;
+	return (damage > trunc)? trunc + 1 : trunc;
 }
 
-//helper
-int calcDamage(Character &defender,Character &attacker) {
- float damage1 = ((100/(100+defender.getStats().Def))*attacker.getStats().Atk);
- int damage2 = ((100/(100+defender.getStats().Def))*attacker.getStats().Atk);
- if(damage1 > damage2) {
-  return damage2 + 1;
- }
- return damage2;
+int Character::attack(Shade &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
 }
 
-*/
-void Character::defend(Character &attacker) {
- //attacker.attack(*this);
+int Character::attack(Dwarf &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
 }
 
 Character::~Character() {}

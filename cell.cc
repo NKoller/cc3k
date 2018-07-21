@@ -31,6 +31,11 @@ void Cell::notify(Subject &from) {
 		playerDir = directionTo(in.row, in.col);
 	} else if (from.getState() == State::PlayerGone) {
 		playerDir = -1;
+	} else if (from.getState() == State::CharacterDied) {
+		delete myChar;
+		myChar = nullptr;
+		setState(State::CharacterMoved); // maybe need a new state
+		notifyObservers();
 	}
 }
 
@@ -59,6 +64,7 @@ Info Cell::getInfo(){
 bool Cell::addChar(Character *c, bool isPlayer) {
 	if (myChar) return false;
 	myChar = c;
+	c->attach(this);
 	if (isPlayer) {
 		setState(State::PlayerHere);
 		hasPlayer = true;
@@ -72,7 +78,8 @@ bool Cell::addChar(Character *c, bool isPlayer) {
 
 bool Cell::moveChar(int dir) {
 	assert(myChar);
-	if (!observers[dir] || !myChar->moves()) return false;
+	if (!observers[dir]) return false;
+	if (!myChar->moves()) return true;
 
 	bool added = static_cast<Cell *>(observers[dir])->addChar(myChar, hasPlayer);
 	if (added) {
@@ -92,5 +99,5 @@ void Cell::charAttack(int dir) {
 }
 
 void Cell::charDefend(Character &attacker) {
-	myChar->defend(attacker);
+	if (myChar) myChar->defend(attacker);
 }

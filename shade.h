@@ -5,6 +5,7 @@
 
 class Shade: public Player {
  public:
+  void defend(Character &attacker) override;
   Shade();
   ~Shade();
 };

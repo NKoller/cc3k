@@ -6,6 +6,7 @@
 class Dwarf: public Character {
  int returnGold() const;
  public:
+  void defend(Character &attacker) override;
   Dwarf();
   ~Dwarf();
 };

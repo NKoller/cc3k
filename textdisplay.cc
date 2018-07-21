@@ -24,7 +24,7 @@ TextDisplay::TextDisplay(string s){
 void TextDisplay::notify(Subject &cell){
 	//cout << "NOTIFIED" << endl;
 	Info in = static_cast<Cell *>(&cell)->getInfo();
-    if (cell.getState() == State::CharacterMoved){
+    //if (cell.getState() == State::CharacterMoved){
          if (in.characterName){  
              cells[in.row][in.col] = in.characterName;
          } else if (in.itemName) {
@@ -38,7 +38,7 @@ void TextDisplay::notify(Subject &cell){
 	    } else {
 		    cells[in.row][in.col] = '\\';
 	    }
-    }
+    //}
 }
 
 void TextDisplay::playerMoved(Direction dir){

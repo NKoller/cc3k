@@ -3,6 +3,26 @@
 #include "floor.h"
 using namespace std;
 
+Direction toDirection(string s) {
+	if (s == "no"){
+		return Direction::N;
+	} else if (s == "so"){
+		return Direction::S;
+	} else if (s == "ea"){
+		return Direction::E;
+	} else if (s == "we"){
+		return Direction::W;
+	} else if (s == "ne"){
+		return Direction::NE;
+	} else if (s == "nw"){
+		return Direction::NW;
+	} else if (s == "se"){
+		return Direction::SE;
+	} else {
+		return Direction::SW;
+	}	
+}
+
 bool playAgainHuh(string s){
     return (s == "Y");
 }
@@ -60,30 +80,23 @@ int main(){
             f->movePlayer(Direction::SW);
 		}	else if (s1 == "s"){
             cout << s1 << endl;
-			continue;
 		}	else if (s1 == "d"){
             cout << s1 << endl;
-			continue;
 		}	else if (s1 == "v"){
             cout << s1 << endl;
-			continue;
 		}	else if (s1 == "g"){
             cout << s1 << endl;
-			continue;
 		}	else if (s1 == "t"){
             cout << s1 << endl;
-			continue;
 		}	else if (s1 == "f"){
             cout << s1 << endl;
-			continue;
 		}	else if (s1 == "r"){
             cout << s1 << endl;
         }   else if (s1 == "u"){
             cin >> s2;
-            cout << s1 << " " << s2 << endl;
         }   else if (s1 == "a"){
             cin >> s2;
-            cout << s1 << " " << s2 << endl;
+            f->playerAttack(toDirection(s2));
         }
         if (f->gameOver()){
 			floorsBeaten += 1;

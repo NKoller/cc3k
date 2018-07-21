@@ -16,9 +16,6 @@ string Floor::readFile(string name) {
 	return result.str();
 }
 
-// map[player.row][player.col]myChar.attack(DIRECTION)
-//
-
 void Floor::initializeChamber(vector<vector<bool>> &added, int chamber_num,
                               unsigned int r, unsigned int c) {
 	if (map[r][c] && !added[r][c] && map[r][c]->getType() == CellType::Floor) {
@@ -99,17 +96,11 @@ void Floor::spawn() {
 	player.r = play_r;
 	player.c = play_c;
 
-
-       int enemy_r = 4;
-       int enemy_c = 5;
-       map[enemy_r][enemy_c]->addChar(new Dwarf{});
-      // enemy.r = enemy_r;
-       //enemy.c = enemy_c;
+	map[4][5]->addChar(new Dwarf{});
+	map[5][20]->addChar(new Dwarf{});
+	map[5][47]->addChar(new Dwarf{});
+	map[11][39]->addChar(new Dwarf{});
 }
-
-/*void Floor::playerAttack(Direction dir){
-    map[player.r][player.c].attack(dir);    
-}*/
 
 void Floor::moveEnemies() {
 
@@ -164,7 +155,6 @@ Floor::~Floor() {
 }
 
 void Floor::movePlayer(Direction dir) {
-	//cout << "moved <3" << endl;
 	if (map[player.r][player.c]->moveChar(dir)) {
 		if (dir == Direction::N){
 				player.r -= 1;
@@ -188,10 +178,16 @@ void Floor::movePlayer(Direction dir) {
 				player.c -= 1;
 		} 
 	}
+	moveEnemies();
 }
 
 bool Floor::gameOver() const {
 	return map[player.r][player.c]->getType() == CellType::Stairs;
+}
+
+void Floor::playerAttack(Direction dir){
+    map[player.r][player.c]->charAttack(dir);
+	moveEnemies();
 }
 
 ostream &operator<<(ostream &out, const Floor &f) {

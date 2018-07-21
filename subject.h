@@ -13,7 +13,7 @@ protected:
 	std::vector<Observer *> observers;
 	void setState(State newS);
 public:
-	void attach(Observer *o);
+	virtual void attach(Observer *o);
 	void notifyObservers();
 	State getState() const;
 	virtual ~Subject() = 0;
