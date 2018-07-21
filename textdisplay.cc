@@ -2,7 +2,8 @@
 #include "info.h"
 #include <string>
 #include <iostream>
-
+#include "floor.h"
+#include "direction.h"
 using namespace std;
 
 TextDisplay::TextDisplay(string s){
@@ -17,33 +18,62 @@ TextDisplay::TextDisplay(string s){
         cells[r].emplace_back(s[ind]);
         ++ind;
     }
+    this->s = "Action: ";
 }
 
 void TextDisplay::notify(Subject &cell){
 	//cout << "NOTIFIED" << endl;
-	if (cell.getState() != State::CharacterMoved) return;
 	Info in = static_cast<Cell *>(&cell)->getInfo();
-    if (in.characterName){
-        cells[in.row][in.col] = in.characterName;
-    } else if (in.itemName) {
-    	cells[in.row][in.col] = in.itemName;
-    } else if (in.type == CellType::Floor) {
-		cells[in.row][in.col] = '.';
-	} else if (in.type == CellType::Passage) {
-		cells[in.row][in.col] = '#';
-	} else if (in.type == CellType::Door) {
-		cells[in.row][in.col] = '+';
-	} else {
-		cells[in.row][in.col] = '\\';
-	}
+    if (cell.getState() == State::CharacterMoved){
+         if (in.characterName){  
+             cells[in.row][in.col] = in.characterName;
+         } else if (in.itemName) {
+    	    cells[in.row][in.col] = in.itemName;
+        } else if (in.type == CellType::Floor) {
+		    cells[in.row][in.col] = '.';
+	    } else if (in.type == CellType::Passage) {
+		    cells[in.row][in.col] = '#';
+	    } else if (in.type == CellType::Door) {
+		    cells[in.row][in.col] = '+';
+	    } else {
+		    cells[in.row][in.col] = '\\';
+	    }
+    }
 }
 
-ostream &operator<<(ostream &out, const TextDisplay &td){
+void TextDisplay::playerMoved(Direction dir){
+    if (s.size() != 8){
+        s += "and ";
+    }
+    s += "PC moves ";
+    if (dir == Direction::N){
+        s += "North ";
+    } else if (dir == Direction::NE){
+        s += "Northeast ";
+    } else if (dir == Direction::E){
+        s += "East ";
+    } else if (dir == Direction::SE){
+        s += "Southeast ";
+    } else if (dir == Direction::S){
+        s += "South ";
+    } else if (dir == Direction::SW){
+        s += "Southwest ";
+    } else if (dir == Direction::W){
+        s += "West ";
+    } else {
+        s += "Northwest ";
+    }
+}
+
+ostream &operator<<(ostream &out, TextDisplay &td){
     for (unsigned int i = 0; i < td.cells.size(); ++i){
         for (unsigned int j = 0; j < td.cells[i].size(); ++j){
             out << td.cells[i][j];
         }
         out << endl;
     }
+    td.s.pop_back();
+    td.s += ".";
+    out << td.s << endl;
 	return out;
 }
