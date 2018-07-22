@@ -40,14 +40,15 @@ void change(int &type, const int amt) {
 }*/
 
 void Character::checkIfDead() {
-	if (status.HP < 0) {
+	if (status.HP <= 0) {
 		setState(State::CharacterDied);
 		notifyObservers();
 		std::cout << "Oh noey! " << name << " died! :(" << std::endl;
 	}
 }
-double Character::calcDamage(int atk, int def) {
-	float damage = (100.0 / (100 + def)) * atk;
+
+int Character::calcDamage(double atk, double def) {
+	double damage = (100.0 / (100 + def)) * atk;
 	int trunc = damage;
 	return (damage > trunc)? trunc + 1 : trunc;
 }

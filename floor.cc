@@ -21,8 +21,8 @@ void Floor::initializeChamber(vector<vector<bool>> &added, int chamber_num,
 	if (map[r][c] && !added[r][c] && map[r][c]->getType() == CellType::Floor) {
 		chambers[chamber_num].emplace_back(Coords{r, c});
 		added[r][c] = true;
-		for (unsigned int i = r-1; i <= r+1 && i < map.size(); ++i) {
-			for (unsigned int j = c-1; j <= c+1 && j < map[0].size(); ++j) {
+		for (int i = r-1; i <= r+1 && i < map.size(); ++i) {
+			for (int j = c-1; j <= c+1 && j < map[0].size(); ++j) {
 				if (!(i == r && j == c) && i >= 0 && j >= 0) {
 					initializeChamber(added, chamber_num, i, j);
 				}
@@ -55,8 +55,8 @@ void Floor::addObsRecurse(vector<vector<bool>> &added,
                           unsigned int r, unsigned int c) {
 	if (added[r][c]) return;
 	added[r][c] = true;
-	for (unsigned int i = r-1; i <= r+1; ++i) {
-		for (unsigned int j = c-1; j <= c+1; ++j) {
+	for (int i = r-1; i <= r+1; ++i) {
+		for (int j = c-1; j <= c+1; ++j) {
 			if (i == r && j == c) {
 				continue;
 			}
@@ -92,7 +92,7 @@ void Floor::addObservers() {
 void Floor::spawn() {
 	int play_r = 3;
 	int play_c = 3;
-	map[play_r][play_c]->addChar(new Shade{});
+	map[play_r][play_c]->addChar(new Shade{}, true);
 	player.r = play_r;
 	player.c = play_c;
 
@@ -103,7 +103,23 @@ void Floor::spawn() {
 }
 
 void Floor::moveEnemies() {
-
+	srand(time(nullptr));
+	for (auto &chamber : chambers) {
+		for (auto &cell : chamber) {
+			map[cell.r][cell.c]->movedThisTurn = false;
+		}
+	}
+	for (unsigned int r = 0; r < map.size(); ++r) {
+		for (unsigned int c = 0; c < map[0].size(); ++c) {
+			if (!map[r][c] || r == player.r && c == player.c) continue;
+			int dir;
+			do {
+				//std::cout << r << "move" << c << "  ";
+				dir = rand() % 8;
+				//std::cout << dir << std::endl;
+			} while (!(map[r][c]->moveChar(dir)));
+		}
+	}
 }
 
 Floor::Floor(string file) {

@@ -11,7 +11,7 @@ class Shade;
 
 class Character: public Subject {
     bool canMove;
-	virtual int calcDamage(int atk, int def);
+	virtual int calcDamage(double atk, double def);
 protected:
 	char name; // should be private, this was just for testing
 	Stats status;
@@ -24,8 +24,8 @@ public:
     //void setStats(Stats s);
     char getName();
     virtual void defend(Character &attacker) = 0;
-    virtual int attack(Shade &defender);
-	virtual int attack(Dwarf &defender);
+    virtual double attack(Shade &defender);
+	virtual double attack(Dwarf &defender);
   /*virtual void attack(Human &defender);
     virtual void attack(Elf &defender);
     virtual void attack(Orc &defender);
@@ -36,7 +36,7 @@ public:
     virtual void attack(Vampire &defender);
     virtual void attack(Troll &defender);
     virtual void attack(Goblin &defender);*/
-   virtual ~Character();
+	virtual ~Character();
 };
 
 #endif
