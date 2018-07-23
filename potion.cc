@@ -6,4 +6,6 @@ string Potion::getDescription() {
  return name;
 }
 
+void Potion::getUsed(Player &user) {}
 
+void Potion::reverse(Player &user) {}

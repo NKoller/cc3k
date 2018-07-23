@@ -4,7 +4,9 @@
 #include <string.h>
 
 class Potion: public Item {
+ Stats effect;
  public:
+  Potion(Stats effect);
   string getDescription();
   void getUsed(Player &user);
   void reverse(Player &user);
