@@ -9,7 +9,7 @@ class Merchant: public Character {
   static bool hostile;
   Merchant();
   ~Merchant();
-  void defend(Character &attacker) override;
+  int defend(Character &attacker) override;
 };
 
 #endif

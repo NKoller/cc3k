@@ -67,7 +67,7 @@ Info Cell::getInfo(){
     } else{
         characterName = myChar->getName();
     }
-    return Info {type, itemName, characterName, row, col};
+    return Info {type, itemName, characterName, otherName, otherHP, dmgDealt, dirTo, row, col};
 }
 
 bool Cell::addChar(Character *c, bool isPlayer) {
@@ -109,6 +109,11 @@ bool Cell::moveChar(int dir) {
 	bool added = static_cast<Cell *>(observers[dir])->addChar(myChar, hasPlayer); // this is terrible
 	if (added) {
 		myChar = nullptr;
+        if (hasPlayer){
+            dirTo = dir;
+            setState(State::PlayerMoved);
+            notifyObservers();
+        }
 		hasPlayer = false;
 		setState(State::CharacterMoved);
 		notifyObservers();
@@ -127,5 +132,12 @@ void Cell::charAttack(int dir) {
 
 void Cell::charDefend(Character &attacker) {
 	//std::cout << "defending!" << std::endl;
-	if (myChar && type != CellType::Stairs) myChar->defend(attacker);
+	if (myChar && type != CellType::Stairs){
+        int dmg = myChar->defend(attacker);
+        otherName = attacker.getName();
+        otherHP = myChar->getStats().HP;
+        dmgDealt = dmg;
+        setState(State::GotAttacked);
+        notifyObservers();
+    }
 }

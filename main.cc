@@ -46,9 +46,11 @@ bool quitPrompt(){
 int main(){
 	const string file = "empty.txt";
 	string s1, s2;
-    Floor *f = new Floor{file};
-    const int MAX_FLOORS = 5;
     int floorsBeaten = 0;
+    Floor *f = new Floor{file};
+    f->td->updateFloor(floorsBeaten + 1);
+    const int MAX_FLOORS = 5;
+    string theRace;
 	while (true){
 		cout << *f;
 		cin >> s1;
@@ -58,6 +60,8 @@ int main(){
                 delete f; 
                 f = new Floor{file}; 
                 floorsBeaten = 0;
+                f->td->updateFloor(floorsBeaten + 1);
+                f->td->updateRace(theRace);
                 continue;
             } //needs more
             break;
@@ -79,14 +83,28 @@ int main(){
 		}	else if (s1 == "sw"){
             f->movePlayer(Direction::SW);
 		}	else if (s1 == "s"){
+            theRace = "Shade";
+            f->td->updateRace(theRace);
             cout << s1 << endl;
 		}	else if (s1 == "d"){
+            theRace = "Drow";
+            f->td->updateRace(theRace);
+
             cout << s1 << endl;
 		}	else if (s1 == "v"){
+            theRace = "Vampire";
+            f->td->updateRace(theRace);
+
             cout << s1 << endl;
 		}	else if (s1 == "g"){
+            theRace = "Goblin";
+            f->td->updateRace(theRace);
+
             cout << s1 << endl;
 		}	else if (s1 == "t"){
+            theRace = "Troll";
+            f->td->updateRace(theRace);
+
             cout << s1 << endl;
 		}	else if (s1 == "f"){
             cout << s1 << endl;
@@ -100,16 +118,21 @@ int main(){
         }
         if (f->gameOver()){
 			floorsBeaten += 1;
+            f->td->updateFloor(floorsBeaten + 1);
 			if (floorsBeaten == MAX_FLOORS){
 				if (quitPrompt()){
                     delete f;
                	    f = new Floor{file};
                		floorsBeaten = 0;
+                    f->td->updateFloor(floorsBeaten + 1);
+                    f->td->updateRace(theRace);
                    	continue;
                	}
 				break;
 			}
 			f = new Floor{file};
+            f->td->updateFloor(floorsBeaten + 1);
+            f->td->updateRace(theRace);
 		}
     }
 }

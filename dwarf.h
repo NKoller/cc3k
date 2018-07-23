@@ -8,7 +8,7 @@ class Dwarf: public Character {
  public:
   Dwarf();
   ~Dwarf();
-  void defend(Character &attacker) override;
+  int defend(Character &attacker) override;
 };
 
 #endif

@@ -158,7 +158,7 @@ void Floor::spawn() {
 	Coords rand_cell = chambers[player_chamber][player_cell];
 	player.r = rand_cell.r;
 	player.c = rand_cell.c;
-	map[rand_cell.r][rand_cell.c]->addChar(new Shade{}, true);
+	map[rand_cell.r][rand_cell.c]->addChar(new Shade{td}, true);
 	map[rand_cell.r][rand_cell.c]->processedThisTurn = true;
 
 	total_cells -= chambers[player_chamber].size();

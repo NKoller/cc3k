@@ -28,7 +28,7 @@ public:
     Stats getStats() const;
     //void setStats(Stats s);
     char getName();
-    virtual void defend(Character &attacker) = 0;
+    virtual int defend(Character &attacker) = 0;
     virtual double attack(Shade &defender);
 	virtual double attack(Dwarf &defender);
     virtual double attack(Human &defender);
