@@ -5,8 +5,8 @@
 
 class Shade: public Player {
  public:
-  void defend(Character &attacker) override;
-  Shade();
+  int defend(Character &attacker) override;
+  Shade(Observer* myTD);
   ~Shade();
 };
 

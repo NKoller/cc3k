@@ -8,7 +8,7 @@ class Human: public Character {
  public:
   Human();
   ~Human();
-  void defend(Character &attacker) override;
+  int defend(Character &attacker) override;
 };
 
 #endif

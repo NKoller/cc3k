@@ -18,6 +18,11 @@ class Cell: public Observer, public Subject {
 	Character *myChar = nullptr;
 	//Item *myItem = nullptr;
 	int directionTo(unsigned int r, unsigned int c) const;
+    char otherName = 0;
+    int otherHP = -1;
+    int dmgDealt = -1;
+    int dirTo = -1;
+
 public:
 	bool processedThisTurn = false;
     Info getInfo();

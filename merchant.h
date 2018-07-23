@@ -8,7 +8,7 @@ class Merchant: public Character {
  public:
   Merchant();
   ~Merchant();
-  void defend(Character &attacker) override;
+  int defend(Character &attacker) override;
 };
 
 #endif

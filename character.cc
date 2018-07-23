@@ -12,7 +12,7 @@ Character::Character(char name, bool canMove, Stats status):
 	name{name}, canMove{canMove}, status{status} {}
 
 void Character::attach(Observer *o) {
-	if(observers.size()) observers.pop_back();
+	if(observers.size() > 1) observers.pop_back();
 	observers.emplace_back(o);
 }
 

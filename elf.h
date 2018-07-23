@@ -6,7 +6,7 @@
 class Elf: public Character {
  public:
   Elf();
-  void defend(Character &attacker) override;
+  int defend(Character &attacker) override;
   //double attack(Drow &defender) override;
   ~Elf();
 };

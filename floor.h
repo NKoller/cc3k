@@ -15,7 +15,6 @@ class Floor {
 	struct Coords player;
 	std::vector<std::vector<Cell *>> map;
 	std::vector<std::vector<Coords>> chambers;
-	TextDisplay *td;
 
 	static std::string readFile(std::string name);
 	void initializeChamber(std::vector<std::vector<bool>> &added,
@@ -31,6 +30,7 @@ class Floor {
 	void moveEnemies();
 
 public:
+    TextDisplay *td;
 	Floor(std::string file);
 	~Floor();
 	void movePlayer(Direction dir);
