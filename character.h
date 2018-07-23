@@ -16,7 +16,7 @@ class Halfling;
 
 class Character: public Subject {
     bool canMove;
-	virtual int calcDamage(double atk, double def);
+	virtual double generalAtk(Character &defender);
 protected:
 	char name; // should be private, this was just for testing
 	Stats status;

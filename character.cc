@@ -52,38 +52,44 @@ void Character::checkIfDead() {
 	}
 }
 
-int Character::calcDamage(double atk, double def) {
-	double damage = (100.0 / (100 + def)) * atk;
+double Character::generalAtk(Character &defender) {
+        double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
-	return (damage > trunc)? trunc + 1 : trunc;
+     if(this->getName() == 'E' && defender.getName() != 'D') {
+	return 2 * ((damage > trunc)? trunc + 1 : trunc);
+     }
+      else {
+        return (damage > trunc)? trunc + 1 : trunc;
+   }
 }
 
+
 double Character::attack(Shade &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Dwarf &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Human &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+ return generalAtk(defender);
 }
 
 double Character::attack(Elf &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+  return generalAtk(defender);
 }
 
 double Character::attack(Orc &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Merchant &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Halfling &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 Character::~Character() {}
