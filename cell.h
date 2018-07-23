@@ -19,6 +19,7 @@ class Cell: public Observer, public Subject {
 	//Item *myItem = nullptr;
 	int directionTo(unsigned int r, unsigned int c) const;
 public:
+	bool processedThisTurn = false;
     Info getInfo();
 	Cell(CellType type, unsigned int row, unsigned int col);
 	CellType getType() const;

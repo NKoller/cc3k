@@ -6,7 +6,7 @@
 class Halfling: public Character {
  public:
   Halfling();
-  void defend(Character &attacker);
+  void defend(Character &attacker) override;
   ~Halfling();
 };
 

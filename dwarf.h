@@ -4,7 +4,7 @@
 #include "character.h"
 
 class Dwarf: public Character {
- int returnGold() const;
+  //int returnGold() const;
  public:
   void defend(Character &attacker) override;
   Dwarf();
