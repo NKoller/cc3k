@@ -1,5 +1,7 @@
 #include "merchant.h"
 
+bool Merchant::hostile = false;
+
 Merchant::Merchant(): Character{'M', true, Stats{30, 70, 5, 0}} {}
 
 Merchant::~Merchant() {}
@@ -16,6 +18,7 @@ void Merchant::checkIfDead() {
 void Merchant::defend(Character &attacker) {
 	double damage = attacker.attack(*this);
 	status.HP -= damage;
+        Merchant::hostile = true;
 	std::cout << "Owie! " << name << " took " << damage << " damage! ";
 	std::cout << status.HP << " wittle HPs left..." << std::endl;
 	checkIfDead();

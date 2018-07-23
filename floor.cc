@@ -183,7 +183,7 @@ void Floor::moveEnemies() {
 	resetProcessed();
 	for (unsigned int r = 0; r < map.size(); ++r) {
 		for (unsigned int c = 0; c < map[0].size(); ++c) {
-			if (!map[r][c] || r == player.r && c == player.c) continue;
+			if (!map[r][c] || (r == player.r && c == player.c)) continue;
 			int dir;
 			do {
 				//std::cout << r << "move" << c << "  ";
