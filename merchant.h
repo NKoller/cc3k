@@ -7,8 +7,8 @@ class Merchant: public Character {
   void checkIfDead() override;
  public:
   Merchant();
-  void defend(Character &attacker) override;
   ~Merchant();
+  void defend(Character &attacker) override;
 };
 
 #endif

@@ -7,8 +7,8 @@ class Human: public Character {
   void checkIfDead() override;
  public:
   Human();
-  void defend(Character &attacker) override;
   ~Human();
+  void defend(Character &attacker) override;
 };
 
 #endif

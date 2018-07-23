@@ -23,6 +23,7 @@ public:
     Info getInfo();
 	Cell(CellType type, unsigned int row, unsigned int col);
 	CellType getType() const;
+	void makeStairs();
 	//bool addItem(Item *i);
 	bool addChar(Character *c, bool isPlayer = false);
 	bool moveChar(int dir);

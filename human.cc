@@ -1,6 +1,6 @@
 #include "human.h"
 
-Human::Human(): Character{'H', true, Stats{30, 70, 5, 0}} {}
+Human::Human(): Character{'H', true, Stats{140, 20, 20, 0}} {}
 
 Human::~Human() {}
 

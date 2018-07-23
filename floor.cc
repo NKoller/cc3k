@@ -113,23 +113,16 @@ Floor::Coords Floor::randCoords() {
 	return vec[y];
 }
 
-void Floor::spawn() {
-	resetProcessed();
-
-	player.r = 3;
-	player.c = 3;
-	map[player.r][player.c]->addChar(new Shade{}, true);
-	map[player.r][player.c]->processedThisTurn = true;
-
+void Floor::spawnEnemies() {
 	enum Order { H, W, L, E, O, M };
 	const int num_enemies = 6;
 	const int cumulative_prob[] = { 0, 4, 7, 12, 14, 16, 18 };
 	for (int i = 0; i < cumulative_prob[num_enemies]; ++i) {
 		int rand_int = rand() % cumulative_prob[num_enemies];
-		std::cout << "rand " << rand_int << std::endl;
+		//std::cout << "rand " << rand_int << std::endl;
 		for (int type = num_enemies - 1; ; --type) {
 			if (rand_int >= cumulative_prob[type]) {
-				std::cout << "type " << type << std::endl;
+				//std::cout << "type " << type << std::endl;
 				Coords rand_coords = randCoords();
 				Character *enemy;
 				switch (type) {
@@ -145,6 +138,45 @@ void Floor::spawn() {
 			}
 		}
 	}
+}
+
+void Floor::spawn() {
+	resetProcessed();
+
+	int total_cells = 0;
+	for (auto &ch : chambers) total_cells += ch.size();
+	int rand_num = rand() % total_cells;
+	int player_chamber;
+	int player_cell;
+	for (player_chamber = 0; player_chamber < chambers.size(); ++player_chamber) {
+		for (player_cell = 0; player_cell < chambers[player_chamber].size(); ++player_cell) {
+			if (rand_num == 0) break;
+			--rand_num;
+		}
+		if (rand_num == 0) break;
+	}
+	Coords rand_cell = chambers[player_chamber][player_cell];
+	player.r = rand_cell.r;
+	player.c = rand_cell.c;
+	map[rand_cell.r][rand_cell.c]->addChar(new Shade{}, true);
+	map[rand_cell.r][rand_cell.c]->processedThisTurn = true;
+
+	total_cells -= chambers[player_chamber].size();
+	rand_num = rand() % total_cells;
+	int stairs_chamber;
+	int stairs_cell;
+	for (stairs_chamber = 0; stairs_chamber < chambers.size(); ++stairs_chamber) {
+		if (stairs_chamber == player_chamber) continue;
+		for (stairs_cell = 0; stairs_cell < chambers[stairs_chamber].size(); ++stairs_cell) {
+			if (rand_num == 0) break;
+			--rand_num;
+		}
+		if (rand_num == 0) break;
+	}
+	rand_cell = chambers[stairs_chamber][stairs_cell];
+	map[rand_cell.r][rand_cell.c]->makeStairs();
+	
+	spawnEnemies();
 }
 
 void Floor::moveEnemies() {

@@ -26,6 +26,7 @@ class Floor {
 	void addObservers();
 	void resetProcessed();
 	Coords randCoords();
+	void spawnEnemies();
 	void spawn();
 	void moveEnemies();
 

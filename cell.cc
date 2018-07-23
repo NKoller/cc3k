@@ -45,6 +45,13 @@ CellType Cell::getType() const {
 	return type;
 }
 
+void Cell::makeStairs() {
+	type = CellType::Stairs;
+	processedThisTurn = true;
+	setState(State::CharacterMoved); // maybe rename
+	notifyObservers();
+}
+
 Info Cell::getInfo(){
 	char characterName;
     char itemName = 0;
@@ -120,5 +127,5 @@ void Cell::charAttack(int dir) {
 
 void Cell::charDefend(Character &attacker) {
 	//std::cout << "defending!" << std::endl;
-	if (myChar) myChar->defend(attacker);
+	if (myChar && type != CellType::Stairs) myChar->defend(attacker);
 }

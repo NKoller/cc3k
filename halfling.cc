@@ -1,6 +1,6 @@
 #include "halfling.h"
 
-Halfling::Halfling(): Character{'L', true, Stats{30, 70, 5, 0}} {}
+Halfling::Halfling(): Character{'L', true, Stats{100, 15, 20, 0}} {}
 
 Halfling::~Halfling() {}
 
