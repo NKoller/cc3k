@@ -1,12 +1,17 @@
 #include "floor.h"
 #include "cell.h"
 #include "shade.h"
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orc.h"
+#include "merchant.h"
+#include "halfling.h"
 #include "info.h" // REMOVE
 #include <iostream> // REMOOVVVEEEE
 #include <fstream>
 #include <vector>
 #include <sstream>
-#include "dwarf.h"
 using namespace std;
 
 string Floor::readFile(string name) {
@@ -89,26 +94,61 @@ void Floor::addObservers() {
 	}
 }
 
-void Floor::spawn() {
-	int play_r = 3;
-	int play_c = 3;
-	map[play_r][play_c]->addChar(new Shade{}, true);
-	player.r = play_r;
-	player.c = play_c;
+void Floor::resetProcessed() {
+	for (auto &chamber : chambers) {
+		for (auto &cell : chamber) {
+			map[cell.r][cell.c]->processedThisTurn = false;
+		}
+	}
+}
 
-	map[4][5]->addChar(new Dwarf{});
-	map[5][20]->addChar(new Dwarf{});
-	map[5][47]->addChar(new Dwarf{});
-	map[11][39]->addChar(new Dwarf{});
+Floor::Coords Floor::randCoords() {
+	int x = rand() % chambers.size();
+	auto vec = chambers[x];
+	int y;
+	do {
+		y = rand() % vec.size();
+	} while (map[vec[y].r][vec[y].c]->processedThisTurn);
+	//map[vec[y].r][vec[y].c]->processedThisTurn = true;
+	return vec[y];
+}
+
+void Floor::spawn() {
+	resetProcessed();
+
+	player.r = 3;
+	player.c = 3;
+	map[player.r][player.c]->addChar(new Shade{}, true);
+	map[player.r][player.c]->processedThisTurn = true;
+
+	enum Order { H, W, L, E, O, M };
+	const int num_enemies = 6;
+	const int cumulative_prob[] = { 0, 4, 7, 12, 14, 16, 18 };
+	for (int i = 0; i < cumulative_prob[num_enemies]; ++i) {
+		int rand_int = rand() % cumulative_prob[num_enemies];
+		std::cout << "rand " << rand_int << std::endl;
+		for (int type = num_enemies - 1; ; --type) {
+			if (rand_int >= cumulative_prob[type]) {
+				std::cout << "type " << type << std::endl;
+				Coords rand_coords = randCoords();
+				Character *enemy;
+				switch (type) {
+					case Order::H: enemy = new Human{}; break;
+					case Order::W: enemy = new Dwarf{}; break;
+					case Order::L: enemy = new Halfling(); break;
+					case Order::E: enemy = new Elf{}; break;
+					case Order::O: enemy = new Orc{}; break;
+					case Order::M: enemy = new Merchant{}; break;
+				}
+				map[rand_coords.r][rand_coords.c]->addChar(enemy);
+				break;
+			}
+		}
+	}
 }
 
 void Floor::moveEnemies() {
-	srand(time(nullptr));
-	for (auto &chamber : chambers) {
-		for (auto &cell : chamber) {
-			map[cell.r][cell.c]->movedThisTurn = false;
-		}
-	}
+	resetProcessed();
 	for (unsigned int r = 0; r < map.size(); ++r) {
 		for (unsigned int c = 0; c < map[0].size(); ++c) {
 			if (!map[r][c] || r == player.r && c == player.c) continue;
@@ -158,6 +198,7 @@ Floor::Floor(string file) {
 	findChambers();
 	addObservers();
 	// Span characters and items
+	srand(time(nullptr));
 	spawn();
 }
 
@@ -171,6 +212,7 @@ Floor::~Floor() {
 }
 
 void Floor::movePlayer(Direction dir) {
+	map[player.r][player.c]->processedThisTurn = false;
 	if (map[player.r][player.c]->moveChar(dir)) {
 		if (dir == Direction::N){
 				player.r -= 1;

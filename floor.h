@@ -24,6 +24,8 @@ class Floor {
 	void addObsRecurse(std::vector<std::vector<bool>> &added,
 	                   unsigned int r, unsigned int c);
 	void addObservers();
+	void resetProcessed();
+	Coords randCoords();
 	void spawn();
 	void moveEnemies();
 

@@ -1,7 +1,12 @@
 #include "character.h"
 #include "stats.h"
-#include "dwarf.h"
 #include "shade.h"
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orc.h"
+#include "merchant.h"
+#include "halfling.h"
 
 Character::Character(char name, bool canMove, Stats status):
 	name{name}, canMove{canMove}, status{status} {}
@@ -58,6 +63,26 @@ double Character::attack(Shade &defender) {
 }
 
 double Character::attack(Dwarf &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
+}
+
+double Character::attack(Human &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
+}
+
+double Character::attack(Elf &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
+}
+
+double Character::attack(Orc &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
+}
+
+double Character::attack(Merchant &defender) {
+	return calcDamage(status.Atk, defender.getStats().Def);
+}
+
+double Character::attack(Halfling &defender) {
 	return calcDamage(status.Atk, defender.getStats().Def);
 }
 

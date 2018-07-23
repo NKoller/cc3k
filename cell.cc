@@ -78,12 +78,12 @@ bool Cell::addChar(Character *c, bool isPlayer) {
 		setState(State::CharacterMoved);
 	}
 	notifyObservers();
-	if (!isPlayer) movedThisTurn = true;
+	if (!isPlayer) processedThisTurn = true;
 	return true;
 }
 
 bool Cell::moveChar(int dir) {
-	if (!myChar || movedThisTurn) return true;
+	if (!myChar || processedThisTurn) return true;
 	//std::cout << row << " " << col << " " << hasPlayer << std::endl;
 	if (playerDir != -1) {
 		//std::cout << row << " " << col << " " << playerDir << std::endl;
