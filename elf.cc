@@ -7,9 +7,9 @@ Elf::Elf(): Character{'E', true, 140, Stats{140, 30, 10, 1}} {} // make gold ran
 int Elf::defend(Character &attacker) {
  double damage = attacker.attack(*this);
  status.HP -= damage;
+ if (status.HP < 0) status.HP = 0;
  //std::cout << "Owie! " << name << " took " << damage << " damage! ";
  //std::cout << status.HP << " wittle HPs left..." << std::endl;
- checkIfDead();
  return damage;
 }
 
