@@ -1,9 +1,14 @@
 #include "poisonHP.h"
-  
-PoisonHP::PoisonHP():Potion{Stats{-10, 0, 0, 0}} {}
 
-bool posionHP::hasBeenUsed() {
- return PH;
+bool PoisonHP::used = false;
+  
+PoisonHP::PoisonHP(): Potion{Stats{-10, 0, 0, 0}} {}
+
+bool PoisonHP::hasBeenUsed() {
+	return PoisonHP::used;
 }
 
-PoisonHP::~PoisonHP() {}
+void PoisonHP::getUsed(Player &user) {
+	user.use(*this);
+	PoisonHP::used = true;
+}

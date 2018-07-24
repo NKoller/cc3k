@@ -1,11 +1,14 @@
 #ifndef _BOOSTATK_H_
 #define _BOOSTATK_H_
 
-class BoostAtk:public Potion {
+#include "potion.h"
+
+class BoostAtk: public Potion {
+  static bool used;
  public:
   BoostAtk();
-  bool hasBeenUsed();
-  ~BoostAtk();
+  static bool hasBeenUsed();
+  void getUsed(Player &user) override;
 };
 
 #endif

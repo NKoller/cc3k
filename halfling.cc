@@ -14,10 +14,8 @@ int Halfling::defend(Character &attacker) {
 	status.HP -= damage;
 	std::cout << "Owie! " << name << " took " << damage << " damage! ";
 	std::cout << status.HP << " wittle HPs left..." << std::endl;
-	checkIfDead();
-<<<<<<< HEAD
+	if (status.HP < 0) status.HP = 0;
+	return damage;
   }
-=======
-    return damage;
->>>>>>> 608f98f8627be5d626487ba448d8d8d1c2d2998b
+  return 0;
 }

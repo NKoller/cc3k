@@ -25,6 +25,7 @@ class Floor {
 	void addObservers();
 	void resetProcessed();
 	Coords randCoords();
+	void spawnItems();
 	void spawnEnemies();
 	void spawn();
 	void moveEnemies();
@@ -36,6 +37,7 @@ public:
 	void movePlayer(Direction dir);
 	bool gameOver() const;
     void playerAttack(Direction dir);
+	void playerUse(Direction dir);
 	friend std::ostream &operator<<(std::ostream &out, const Floor &f);
 };
 

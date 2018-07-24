@@ -1,14 +1,13 @@
 #ifndef _POTION_H_
-#define _POSION_H_
+#define _POTION_H_
 
-#include <string.h>
+#include "item.h"
 
 class Potion: public Item {
- Stats effect;
+  std::string description;
  public:
-  Potion(Stats effect);
-  string getDescription();
-  void getUsed(Player &user);
+  Potion(Stats effect); // take a description as a param
+  std::string getDescription();
   void reverse(Player &user);
 };
 

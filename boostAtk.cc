@@ -1,9 +1,14 @@
 #include "boostAtk.h"
 
-BoostAtk::BoostAtk():Potion{Stats{0, 5, 0, 0}} {}
+bool BoostAtk::used = false;
+
+BoostAtk::BoostAtk(): Potion{Stats{0, 5, 0, 0}} {}
 
 bool BoostAtk::hasBeenUsed() {
- return BA; 
+	return BoostAtk::used;
 }
 
-BoostAtk::~BoostAtk() {}
+void BoostAtk::getUsed(Player &user) {
+	user.use(*this);
+	BoostAtk::used = true;
+}

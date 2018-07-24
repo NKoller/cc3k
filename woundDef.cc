@@ -1,9 +1,14 @@
 #include "woundDef.h"
 
-WoundDef::WoundDef():Potion{Stats{0, 0, -5, 0}} {}
+bool WoundDef::used = false;
   
+WoundDef::WoundDef(): Potion{Stats{0, 0, -5, 0}} {}
+
 bool WoundDef::hasBeenUsed() {
- return WD;
+	return WoundDef::used;
 }
 
-WoundDef::~WoundDef() {}
+void WoundDef::getUsed(Player &user) {
+	user.use(*this);
+	WoundDef::used = true;
+}

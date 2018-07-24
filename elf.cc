@@ -7,12 +7,21 @@ Elf::Elf(): Character{'E', true, Stats{140, 30, 10, 1}} {} // make gold random
 Elf::~Elf() {}
 
 int Elf::defend(Character &attacker) {
+<<<<<<< HEAD
  double damage = attacker.attack(*this);
  status.HP -= damage;
   std::cout << "Owie! " << name << " took " << damage << " damage! ";
   std::cout << status.HP << " wittle HPs left..." << std::endl;
  checkIfDead();
  return damage;
+=======
+	double damage = attacker.attack(*this);
+	status.HP -= damage;
+	std::cout << "Owie! " << name << " took " << damage << " damage! ";
+	std::cout << status.HP << " wittle HPs left..." << std::endl;
+    if (status.HP < 0) status.HP = 0;
+    return damage;
+>>>>>>> 74b6d00c29fffabe9018deb6d6ffea5bde4642ca
 }
 
 int times = 0;

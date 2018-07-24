@@ -7,6 +7,7 @@
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
+#include "potion.h"
 
 Character::Character(char name, bool canMove, Stats status):
 	name{name}, canMove{canMove}, status{status} {}
@@ -54,11 +55,19 @@ void Character::checkIfDead() {
 }
 
 double Character::generalAtk(Character &defender) {
-        double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
+    double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
+<<<<<<< HEAD
         return (damage > trunc)? trunc + 1 : trunc;
+=======
+	return (damage > trunc)? trunc + 1 : trunc;
+>>>>>>> 74b6d00c29fffabe9018deb6d6ffea5bde4642ca
 }
 
+void Character::use(Potion &p) {
+	status += p.getEffect();
+	// update textdisplay?
+}
 
 double Character::attack(Shade &defender) {
 	return generalAtk(defender);
@@ -69,11 +78,15 @@ double Character::attack(Dwarf &defender) {
 }
 
 double Character::attack(Human &defender) {
- return generalAtk(defender);
+	return generalAtk(defender);
 }
 
 double Character::attack(Elf &defender) {
+<<<<<<< HEAD
     return generalAtk(defender);     
+=======
+	return generalAtk(defender);
+>>>>>>> 74b6d00c29fffabe9018deb6d6ffea5bde4642ca
 }
 
 double Character::attack(Orc &defender) {

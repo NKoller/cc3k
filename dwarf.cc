@@ -11,7 +11,7 @@ int Dwarf::defend(Character &attacker) {
 	status.HP -= damage;
 	std::cout << "Owie! " << name << " took " << damage << " damage! ";
 	std::cout << status.HP << " wittle HPs left..." << std::endl;
-	checkIfDead();
+	if (status.HP < 0) status.HP = 0;
     return damage;
 }
 
