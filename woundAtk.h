@@ -1,11 +1,14 @@
 #ifndef _WOUNDATK_H_
 #define _WOUNDATK_H_
 
-class WoundAtkHP:public Potion {
+#include "potion.h"
+
+class WoundAtk: public Potion {
+  static bool used;
  public:
   WoundAtk();
   bool hasBeenUsed();
-  ~WoundAtk();
+  void getUsed(Player &user) override;
 };
 
 #endif

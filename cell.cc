@@ -1,6 +1,7 @@
 #include "cell.h"
 #include "info.h"
 #include "character.h"
+#include "item.h"
 #include <assert.h> //REMOVE
 #include <iostream> //REMOVE
 
@@ -55,23 +56,30 @@ void Cell::makeStairs() {
 Info Cell::getInfo(){
 	char characterName;
     char itemName = 0;
-	/*
     if (myItem == nullptr){
         itemName = 0;
     } else{
-		itemName = '?';
-       // itemName = myItem->getName();
-    }*/
+		itemName = myItem->getName();
+    }
     if (myChar == nullptr){
         characterName = 0;
     } else{
         characterName = myChar->getName();
     }
-    return Info {type, itemName, characterName, row, col};
+    return Info {type, itemName, characterName, otherName, otherHP, dmgDealt, dirTo, row, col};
+}
+
+bool Cell::addItem(Item *i) {
+	if (myItem) return false;
+	myItem = i;
+	setState(State::CharacterMoved); // not really proper
+	notifyObservers();
+	processedThisTurn = true;
+	return true;
 }
 
 bool Cell::addChar(Character *c, bool isPlayer) {
-	if (myChar) return false;
+	if (myChar || myItem) return false;
 	if (!isPlayer && type != CellType::Floor) return false;
 
 	myChar = c;
@@ -109,6 +117,11 @@ bool Cell::moveChar(int dir) {
 	bool added = static_cast<Cell *>(observers[dir])->addChar(myChar, hasPlayer); // this is terrible
 	if (added) {
 		myChar = nullptr;
+        if (hasPlayer){
+            dirTo = dir;
+            setState(State::PlayerMoved);
+            notifyObservers();
+        }
 		hasPlayer = false;
 		setState(State::CharacterMoved);
 		notifyObservers();
@@ -127,5 +140,26 @@ void Cell::charAttack(int dir) {
 
 void Cell::charDefend(Character &attacker) {
 	//std::cout << "defending!" << std::endl;
-	if (myChar && type != CellType::Stairs) myChar->defend(attacker);
+	if (myChar && type != CellType::Stairs){
+        int dmg = myChar->defend(attacker);
+        otherName = attacker.getName();
+        otherHP = myChar->getStats().HP;
+        dmgDealt = dmg;
+        setState(State::GotAttacked);
+        notifyObservers();
+        std::cout << "here lol" << std::endl;
+        myChar->checkIfDead();
+    }
+}
+
+void Cell::charUse(int dir) {
+	static_cast<Cell *>(observers[dir])->itemGetUsed(*myChar);
+}
+
+void Cell::itemGetUsed(Character &user) {
+	if (myItem) myItem->getUsed(user);
+	delete myItem;
+	myItem = nullptr;
+	setState(State::CharacterMoved); // not really proper
+	notifyObservers();
 }

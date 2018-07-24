@@ -1,11 +1,14 @@
 #ifndef _POISONHP_H_
 #define _POISONHP_H_
 
-class PoisonHP:public Potion {
+#include "potion.h"
+
+class PoisonHP: public Potion {
+  static bool used;
  public:
   PoisonHP();
   bool hasBeenUsed();
-  ~PoisonHP();
+  void getUsed(Player &user) override;
 };
 
 #endif

@@ -1,11 +1,10 @@
 #include "potion.h"
 
-Potion::Potion(Stats effect): Item{"P" , effect} {}
+Potion::Potion(Stats effect): Item{'P' , effect} {}
 
-string Potion::getDescription() {
- return name;
+std::string Potion::getDescription() {
+	// maybe do "if used return description"
+	return description;
 }
-
-void Potion::getUsed(Player &user) {}
 
 void Potion::reverse(Player &user) {}

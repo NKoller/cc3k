@@ -9,7 +9,7 @@ class Player: public Character {
   //virtual void reversePotions();
   //virtual void use(Item &i);
   virtual void finishTurn();
-  Player(Stats status);
+  Player(Stats status, Observer* myTD);
   virtual ~Player();
 };
 

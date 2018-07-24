@@ -4,11 +4,12 @@
 #include "character.h"
 
 class Merchant: public Character {
-  void checkIfDead() override;
+ void checkIfDead() override;
  public:
+  static bool hostile;
   Merchant();
   ~Merchant();
-  void defend(Character &attacker) override;
+  int defend(Character &attacker) override;
 };
 
 #endif

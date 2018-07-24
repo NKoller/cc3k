@@ -7,6 +7,12 @@
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
+#include "restoreHP.h"
+#include "poisonHP.h"
+#include "boostAtk.h"
+#include "woundAtk.h"
+#include "boostDef.h"
+#include "woundDef.h"
 #include "info.h" // REMOVE
 #include <iostream> // REMOOVVVEEEE
 #include <fstream>
@@ -113,11 +119,29 @@ Floor::Coords Floor::randCoords() {
 	return vec[y];
 }
 
+void Floor::spawnItems() {
+	const int num_potions = 6;
+	for (int i = 0; i < 10; ++i) {
+		int type = rand() % num_potions;
+		Coords rand_coords = randCoords();
+		Potion *p;
+		switch (type) {
+			case 0: p = new RestoreHP{}; break;
+			case 1: p = new PoisonHP{};  break;
+			case 2: p = new BoostAtk{};  break;
+			case 3: p = new WoundAtk{};  break;
+			case 4: p = new BoostDef{};  break;
+			case 5: p = new WoundDef{};  break;
+		}
+		map[rand_coords.r][rand_coords.c]->addItem(p);
+	}
+}
+
 void Floor::spawnEnemies() {
-	enum Order { H, W, L, E, O, M };
+	enum Order { H, W, L, E, O, M }; // unnecessary?
 	const int num_enemies = 6;
 	const int cumulative_prob[] = { 0, 4, 7, 12, 14, 16, 18 };
-	for (int i = 0; i < cumulative_prob[num_enemies]; ++i) {
+	for (int i = 0; i < 20; ++i) {
 		int rand_int = rand() % cumulative_prob[num_enemies];
 		//std::cout << "rand " << rand_int << std::endl;
 		for (int type = num_enemies - 1; ; --type) {
@@ -158,7 +182,7 @@ void Floor::spawn() {
 	Coords rand_cell = chambers[player_chamber][player_cell];
 	player.r = rand_cell.r;
 	player.c = rand_cell.c;
-	map[rand_cell.r][rand_cell.c]->addChar(new Shade{}, true);
+	map[rand_cell.r][rand_cell.c]->addChar(new Shade{td}, true);
 	map[rand_cell.r][rand_cell.c]->processedThisTurn = true;
 
 	total_cells -= chambers[player_chamber].size();
@@ -176,6 +200,7 @@ void Floor::spawn() {
 	rand_cell = chambers[stairs_chamber][stairs_cell];
 	map[rand_cell.r][rand_cell.c]->makeStairs();
 	
+	spawnItems();
 	spawnEnemies();
 }
 
@@ -183,7 +208,7 @@ void Floor::moveEnemies() {
 	resetProcessed();
 	for (unsigned int r = 0; r < map.size(); ++r) {
 		for (unsigned int c = 0; c < map[0].size(); ++c) {
-			if (!map[r][c] || r == player.r && c == player.c) continue;
+			if (!map[r][c] || (r == player.r && c == player.c)) continue;
 			int dir;
 			do {
 				//std::cout << r << "move" << c << "  ";
@@ -277,6 +302,11 @@ bool Floor::gameOver() const {
 
 void Floor::playerAttack(Direction dir){
     map[player.r][player.c]->charAttack(dir);
+	moveEnemies();
+}
+
+void Floor::playerUse(Direction dir) {
+	map[player.r][player.c]->charUse(dir);
 	moveEnemies();
 }
 

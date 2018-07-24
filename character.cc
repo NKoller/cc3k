@@ -7,12 +7,13 @@
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
+#include "potion.h"
 
 Character::Character(char name, bool canMove, Stats status):
 	name{name}, canMove{canMove}, status{status} {}
 
 void Character::attach(Observer *o) {
-	if(observers.size()) observers.pop_back();
+	if(observers.size() > 1) observers.pop_back();
 	observers.emplace_back(o);
 }
 
@@ -52,38 +53,43 @@ void Character::checkIfDead() {
 	}
 }
 
-int Character::calcDamage(double atk, double def) {
-	double damage = (100.0 / (100 + def)) * atk;
+double Character::generalAtk(Character &defender) {
+    double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
 	return (damage > trunc)? trunc + 1 : trunc;
 }
 
+void Character::use(Potion &p) {
+	status += p.getEffect();
+	// update textdisplay?
+}
+
 double Character::attack(Shade &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Dwarf &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Human &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Elf &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Orc &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Merchant &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 double Character::attack(Halfling &defender) {
-	return calcDamage(status.Atk, defender.getStats().Def);
+	return generalAtk(defender);
 }
 
 Character::~Character() {}

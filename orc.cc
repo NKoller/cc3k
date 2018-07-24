@@ -4,12 +4,13 @@ Orc::Orc(): Character{'O', true, Stats{180, 30, 25, 1}} {} // make gold random
 
 Orc::~Orc() {}
 
-void Orc::defend(Character &attacker) {
+int Orc::defend(Character &attacker) {
 	double damage = attacker.attack(*this);
 	status.HP -= damage;
 	std::cout << "Owie! " << name << " took " << damage << " damage! ";
 	std::cout << status.HP << " wittle HPs left..." << std::endl;
-	checkIfDead();
+	if (status.HP < 0) status.HP = 0;
+    return damage;
 }
 
 /*double Orc::attack(Goblin &defender) {
