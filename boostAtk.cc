@@ -2,7 +2,8 @@
 
 bool BoostAtk::used = false;
 
-BoostAtk::BoostAtk(): Potion{Stats{0, 5, 0, 0}} {}
+BoostAtk::BoostAtk():
+	Potion{Stats{0, 5, 0, 0}, "BA, which boosts Atk by 5"} {}
 
 bool BoostAtk::hasBeenUsed() {
 	return BoostAtk::used;
@@ -11,4 +12,9 @@ bool BoostAtk::hasBeenUsed() {
 void BoostAtk::getUsed(Player &user) {
 	user.use(*this);
 	BoostAtk::used = true;
+}
+
+std::string BoostAtk::getDescription() const {
+	if (BoostAtk::used) return description;
+	else return "";
 }

@@ -4,11 +4,12 @@
 #include "item.h"
 
 class Potion: public Item {
+ protected:
   std::string description;
  public:
-  Potion(Stats effect); // take a description as a param
-  std::string getDescription();
-  void reverse(Player &user);
+  Potion(Stats effect, std::string desc);
+  virtual std::string getDescription() const = 0;
+  Stats reverse() const;
 };
 
 #endif

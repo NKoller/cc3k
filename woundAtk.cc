@@ -1,8 +1,9 @@
 #include "woundAtk.h"
 
 bool WoundAtk::used = false;
-  
-WoundAtk::WoundAtk(): Potion{Stats{0, -5, 0, 0}} {}
+
+WoundAtk::WoundAtk():
+	Potion{Stats{0, -5, 0, 0}, "WA, which decreases Atk by 5"} {}
 
 bool WoundAtk::hasBeenUsed() {
 	return WoundAtk::used;
@@ -11,4 +12,9 @@ bool WoundAtk::hasBeenUsed() {
 void WoundAtk::getUsed(Player &user) {
 	user.use(*this);
 	WoundAtk::used = true;
+}
+
+std::string WoundAtk::getDescription() const {
+	if (WoundAtk::used) return description;
+	else return "";
 }

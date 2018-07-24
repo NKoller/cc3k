@@ -11,10 +11,9 @@
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
-#include "potion.h"
 
-Character::Character(char name, bool canMove, Stats status):
-	name{name}, canMove{canMove}, status{status} {}
+Character::Character(char name, bool canMove, int maxHP, Stats status):
+	name{name}, canMove{canMove}, maxHP{maxHP}, status{status} {}
 
 void Character::attach(Observer *o) {
 	if(observers.size() > 1) observers.pop_back();
@@ -54,7 +53,7 @@ void Character::checkIfDead() {
 	if (status.HP <= 0) {
 		setState(State::CharacterDied);
 		notifyObservers();
-		std::cout << "Oh noey! " << name << " died! :(" << std::endl;
+		//std::cout << "Oh noey! " << name << " died! :(" << std::endl;
 	}
 }
 
@@ -62,11 +61,6 @@ double Character::generalAttack(Character &defender) {
     double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
 	return (damage > trunc)? trunc + 1 : trunc;
-}
-
-void Character::use(Potion &p) {
-	status += p.getEffect();
-	// update textdisplay?
 }
 
 double Character::attack(Shade &defender) {

@@ -2,13 +2,13 @@
 #include "drow.h"
 #include "character.h"
 
-Elf::Elf(): Character{'E', true, Stats{140, 30, 10, 1}} {} // make gold random
+Elf::Elf(): Character{'E', true, 140, Stats{140, 30, 10, 1}} {} // make gold random
 
 int Elf::defend(Character &attacker) {
  double damage = attacker.attack(*this);
  status.HP -= damage;
-  std::cout << "Owie! " << name << " took " << damage << " damage! ";
-  std::cout << status.HP << " wittle HPs left..." << std::endl;
+ //std::cout << "Owie! " << name << " took " << damage << " damage! ";
+ //std::cout << status.HP << " wittle HPs left..." << std::endl;
  checkIfDead();
  return damage;
 }

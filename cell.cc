@@ -158,7 +158,7 @@ void Cell::charUse(int dir) {
 
 void Cell::itemGetUsed(Character &user) {
 	if (myItem) myItem->getUsed(user);
-	delete myItem;
+	//delete myItem; player will delete it
 	myItem = nullptr;
 	setState(State::CharacterMoved); // not really proper
 	notifyObservers();

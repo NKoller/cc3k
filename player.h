@@ -4,12 +4,13 @@
 #include "character.h"
 
 class Player: public Character {
-//vector<Potion> used();
+  std::vector<Potion *> used;
  public:
-  //virtual void reversePotions();
-  //virtual void use(Item &i);
+  virtual void use(Potion &p);
+  //virtual void use(Gold &g);
+  virtual void reversePotions();
   virtual void finishTurn();
-  Player(Stats status, Observer* myTD);
+  Player(int maxHP, Stats status, Observer* myTD);
   virtual ~Player();
 };
 

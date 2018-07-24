@@ -1,6 +1,6 @@
 #include "halfling.h"
 
-Halfling::Halfling(): Character{'L', true, Stats{100, 15, 20, 0}} {}
+Halfling::Halfling(): Character{'L', true, 100, Stats{100, 15, 20, 0}} {}
 
 Halfling::~Halfling() {}
 
@@ -12,8 +12,8 @@ int Halfling::defend(Character &attacker) {
   if(n) {
 	double damage = attacker.attack(*this);
 	status.HP -= damage;
-	std::cout << "Owie! " << name << " took " << damage << " damage! ";
-	std::cout << status.HP << " wittle HPs left..." << std::endl;
+	//std::cout << "Owie! " << name << " took " << damage << " damage! ";
+	//std::cout << status.HP << " wittle HPs left..." << std::endl;
 	if (status.HP < 0) status.HP = 0;
 	return damage;
   }

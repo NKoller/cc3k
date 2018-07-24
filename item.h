@@ -9,8 +9,8 @@ class Item {
   Stats effect;
  public:
   Item(char name, Stats s);
-  char getName();
-  Stats getEffect();
+  char getName() const;
+  Stats getEffect() const;
   void getUsed(Character &user);
   virtual void getUsed(Player &user) = 0;
 };

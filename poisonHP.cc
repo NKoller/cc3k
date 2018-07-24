@@ -2,7 +2,8 @@
 
 bool PoisonHP::used = false;
   
-PoisonHP::PoisonHP(): Potion{Stats{-10, 0, 0, 0}} {}
+PoisonHP::PoisonHP():
+	Potion{Stats{-10, 0, 0, 0}, "PH, which reduces HP by 10"} {}
 
 bool PoisonHP::hasBeenUsed() {
 	return PoisonHP::used;
@@ -11,4 +12,9 @@ bool PoisonHP::hasBeenUsed() {
 void PoisonHP::getUsed(Player &user) {
 	user.use(*this);
 	PoisonHP::used = true;
+}
+
+std::string PoisonHP::getDescription() const {
+	if (PoisonHP::used) return description;
+	else return "";
 }

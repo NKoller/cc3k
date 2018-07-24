@@ -24,18 +24,17 @@ class Character: public Subject {
 //	virtual double generalAtk(Character &defender);
 protected:
 	char name; // should be private, this was just for testing
+	const int maxHP;
 	Stats status;
 	virtual double generalAttack(Character &defender);
 public:
 	virtual void checkIfDead();
-    Character(char name, bool canMove, Stats status);
+    Character(char name, bool canMove, int maxHP, Stats status);
 	void attach(Observer *o) override;
     bool moves();
     Stats getStats() const;
     //void setStats(Stats s);
     char getName();
-	virtual void use(Potion &p);
-	//virtual void use(Gold &g);
     virtual int defend(Character &attacker) = 0;
     virtual double attack(Shade &defender);
 	virtual double attack(Dwarf &defender);

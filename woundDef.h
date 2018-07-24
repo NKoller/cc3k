@@ -7,8 +7,9 @@ class WoundDef: public Potion {
   static bool used;
  public:
   WoundDef();
-  bool hasBeenUsed();
+  static bool hasBeenUsed();
   void getUsed(Player &user) override;
+  std::string getDescription() const override;
 };
 
 #endif
