@@ -6,8 +6,8 @@
 class Vampire: public Player {
  public:
   int defend(Character &attacker) override;
-  Vampire(Observer* myTD);
-  void attack(Dwarf &defender);
+  //double attack(Dwarf &defender) override;
+  Vampire(Observer *myTD);
   ~Vampire();
 };
 

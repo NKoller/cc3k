@@ -17,8 +17,8 @@ Troll::Troll(Observer* myTD): Player{Stats{120, 25, 15, 0}, myTD} {
     notifyObservers();
 }
 
-void finsihTurn() {
+/*void finishTurn() {
 
-}
+}*/
 
 Troll::~Troll() {}

@@ -1,4 +1,5 @@
 #include "drow.h"
+#include "potion.h"
   
 int Drow::defend(Character &attacker) {
  double damage = attacker.attack(*this);
@@ -17,12 +18,8 @@ Drow::Drow(Observer* myTD): Player{Stats{150, 25, 15, 0}, myTD} {
     notifyObservers();
 }
 
-void Drow::use(Item &i) {
-
-}
-
-void reversePotions() {
-
+void Drow::use(Potion &p) {
+	status += p.getEffect() * 1.5;
 }
 
 Drow::~Drow() {}

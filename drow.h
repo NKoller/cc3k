@@ -6,9 +6,9 @@
 class Drow: public Player {
  public:
   int defend(Character &attacker) override;
-  Drow(Observer* myTD);
-  void use(Item &i);
-  void reversePotions();
+  void use(Potion &p) override;
+  //void reversePotions() override;
+  Drow(Observer *myTD);
   ~Drow();
 };
 

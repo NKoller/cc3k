@@ -4,11 +4,12 @@
 #include "character.h"
 
 class Elf: public Character {
+  bool attacking = false;
  public:
   Elf();
   int defend(Character &attacker) override;
-  //double attack(Drow &defender) override;
-  ~Elf();
+  double generalAttack(Character &defender) override;
+  double attack(Drow &defender) override;
 };
 
 #endif

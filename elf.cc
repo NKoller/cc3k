@@ -4,8 +4,6 @@
 
 Elf::Elf(): Character{'E', true, Stats{140, 30, 10, 1}} {} // make gold random
 
-Elf::~Elf() {}
-
 int Elf::defend(Character &attacker) {
  double damage = attacker.attack(*this);
  status.HP -= damage;
@@ -15,23 +13,23 @@ int Elf::defend(Character &attacker) {
  return damage;
 }
 
-int times = 0;
-double damage1 = 0 ,damage = 0;
-double Elf::attack(Drow &defender) {
-  if(times == 2) {
-    return damage1 + damage;
-  }
-  double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
-  int trunc = damage;
-  damage1 = (damage > trunc)? trunc + 1 : trunc;
-  ++times;
-  if(damage > defender.getStats().HP) {
-   return damage;
-  }
-  return generalAtk(defender);
-}       
+double Elf::generalAttack(Character &defender) {
+	double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
+	int trunc = damage;
+	damage = (damage > trunc)? trunc + 1 : trunc;
+	/*if(damage > defender.getStats().HP) { // might not be necessary if we throw exception
+		return damage;
+	}*/
+	if (!attacking) {
+		attacking = true;
+		defender.defend(*this);
+	} else {
+		attacking = false;
+	}
+	return damage;
+}
 
-/*double Elf::attack(Drow &defender) {
-	return calcDamage(status.Atk, defender.getStates().def);
-	// make only attack once
-}*/
+double Elf::attack(Drow &defender) {
+	attacking = true;
+	return generalAttack(defender);
+}

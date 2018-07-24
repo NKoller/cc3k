@@ -10,6 +10,7 @@ struct Stats {
     double Gold;
 	Stats &operator+=(Stats &other); // not necessary
 	Stats &operator+=(Stats &&other);
+	Stats &operator*(int n);
 };
 
 #endif

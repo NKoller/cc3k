@@ -1,6 +1,10 @@
 #include "character.h"
 #include "stats.h"
 #include "shade.h"
+#include "drow.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
@@ -54,10 +58,10 @@ void Character::checkIfDead() {
 	}
 }
 
-double Character::generalAtk(Character &defender) {
+double Character::generalAttack(Character &defender) {
     double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
-        return (damage > trunc)? trunc + 1 : trunc;
+	return (damage > trunc)? trunc + 1 : trunc;
 }
 
 void Character::use(Potion &p) {
@@ -66,31 +70,47 @@ void Character::use(Potion &p) {
 }
 
 double Character::attack(Shade &defender) {
-	return generalAtk(defender);
+	return generalAttack(defender);
 }
 
 double Character::attack(Dwarf &defender) {
-	return generalAtk(defender);
+	return generalAttack(defender);
 }
 
 double Character::attack(Human &defender) {
-	return generalAtk(defender);
+	return generalAttack(defender);
 }
 
 double Character::attack(Elf &defender) {
-    return generalAtk(defender);     
+    return generalAttack(defender);     
 }
 
 double Character::attack(Orc &defender) {
-	return generalAtk(defender);
+	return generalAttack(defender);
 }
 
 double Character::attack(Merchant &defender) {
-	return generalAtk(defender);
+	return generalAttack(defender);
 }
 
 double Character::attack(Halfling &defender) {
-	return generalAtk(defender);
+	return generalAttack(defender);
+}
+
+double Character::attack(Drow &defender) {
+	return generalAttack(defender);
+}
+
+double Character::attack(Vampire &defender) {
+	return generalAttack(defender);
+}
+
+double Character::attack(Goblin &defender) {
+	return generalAttack(defender);
+}
+
+double Character::attack(Troll &defender) {
+	return generalAttack(defender);
 }
 
 Character::~Character() {}

@@ -7,6 +7,10 @@
 #include <iostream> // REMOVE
 
 class Shade;
+class Drow;
+class Vampire;
+class Troll;
+class Goblin;
 class Human;
 class Dwarf;
 class Elf;
@@ -21,8 +25,8 @@ class Character: public Subject {
 protected:
 	char name; // should be private, this was just for testing
 	Stats status;
+	virtual double generalAttack(Character &defender);
 public:
-   virtual double generalAtk(Character &defender);
 	virtual void checkIfDead();
     Character(char name, bool canMove, Stats status);
 	void attach(Observer *o) override;
@@ -40,11 +44,11 @@ public:
     virtual double attack(Orc &defender);
     virtual double attack(Merchant &defender);
     virtual double attack(Halfling &defender);
-	/*virtual void attack(Dragon &defender);
+	//virtual double attack(Dragon &defender);
     virtual double attack(Drow &defender);
-    virtual void attack(Vampire &defender);
-    virtual void attack(Troll &defender);
-    virtual void attack(Goblin &defender);*/
+    virtual double attack(Vampire &defender);
+    virtual double attack(Troll &defender);
+    virtual double attack(Goblin &defender);
 	virtual ~Character();
 };
 
