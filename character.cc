@@ -55,8 +55,14 @@ void Character::checkIfDead() {
 double Character::generalAtk(Character &defender) {
         double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
-     if(this->getName() == 'E' && defender.getName() != 'D') {
+     if(defender.getName() != 'D') {
 	return 2 * ((damage > trunc)? trunc + 1 : trunc);
+     }
+     if(defender.getName() != 'G') {
+        return 1.5 * ((damage > trunc)? trunc + 1 : trunc);
+     }
+     if(this->getName() == 'M' && Merchant::hostile == false) {
+      return 0;
      }
       else {
         return (damage > trunc)? trunc + 1 : trunc;

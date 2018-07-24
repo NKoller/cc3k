@@ -4,8 +4,9 @@
 #include "character.h"
 
 class Merchant: public Character {
-  void checkIfDead() override;
+ void checkIfDead() override;
  public:
+  static bool hostile;
   Merchant();
   ~Merchant();
   int defend(Character &attacker) override;
