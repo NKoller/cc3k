@@ -44,6 +44,7 @@ void change(int &type, const int amt) {
  }
 }*/
 
+
 void Character::checkIfDead() {
 	if (status.HP <= 0) {
 		setState(State::CharacterDied);
@@ -55,18 +56,7 @@ void Character::checkIfDead() {
 double Character::generalAtk(Character &defender) {
         double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
-     if(defender.getName() != 'D') {
-	return 2 * ((damage > trunc)? trunc + 1 : trunc);
-     }
-     if(defender.getName() != 'G') {
-        return 1.5 * ((damage > trunc)? trunc + 1 : trunc);
-     }
-     if(this->getName() == 'M' && Merchant::hostile == false) {
-      return 0;
-     }
-      else {
         return (damage > trunc)? trunc + 1 : trunc;
-   }
 }
 
 
@@ -83,7 +73,7 @@ double Character::attack(Human &defender) {
 }
 
 double Character::attack(Elf &defender) {
-  return generalAtk(defender);
+    return generalAtk(defender);     
 }
 
 double Character::attack(Orc &defender) {
