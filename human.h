@@ -4,10 +4,10 @@
 #include "character.h"
 
 class Human: public Character {
-  void checkIfDead() override;
  public:
   Human();
   ~Human();
+  void checkIfDead() override;
   int defend(Character &attacker) override;
 };
 

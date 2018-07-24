@@ -1,14 +1,5 @@
 #include "stats.h"
 
-Stats Stats::operator-(Stats &&other) {
-	Stats result;
-	result.HP   = HP   - other.HP;
-	result.Atk  = Atk  - other.Atk;
-	result.Def  = Def  - other.Def;
-	result.Gold = Gold - other.Gold;
-	return result;
-}
-
 Stats &Stats::operator+=(Stats &&other) {
 	this->HP   += other.HP;
 	this->Atk  += other.Atk;

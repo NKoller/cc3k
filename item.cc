@@ -1,8 +1,13 @@
 #include "item.h"
 
-Item::Item(char name, Stats s): name{name}, effect{s} {}
+Item::Item(char name, std::string desc, Stats s):
+	name{name},
+	desc{desc},
+	effect{s} {}
 
 char Item::getName() const { return name; }
+
+std::string Item::getDesc() const { return desc; }
 
 Stats Item::getEffect() const { return effect; }
 

@@ -4,7 +4,6 @@
 #include "character.h"
 
 class Dwarf: public Character {
-  //int returnGold() const;
  public:
   Dwarf();
   ~Dwarf();

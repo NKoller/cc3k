@@ -5,19 +5,17 @@
 Elf::Elf(): Character{'E', true, 140, Stats{140, 30, 10, 1}} {} // make gold random
 
 int Elf::defend(Character &attacker) {
- double damage = attacker.attack(*this);
- status.HP -= damage;
- if (status.HP < 0) status.HP = 0;
- //std::cout << "Owie! " << name << " took " << damage << " damage! ";
- //std::cout << status.HP << " wittle HPs left..." << std::endl;
- return damage;
+	double damage = attacker.attack(*this);
+	status.HP -= damage;
+	if (status.HP < 0) status.HP = 0;
+	return damage;
 }
 
 double Elf::generalAttack(Character &defender) {
 	double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
 	int trunc = damage;
 	damage = (damage > trunc)? trunc + 1 : trunc;
-	/*if(damage > defender.getStats().HP) { // might not be necessary if we throw exception
+	/*if(damage > defender.getStats().HP) { // not necessary if we throw exception
 		return damage;
 	}*/
 	if (!attacking) {

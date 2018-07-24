@@ -33,7 +33,6 @@ public:
 	void attach(Observer *o) override;
     bool moves();
     Stats getStats() const;
-    //void setStats(Stats s);
     char getName();
     virtual int defend(Character &attacker) = 0;
     virtual double attack(Shade &defender);
