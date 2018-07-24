@@ -9,7 +9,7 @@ class BoostAtk: public Potion {
   BoostAtk();
   static bool hasBeenUsed();
   void getUsed(Player &user) override;
-  std::string getDescription() const override;
+  std::string getDesc() const override;
 };
 
 #endif

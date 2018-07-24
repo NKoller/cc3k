@@ -7,7 +7,7 @@ class Orc: public Character {
  public:
   Orc();
   int defend(Character &attacker) override;
-  //double attack(Goblin &defender) override;
+  double attack(Goblin &defender) override;
   ~Orc();
 };
 

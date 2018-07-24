@@ -134,21 +134,35 @@ bool Cell::moveChar(int dir) {
 }
 
 void Cell::charAttack(int dir) {
-	static_cast<Cell *>(observers[dir])->charDefend(*myChar);
+	static_cast<Cell *>(observers[dir])->charDefend(*myChar, *this);
 	//std::cout << "attempting to attack " << dir << std::endl;
 }
 
-void Cell::charDefend(Character &attacker) {
+void Cell::charDefend(Character &attacker, Cell &attacking_cell) {
 	//std::cout << "defending!" << std::endl;
 	if (myChar && type != CellType::Stairs){
         int dmg = myChar->defend(attacker);
-        otherName = attacker.getName();
-        otherHP = myChar->getStats().HP;
-        dmgDealt = dmg;
-        setState(State::GotAttacked);
-        notifyObservers();
-        std::cout << "here lol" << std::endl;
-        myChar->checkIfDead();
+		if (dmg == Character::MISSED) {
+			return;
+			// notify TD that it missed?
+		} else if (dmg == Character::NO_ATTACK) {
+			int temp = attacking_cell.playerDir;
+			attacking_cell.playerDir = -1;
+			attacking_cell.processedThisTurn = false;
+			int dir;
+			do {
+				dir = rand() % 8;
+			} while (!attacking_cell.moveChar(dir));
+			attacking_cell.playerDir = temp;
+		} else {
+    	    otherName = attacker.getName();
+	        otherHP = myChar->getStats().HP;
+        	dmgDealt = dmg;
+    	    setState(State::GotAttacked);
+	        notifyObservers();
+        	std::cout << "here lol" << std::endl;
+        	myChar->checkIfDead();
+		}
     }
 }
 

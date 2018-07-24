@@ -14,7 +14,7 @@ void RestoreHP::getUsed(Player &user) {
 	RestoreHP::used = true;
 }
 
-std::string RestoreHP::getDescription() const {
-	if (RestoreHP::used) return description;
+std::string RestoreHP::getDesc() const {
+	if (RestoreHP::used) return desc;
 	else return "";
 }

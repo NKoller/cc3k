@@ -14,7 +14,6 @@ class Cell: public Observer, public Subject {
     unsigned int row;
     unsigned int col;
 	bool hasPlayer = false;
-	int playerDir = -1;
 	Character *myChar = nullptr;
 	Item *myItem = nullptr;
 	int directionTo(unsigned int r, unsigned int c) const;
@@ -24,6 +23,7 @@ class Cell: public Observer, public Subject {
     int dirTo = -1;
 
 public:
+	int playerDir = -1;
 	bool processedThisTurn = false;
     Info getInfo();
 	Cell(CellType type, unsigned int row, unsigned int col);
@@ -35,7 +35,7 @@ public:
 	void notify(Subject &from) override;
 	//void notifyDisplay()
 	void charAttack(int dir);
-	void charDefend(Character &attacker);
+	void charDefend(Character &attacker, Cell &attacking_cell);
 	void charUse(int dir);
 	void itemGetUsed(Character &user);
 };

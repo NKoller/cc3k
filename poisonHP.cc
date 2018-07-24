@@ -14,7 +14,7 @@ void PoisonHP::getUsed(Player &user) {
 	PoisonHP::used = true;
 }
 
-std::string PoisonHP::getDescription() const {
-	if (PoisonHP::used) return description;
+std::string PoisonHP::getDesc() const {
+	if (PoisonHP::used) return desc;
 	else return "";
 }

@@ -12,11 +12,14 @@
 #include "merchant.h"
 #include "halfling.h"
 
+const double Character::MISSED = -1;
+const double Character::NO_ATTACK = -2;
+
 Character::Character(char name, bool canMove, int maxHP, Stats status):
 	name{name}, canMove{canMove}, maxHP{maxHP}, status{status} {}
 
 void Character::attach(Observer *o) {
-	if(observers.size() > 1) observers.pop_back();
+	if (observers.size() > 1) observers.pop_back();
 	observers.emplace_back(o);
 }
 
@@ -25,7 +28,7 @@ char Character::getName() {
 }
 
 Stats Character::getStats() const {
- return status;
+	return status;
 }
 
 /*

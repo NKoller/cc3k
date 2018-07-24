@@ -14,7 +14,7 @@ void BoostDef::getUsed(Player &user) {
 	BoostDef::used = true;
 }
 
-std::string BoostDef::getDescription() const {
-	if (BoostDef::used) return description;
+std::string BoostDef::getDesc() const {
+	if (BoostDef::used) return desc;
 	else return "";
 }

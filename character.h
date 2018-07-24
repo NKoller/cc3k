@@ -28,6 +28,8 @@ protected:
 	Stats status;
 	virtual double generalAttack(Character &defender);
 public:
+	static const double MISSED;
+	static const double NO_ATTACK;
 	virtual void checkIfDead();
     Character(char name, bool canMove, int maxHP, Stats status);
 	void attach(Observer *o) override;

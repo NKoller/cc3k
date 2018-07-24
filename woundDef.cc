@@ -14,7 +14,7 @@ void WoundDef::getUsed(Player &user) {
 	WoundDef::used = true;
 }
 
-std::string WoundDef::getDescription() const {
-	if (WoundDef::used) return description;
+std::string WoundDef::getDesc() const {
+	if (WoundDef::used) return desc;
 	else return "";
 }

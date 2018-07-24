@@ -14,7 +14,7 @@ void BoostAtk::getUsed(Player &user) {
 	BoostAtk::used = true;
 }
 
-std::string BoostAtk::getDescription() const {
-	if (BoostAtk::used) return description;
+std::string BoostAtk::getDesc() const {
+	if (BoostAtk::used) return desc;
 	else return "";
 }
