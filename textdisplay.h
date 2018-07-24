@@ -9,7 +9,8 @@
 
 class TextDisplay: public Observer {
     std::vector<std::vector <char>> cells;
-    int hp, atk, def, gold, floor;
+    int hp, atk, def, gold;
+    int floor = -1;
     std::string race;
     std::string actionString;
 public:

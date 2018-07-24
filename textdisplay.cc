@@ -23,7 +23,6 @@ TextDisplay::TextDisplay(string s){
         ++ind;
     }
     this->actionString = "Action: ";
-    floor = 1;
 }
 
 void TextDisplay::updateRace(string newRace){
@@ -32,6 +31,15 @@ void TextDisplay::updateRace(string newRace){
 
 void TextDisplay::updateFloor(int newFloor){
     floor = newFloor;
+    actionString += "Player Spawned";
+    if (floor != 1){
+        stringstream ss;
+        ss << floor;
+        string temp;
+        ss >> temp;
+        actionString += " on Floor " + temp;
+    }
+    actionString += "!";
 }
 
 
@@ -66,6 +74,9 @@ void TextDisplay::notify(Subject &subj){
         } else{
             string tempS = tempys + " deals " + to_string(dmgdlt) + " damage to PC ";
             actionString += tempS;
+        }
+        if (otherCharHP <= 0){
+            actionString += "and it died ";
         }
     }
     if (subj.getState() == State::PlayerMoved){

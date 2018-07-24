@@ -20,8 +20,8 @@ class Character: public Subject {
 protected:
 	char name; // should be private, this was just for testing
 	Stats status;
-	virtual void checkIfDead();
 public:
+	virtual void checkIfDead();
     Character(char name, bool canMove, Stats status);
 	void attach(Observer *o) override;
     bool moves();

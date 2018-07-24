@@ -11,7 +11,7 @@ int Shade::defend(Character &attacker) {
     return damage;
 }
 
-Shade::Shade(Observer* myTD): Player{Stats{125, 25, 25, 0}, myTD} {
+Shade::Shade(Observer* myTD): Player{Stats{125, 1000, 25, 0}, myTD} {
     this->attach(myTD);
     setState(State::UpdateTextdisplay);
     notifyObservers();

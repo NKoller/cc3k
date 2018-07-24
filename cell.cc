@@ -34,6 +34,7 @@ void Cell::notify(Subject &from) {
 	} else if (from.getState() == State::PlayerGone) {
 		playerDir = -1;
 	} else if (from.getState() == State::CharacterDied) {
+        
 		delete myChar;
 		myChar = nullptr;
 		setState(State::CharacterMoved); // maybe need a new state
@@ -139,5 +140,7 @@ void Cell::charDefend(Character &attacker) {
         dmgDealt = dmg;
         setState(State::GotAttacked);
         notifyObservers();
+        std::cout << "here lol" << std::endl;
+        myChar->checkIfDead();
     }
 }
