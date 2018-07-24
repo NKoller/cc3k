@@ -17,11 +17,12 @@ class Potion;
 
 class Character: public Subject {
     bool canMove;
-	virtual double generalAtk(Character &defender);
+//	virtual double generalAtk(Character &defender);
 protected:
 	char name; // should be private, this was just for testing
 	Stats status;
 public:
+   virtual double generalAtk(Character &defender);
 	virtual void checkIfDead();
     Character(char name, bool canMove, Stats status);
 	void attach(Observer *o) override;
@@ -40,7 +41,7 @@ public:
     virtual double attack(Merchant &defender);
     virtual double attack(Halfling &defender);
 	/*virtual void attack(Dragon &defender);
-    virtual void attack(Drow &defender);
+    virtual double attack(Drow &defender);
     virtual void attack(Vampire &defender);
     virtual void attack(Troll &defender);
     virtual void attack(Goblin &defender);*/
