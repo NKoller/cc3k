@@ -8,6 +8,8 @@ struct Stats {
     double Atk;
     double Def;
     double Gold;
+	Stats &operator+=(Stats &other); // not necessary
+	Stats &operator+=(Stats &&other);
 };
 
 #endif

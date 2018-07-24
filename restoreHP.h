@@ -1,11 +1,14 @@
 #ifndef _RESTOREHP_H_
 #define _RESTOREHP_H_
 
-class RestoreHP:public Potion {
+#include "potion.h"
+
+class RestoreHP: public Potion {
+  static bool used;
  public:
   RestoreHP();
-  bool hasBeenUsed();
-  ~RestoreHP();
+  static bool hasBeenUsed();
+  void getUsed(Player &user) override;
 };
 
 #endif

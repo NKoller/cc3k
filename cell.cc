@@ -1,6 +1,7 @@
 #include "cell.h"
 #include "info.h"
 #include "character.h"
+#include "item.h"
 #include <assert.h> //REMOVE
 #include <iostream> //REMOVE
 
@@ -34,7 +35,6 @@ void Cell::notify(Subject &from) {
 	} else if (from.getState() == State::PlayerGone) {
 		playerDir = -1;
 	} else if (from.getState() == State::CharacterDied) {
-        
 		delete myChar;
 		myChar = nullptr;
 		setState(State::CharacterMoved); // maybe need a new state
@@ -56,13 +56,11 @@ void Cell::makeStairs() {
 Info Cell::getInfo(){
 	char characterName;
     char itemName = 0;
-	/*
     if (myItem == nullptr){
         itemName = 0;
     } else{
-		itemName = '?';
-       // itemName = myItem->getName();
-    }*/
+		itemName = myItem->getName();
+    }
     if (myChar == nullptr){
         characterName = 0;
     } else{
@@ -71,8 +69,17 @@ Info Cell::getInfo(){
     return Info {type, itemName, characterName, otherName, otherHP, dmgDealt, dirTo, row, col};
 }
 
+bool Cell::addItem(Item *i) {
+	if (myItem) return false;
+	myItem = i;
+	setState(State::CharacterMoved); // not really proper
+	notifyObservers();
+	processedThisTurn = true;
+	return true;
+}
+
 bool Cell::addChar(Character *c, bool isPlayer) {
-	if (myChar) return false;
+	if (myChar || myItem) return false;
 	if (!isPlayer && type != CellType::Floor) return false;
 
 	myChar = c;
@@ -143,4 +150,16 @@ void Cell::charDefend(Character &attacker) {
         std::cout << "here lol" << std::endl;
         myChar->checkIfDead();
     }
+}
+
+void Cell::charUse(int dir) {
+	static_cast<Cell *>(observers[dir])->itemGetUsed(*myChar);
+}
+
+void Cell::itemGetUsed(Character &user) {
+	if (myItem) myItem->getUsed(user);
+	delete myItem;
+	myItem = nullptr;
+	setState(State::CharacterMoved); // not really proper
+	notifyObservers();
 }

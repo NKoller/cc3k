@@ -112,6 +112,7 @@ int main(){
             cout << s1 << endl;
         }   else if (s1 == "u"){
             cin >> s2;
+			f->playerUse(toDirection(s2));
         }   else if (s1 == "a"){
             cin >> s2;
             f->playerAttack(toDirection(s2));

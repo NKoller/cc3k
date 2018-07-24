@@ -13,6 +13,7 @@ class Elf;
 class Orc;
 class Merchant;
 class Halfling;
+class Potion;
 
 class Character: public Subject {
     bool canMove;
@@ -28,6 +29,8 @@ public:
     Stats getStats() const;
     //void setStats(Stats s);
     char getName();
+	virtual void use(Potion &p);
+	//virtual void use(Gold &g);
     virtual int defend(Character &attacker) = 0;
     virtual double attack(Shade &defender);
 	virtual double attack(Dwarf &defender);

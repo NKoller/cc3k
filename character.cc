@@ -7,6 +7,7 @@
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
+#include "potion.h"
 
 Character::Character(char name, bool canMove, Stats status):
 	name{name}, canMove{canMove}, status{status} {}
@@ -53,22 +54,15 @@ void Character::checkIfDead() {
 }
 
 double Character::generalAtk(Character &defender) {
-        double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
+    double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
-     if(defender.getName() != 'D') {
-	return 2 * ((damage > trunc)? trunc + 1 : trunc);
-     }
-     if(defender.getName() != 'G') {
-        return 1.5 * ((damage > trunc)? trunc + 1 : trunc);
-     }
-     if(this->getName() == 'M' && Merchant::hostile == false) {
-      return 0;
-     }
-      else {
-        return (damage > trunc)? trunc + 1 : trunc;
-   }
+	return (damage > trunc)? trunc + 1 : trunc;
 }
 
+void Character::use(Potion &p) {
+	status += p.getEffect();
+	// update textdisplay?
+}
 
 double Character::attack(Shade &defender) {
 	return generalAtk(defender);
@@ -79,11 +73,11 @@ double Character::attack(Dwarf &defender) {
 }
 
 double Character::attack(Human &defender) {
- return generalAtk(defender);
+	return generalAtk(defender);
 }
 
 double Character::attack(Elf &defender) {
-  return generalAtk(defender);
+	return generalAtk(defender);
 }
 
 double Character::attack(Orc &defender) {
