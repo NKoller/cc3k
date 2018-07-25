@@ -15,8 +15,9 @@ int Drow::defend(Character &attacker) {
 Drow::Drow(): Player{150, Stats{150, 25, 15, 0}} {}
 
 void Drow::use(Potion &p) {
-    Stats test = (p.getEffect() * 1.5);
+    reverse += p.reverse();
 	status += p.getEffect() * 1.5;
+    if (status.HP > maxHP) status.HP = maxHP;
 	setState(State::UpdateTextdisplay);
 	notifyObservers();
 }

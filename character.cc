@@ -39,7 +39,6 @@ bool Character::moves() {
 void Character::checkIfDead() {
 	if (status.HP <= 0) {
 		setState(State::CharacterDied);
-        std::cout << "call notify" << std::endl;
 		notifyObservers();
 		//std::cout << "Oh noey! " << name << " died! :(" << std::endl;
 	}

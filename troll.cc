@@ -13,6 +13,7 @@ int Troll::defend(Character &attacker) {
 
 void Troll::finishTurn() {
 	status.HP += 5;
+    if (status.HP > maxHP) status.HP = maxHP;
 	setState(State::UpdateTextdisplay);
 	notifyObservers();
 }

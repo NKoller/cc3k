@@ -21,6 +21,7 @@ double Goblin::generalAttack(Character &defender) {
 		setState(State::UpdateTextdisplay);
 		notifyObservers();
 	}
+    return damage;
 }
 
 Goblin::Goblin(): Player{110, Stats{110, 15, 20, 0}} {}

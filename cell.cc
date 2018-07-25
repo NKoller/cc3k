@@ -117,6 +117,7 @@ bool Cell::moveChar(int dir) {
 		charAttack(playerDir);
 		return true;
 	}
+    if (!hasPlayer && frozen) return true;
 
 	if (!observers[dir]) return false;
 	if (!myChar->moves()) return true;
@@ -156,6 +157,11 @@ void Cell::charDefend(Character &attacker, Cell &attacking_cell) {
 	if (myChar && type != CellType::Stairs){
         int dmg = myChar->defend(attacker);
 		if (dmg == Character::MISSED) {
+            dmgDealt = dmg;
+            otherName = attacker.getName();
+            otherHP = myChar->getStats().HP;
+            setState(State::GotAttacked);
+            notifyObservers();
 			return;
 			// notify TD that it missed?
 		} else if (dmg == Character::NO_ATTACK) {

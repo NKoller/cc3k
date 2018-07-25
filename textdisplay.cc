@@ -50,11 +50,8 @@ void TextDisplay::updateFloor(int newFloor){
 
 
 void TextDisplay::notify(Subject &subj){
-    cout << "receive notify" << endl;
     if (subj.getState() == State::UpdateTextdisplay || subj.getState() == State::CharacterDied){
-        cout << "get stats" << endl;
         Stats st = static_cast<Character *>(&subj)->getStats();
-        cout << "got stats" << endl;
         hp = st.HP;
         atk = st.Atk;
         def = st.Def;
@@ -93,15 +90,29 @@ void TextDisplay::notify(Subject &subj){
         string tempys;
         ss >> tempys;
         if (in.otherCharName == '@'){
+            if (dmgdlt == Character::MISSED){
+                stringstream qq;
+                qq << in.characterName;
+                string blah;
+                qq >> blah;
+                actionString += "PC attacks " + blah + " (" + 
+                    to_string(otherCharHP) + ") " +  "but misses ";
+            } else{
             string tempS = "PC deals " +to_string(dmgdlt) + " damage to " + in.characterName + 
                 " (" + to_string(otherCharHP) + ") ";
             actionString += tempS;
+            }
         } else{
-            string tempS = tempys + " deals " + to_string(dmgdlt) + " damage to PC ";
+            string tempS;
+            if (dmgdlt == Character::MISSED){
+                tempS = tempys + " attacks PC but misses ";
+            } else{
+        tempS = tempys + " deals " + to_string(dmgdlt) + " damage to PC ";
+            }
             actionString += tempS;
         }
         if (otherCharHP <= 0){
-            actionString += "and it died ";
+            actionString += "and it dies ";
         }
     }
     if (subj.getState() == State::PlayerMoved){
@@ -153,8 +164,8 @@ ostream &operator<<(ostream &out, TextDisplay &td){
         }
         out << endl;
     }
-    out << "Race: " << td.race << " Gold: " << td.gold << "           Floor " << td.floor 
-        << endl;
+    out << "Race: " << td.race << " Gold: " << td.gold
+        << "                         Floor " << td.floor << endl;
     out << "HP: " << td.hp << endl;
     out << "Atk: " << td.atk << endl;
     out << "Def: " << td.def << endl;
@@ -164,7 +175,7 @@ ostream &operator<<(ostream &out, TextDisplay &td){
     td.moveString += td.actionString;
     } else if (td.moveString.size() != 0){
         td.moveString.pop_back();
-        td.actionString += ".";
+        td.moveString += ".";
     }
     if (td.moveString != ""){
     out << "Action: " << td.moveString << endl;

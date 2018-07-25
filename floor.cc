@@ -318,6 +318,14 @@ void Floor::playerUse(Direction dir) {
 	moveEnemies();
 }
 
+void Floor::freeze() {
+    for (auto &r : map) {
+        for (auto &c : r) {
+            if (c) c->frozen = !(c->frozen);
+        }
+    }
+}
+
 ostream &operator<<(ostream &out, const Floor &f) {
 	return out << *(f.td);
 }

@@ -43,9 +43,10 @@ bool checkWin(Floor *f, int &floorsBeaten, const int MAX_FLOORS){
 }
 
 bool quitPrompt(){
-    cout << "Would you like to play again? Y/n" << endl;
+    cout << "Would you like to play again? Y/N" << endl;
     string s;
     cin >> s;
+    if (s != "Y" && s != "N") return quitPrompt();
     return playAgainHuh(s);
 }
 
@@ -59,7 +60,7 @@ int main(){
     string theRace;
     while (true){
         while (true){
-        cout << "Pick a race: s/d/v/g/t";
+        cout << "Pick a race: s/d/v/g/t (q to quit)" << endl;
         cin >> s1;
         if (s1 != "s" && s1 != "d" && s1 != "v" && s1 != "g" && s1 != "t" && s1 != "q"){
             continue;
@@ -68,23 +69,18 @@ int main(){
          if (s1 == "s"){
             theRace = "Shade";
             thePlayer = new Shade();
-            cout << s1 << endl;
 		} else if (s1 == "d"){
             theRace = "Drow";
             thePlayer = new Drow();
-            cout << s1 << endl;
 		} else if (s1 == "v"){
             theRace = "Vampire";
             thePlayer = new Vampire();
-            cout << s1 << endl;
 		} else if (s1 == "g"){
             theRace = "Goblin";
             thePlayer = new Goblin();
-            cout << s1 << endl;
 		} else if (s1 == "t"){
             theRace = "Troll";
             thePlayer = new Troll();
-            cout << s1 << endl;
 		}
          else if (s1 == "q") return 0;
          break;
@@ -98,7 +94,6 @@ int main(){
 		cout << *f;
 		cin >> s1;
 		if (s1 == "q"){
-			cout << "quit" << endl;
                 delete f;
                 delete thePlayer;
                 if (quitPrompt()){
@@ -123,9 +118,11 @@ int main(){
 		} else if (s1 == "sw"){
             f->movePlayer(Direction::SW);
 		} else if (s1 == "f"){
-            cout << s1 << endl;
+            f->freeze();
 		} else if (s1 == "r"){
-            cout << s1 << endl;
+            delete f;
+            delete thePlayer;
+            break;
         } else if (s1 == "u"){
             cin >> s2;
 			f->playerUse(toDirection(s2));
@@ -144,6 +141,7 @@ int main(){
 			floorsBeaten += 1;
             f->td->updateFloor(floorsBeaten + 1);
 			if (floorsBeaten == MAX_FLOORS){
+                cout << "Congratulations! Your score is: " << thePlayer->getScore() << " points!" << endl;
                     delete f;
                     delete thePlayer;
                     if (quitPrompt()){
@@ -156,6 +154,7 @@ int main(){
 			f = new Floor{file, thePlayer};
             f->td->updateFloor(floorsBeaten + 1);
         }
+        thePlayer->finishTurn();
     }
 
     }

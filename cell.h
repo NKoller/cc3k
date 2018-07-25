@@ -28,6 +28,7 @@ public:
 	int playerDir = -1;
     Character* getChar()const;
 	bool processedThisTurn = false;
+    bool frozen = false;
     Info getInfo();
 	Cell(CellType type, unsigned int row, unsigned int col);
 	CellType getType() const;

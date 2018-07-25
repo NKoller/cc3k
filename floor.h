@@ -40,6 +40,7 @@ public:
 	bool gameLost() const;
     void playerAttack(Direction dir);
 	void playerUse(Direction dir);
+    void freeze();
 	friend std::ostream &operator<<(std::ostream &out, const Floor &f);
 };
 
