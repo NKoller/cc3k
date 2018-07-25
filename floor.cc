@@ -232,7 +232,7 @@ Floor::Floor(string file, Player* thePlayer) {
 						if (input[i] == ' ' || input[i] == '|' || input[i] == '-') {
 								map[row].emplace_back(nullptr);
 						} else if (input[i] == '.' || input[i] == '6' || input[i] == '7' ||
-                                   input[i] == '8' || input[i] == '9' || input[i] == 'D') {
+						           input[i] == '8' || input[i] == '9' || input[i] == 'D') {
 								map[row].emplace_back(new Cell{CellType::Floor, row, col});
 						} else if (input[i] == '+') {
 								map[row].emplace_back(new Cell{CellType::Door, row, col});

@@ -48,8 +48,6 @@ void TextDisplay::updateFloor(int newFloor){
 		}
 }
 
-
-
 void TextDisplay::notify(Subject &subj){
 		if (subj.getState() == State::UpdateTextdisplay ||
             subj.getState() == State::CharacterDied){
@@ -95,11 +93,11 @@ void TextDisplay::notify(Subject &subj){
 										string blah;
 										qq >> blah;
 										actionString += "PC attacks " + blah + " (" + 
-                                                     to_string(otherCharHP) + ") " +  "but misses ";
+										                to_string(otherCharHP) + ") " +  "but misses ";
 								} else{
 										string tempS = "PC deals " +to_string(dmgdlt) +
-                                                       " damage to " + in.characterName +
-                                                       "  (" + to_string(otherCharHP) + ") ";
+										               " damage to " + in.characterName +
+										               "  (" + to_string(otherCharHP) + ") ";
 										actionString += tempS;
 								}
 						} else{
@@ -108,7 +106,7 @@ void TextDisplay::notify(Subject &subj){
 										tempS = tempys + " attacks PC but misses ";
 								} else{
 										tempS = tempys + " deals " + to_string(dmgdlt) +
-                                                " damage to PC ";
+										        " damage to PC ";
 								}
 								actionString += tempS;
 						}
@@ -165,8 +163,8 @@ ostream &operator<<(ostream &out, TextDisplay &td){
 				}
 				out << endl;
 		}
-		out << "Race: " << td.race << " Gold: " << td.gold
-				<< "                         Floor " << td.floor << endl;
+		out << "Race: " << td.race << " Gold: " << td.gold <<
+		       "                         Floor " << td.floor << endl;
 		out << "HP: " << td.hp << endl;
 		out << "Atk: " << td.atk << endl;
 		out << "Def: " << td.def << endl;
