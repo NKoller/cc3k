@@ -6,7 +6,7 @@
 class Troll: public Player {
 public:
 	int defend(Character &attacker) override;
-	//void finishTurn() override;
+	void finishTurn() override;
 	Troll(Observer *myTd);
 	~Troll();
 };

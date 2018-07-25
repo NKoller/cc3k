@@ -32,26 +32,9 @@ Stats Character::getStats() const {
 	return status;
 }
 
-/*
-void Character::setStats(Stats s) {
-    status.HP = s.HP;
-    status.Atk = s.Atk;
-    status.Def = s.Def;
-    status.Gold = s.Gold;
-}*/
-
 bool Character::moves() {
  return canMove;
 }
-
-/*//helper
-void change(int &type, const int amt) {
- type += amt;
- if(type < 0) {
-   type = 0;
- }
-}*/
-
 
 void Character::checkIfDead() {
 	if (status.HP <= 0) {
@@ -63,7 +46,7 @@ void Character::checkIfDead() {
 }
 
 double Character::generalAttack(Character &defender) {
-    double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
+    double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
 	int trunc = damage;
 	damage = (damage > trunc)? trunc + 1 : trunc;
 

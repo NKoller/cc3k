@@ -1,19 +1,50 @@
 #include "vampire.h"
+#include "dwarf.h"
 #include <limits>
   
 int Vampire::defend(Character &attacker) {
     double damage = attacker.attack(*this);
 	if (damage != Character::MISSED && damage != Character::NO_ATTACK) {
     	status.HP -= damage;
-    	checkIfDead();
+		if (status.HP < 0) status.HP = 0;
     	setState(State::UpdateTextdisplay);
     	notifyObservers();
 	}
     return damage;
 }
 
-Vampire::Vampire(Observer* myTD): Player{std::numeric_limits<int>::max(), Stats{50, 25, 25, 0}, myTD} {
-    this->attach(myTD);
+double Vampire::generalAttack(Character &defender) {
+    double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
+	int trunc = damage;
+	damage = (damage > trunc)? trunc + 1 : trunc;
+
+	int missed = rand() % 2;
+	if (missed) return Character::MISSED;
+	else {
+		status.HP += 5;
+		setState(State::UpdateTextdisplay);
+		notifyObservers();
+		return damage;
+	}
+}
+
+double Vampire::attack(Dwarf &defender) {
+	double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
+	int trunc = damage;
+	damage = (damage > trunc)? trunc + 1 : trunc;
+
+	int missed = rand() % 2;
+	if (missed) return Character::MISSED;
+	else {
+		status.HP -= 5;
+		setState(State::UpdateTextdisplay);
+		notifyObservers();
+		return damage;
+	}
+}
+
+Vampire::Vampire(Observer* myTD):
+	Player{std::numeric_limits<int>::max(), Stats{50, 25, 25, 0}, myTD} {
     setState(State::UpdateTextdisplay);
     notifyObservers();
 }

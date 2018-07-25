@@ -4,6 +4,7 @@
 #include "character.h"
 
 class Player: public Character {
+ protected:
   std::vector<Potion *> used;
  public:
   virtual void use(Potion &p);
@@ -11,6 +12,7 @@ class Player: public Character {
   virtual void reversePotions();
   virtual void finishTurn();
   virtual double generalAttack(Character &defender) override;
+  virtual int getScore() const;
   Player(int maxHP, Stats status, Observer* myTD);
   virtual ~Player();
 };
