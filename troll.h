@@ -4,11 +4,11 @@
 #include "player.h"
 
 class Troll: public Player {
-public:
-	int defend(Character &attacker) override;
-	void finishTurn() override;
-	Troll();
-	~Troll();
+	public:
+		int defend(Character &attacker) override;
+		void finishTurn() override;
+		Troll();
+		~Troll();
 };
 
 #endif

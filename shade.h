@@ -4,11 +4,11 @@
 #include "player.h"
 
 class Shade: public Player {
- public:
-  int defend(Character &attacker) override;
-  int getScore() const override; 
-  Shade();
-  ~Shade();
+	public:
+		int defend(Character &attacker) override;
+		int getScore() const override; 
+		Shade();
+		~Shade();
 };
 
 #endif

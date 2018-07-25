@@ -4,12 +4,11 @@
 #include "player.h"
 
 class Drow: public Player {
- public:
-  int defend(Character &attacker) override;
-  void use(Potion &p) override;
-  void reversePotions() override;
-  Drow();
-  ~Drow();
+	public:
+		int defend(Character &attacker) override;
+		void use(Potion &p) override;
+		Drow();
+		~Drow();
 };
 
 #endif

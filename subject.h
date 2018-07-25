@@ -17,7 +17,6 @@ public:
 	void notifyObservers();
 	State getState() const;
 	virtual ~Subject() = 0;
-	//virtual Info getInfo();
 };
 
 #endif

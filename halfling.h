@@ -4,10 +4,10 @@
 #include "character.h"
 
 class Halfling: public Character {
- public:
-  Halfling();
-  ~Halfling();
-  int defend(Character &attacker) override;
+	public:
+		Halfling();
+		~Halfling();
+		int defend(Character &attacker) override;
 };
 
 #endif

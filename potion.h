@@ -4,9 +4,9 @@
 #include "item.h"
 
 class Potion: public Item {
- public:
-  Potion(Stats effect, std::string desc);
-  virtual Stats reverse() const;
+	public:
+		Potion(Stats effect, std::string desc);
+		virtual Stats reverse() const;
 };
 
 #endif

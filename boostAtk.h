@@ -4,12 +4,12 @@
 #include "potion.h"
 
 class BoostAtk: public Potion {
-  static bool used;
- public:
-  BoostAtk();
-  static bool hasBeenUsed();
-  void getUsed(Player &user) override;
-  std::string getDesc() const override;
+		static bool used;
+	public:
+		BoostAtk();
+		static bool hasBeenUsed();
+		void getUsed(Player &user) override;
+		std::string getDesc() const override;
 };
 
 #endif

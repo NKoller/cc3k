@@ -4,13 +4,14 @@
 #include "potion.h"
 
 class RestoreHP: public Potion {
-  static bool used;
- public:
-  RestoreHP();
-  static bool hasBeenUsed();
-  void getUsed(Player &user) override;
-  std::string getDesc() const override;
-  Stats reverse() const;
+		static bool used;
+
+	public:
+		RestoreHP();
+		static bool hasBeenUsed();
+		void getUsed(Player &user) override;
+		std::string getDesc() const override;
+		Stats reverse() const;
 };
 
 #endif

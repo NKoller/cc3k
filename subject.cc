@@ -2,23 +2,21 @@
 #include "observer.h"
 
 void Subject::setState(State newS) {
-	s = newS;
+		s = newS;
 }
 
 void Subject::attach(Observer *o) {
-	observers.emplace_back(o);
+		observers.emplace_back(o);
 }
 
 void Subject::notifyObservers() {
-	for (auto &ob : observers) {
-		if (ob) ob->notify(*this);
-	}
+		for (auto &ob : observers) {
+				if (ob) ob->notify(*this);
+		}
 }
 
 State Subject::getState() const {
-	return s;
+		return s;
 }
 
 Subject::~Subject() {}
-
-//Info Subject::getInfo() {}

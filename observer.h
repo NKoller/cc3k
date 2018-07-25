@@ -5,9 +5,9 @@ class Subject;
 class Cell;
 
 class Observer {
-public:
-	virtual void notify(Subject &from) = 0;
-	virtual ~Observer();
+	public:
+		virtual void notify(Subject &from) = 0;
+		virtual ~Observer();
 };
 
 #endif
