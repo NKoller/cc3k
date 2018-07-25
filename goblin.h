@@ -7,7 +7,7 @@ class Goblin: public Player {
  public:
   int defend(Character &attacker) override;
   double generalAttack(Character &defender);
-  Goblin(Observer* myTD);
+  Goblin();
   ~Goblin();
 };
 

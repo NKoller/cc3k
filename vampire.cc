@@ -43,7 +43,6 @@ double Vampire::attack(Dwarf &defender) {
 	}
 }
 
-Vampire::Vampire(Observer* myTD):
-	Player{std::numeric_limits<int>::max(), Stats{50, 25, 25, 0}, myTD} {}
+Vampire::Vampire():	Player{std::numeric_limits<int>::max(), Stats{50, 25, 25, 0}} {}
 
 Vampire::~Vampire() {}

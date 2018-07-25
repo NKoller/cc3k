@@ -27,11 +27,7 @@ void Player::reversePotions() {
 
 int Player::getScore() const { return status.Gold; }
 
-Player::Player(int maxHP, Stats status, Observer* myTD): Character{'@', true, maxHP, status} {
-    this->attach(myTD);
-    setState(State::UpdateTextdisplay);
-    notifyObservers();
-}
+Player::Player(int maxHP, Stats status): Character{'@', true, maxHP, status} {}
 
 Player::~Player() {
 	for (auto &pot : used) {
