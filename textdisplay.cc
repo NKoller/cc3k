@@ -22,7 +22,8 @@ TextDisplay::TextDisplay(string s){
         cells[r].emplace_back(s[ind]);
         ++ind;
     }
-    this->actionString = "Action: ";
+    this->actionString = "";
+    moveString = "";
 }
 
 void TextDisplay::updateRace(string newRace){
@@ -31,15 +32,14 @@ void TextDisplay::updateRace(string newRace){
 
 void TextDisplay::updateFloor(int newFloor){
     floor = newFloor;
-    actionString += "Player Spawned";
+    actionString += "Player Spawned ";
     if (floor != 1){
         stringstream ss;
         ss << floor;
         string temp;
         ss >> temp;
-        actionString += " on Floor " + temp;
+        actionString += " on Floor " + temp + " ";
     }
-    actionString += "!";
 }
 
 
@@ -56,8 +56,24 @@ void TextDisplay::notify(Subject &subj){
     
     else{
 	Info in = static_cast<Cell *>(&subj)->getInfo();
+    if (subj.getState() == State::DeclareItem){
+        actionString += "and sees ";
+        if (in.descrip == ""){
+            actionString += "some unknown potion ";
+        } else{
+            actionString += in.descrip + " ";
+        }
+    }
+    if (subj.getState() == State::ItemUsed){
+        if (in.descrip != ""){
+        if (actionString.size() != 0 || moveString.size() != 0){
+            actionString += "and ";
+        }
+            actionString += "PC uses " + in.descrip + " ";
+        }
+    }
     if (subj.getState() == State::GotAttacked){
-        if (actionString.size() != 8){
+        if (actionString.size() != 0 || moveString.size() != 0){
             actionString += "and ";
         }
         int dmgdlt = in.damageDealt;
@@ -80,26 +96,26 @@ void TextDisplay::notify(Subject &subj){
         }
     }
     if (subj.getState() == State::PlayerMoved){
-        if (actionString.size() != 8){
-        actionString += "and ";
+        if (moveString.size() != 0){
+        moveString += "and ";
     }
-    actionString += "PC moves ";
+    moveString += "PC moves ";
     if (in.direction == 1){
-        actionString += "North ";
+        moveString += "North ";
     } else if (in.direction == 2){
-        actionString += "Northeast ";
+        moveString += "Northeast ";
     } else if (in.direction == 4){
-        actionString += "East ";
+        moveString += "East ";
     } else if (in.direction == 7){
-        actionString += "Southeast ";
+        moveString += "Southeast ";
     } else if (in.direction == 6){
-        actionString += "South ";
+        moveString += "South ";
     } else if (in.direction == 5){
-        actionString += "Southwest ";
+        moveString += "Southwest ";
     } else if (in.direction == 3){
-        actionString += "West ";
+        moveString += "West ";
     } else {
-        actionString += "Northwest ";
+        moveString += "Northwest ";
     }
     }
     if (subj.getState() == State::CharacterMoved ||
@@ -133,11 +149,18 @@ ostream &operator<<(ostream &out, TextDisplay &td){
     out << "HP: " << td.hp << endl;
     out << "Atk: " << td.atk << endl;
     out << "Def: " << td.def << endl;
-    if (td.actionString.size() != 8){
+    if (td.actionString.size() != 0){
     td.actionString.pop_back();
     td.actionString += ".";
-    out << td.actionString << endl;
+    td.moveString += td.actionString;
+    } else if (td.moveString.size() != 0){
+        td.moveString.pop_back();
+        td.actionString += ".";
     }
-    td.actionString = "Action: ";
+    if (td.moveString != ""){
+    out << "Action: " << td.moveString << endl;
+    }
+    td.moveString = "";
+    td.actionString = "";
 	return out;
 }

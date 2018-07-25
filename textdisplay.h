@@ -13,6 +13,7 @@ class TextDisplay: public Observer {
     int floor = -1;
     std::string race;
     std::string actionString;
+    std::string moveString;
 public:
     void updateFloor (int newFloor);
     void updateRace (std::string newRace);

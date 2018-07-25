@@ -2,6 +2,7 @@
 #define _INFO_H_
 
 #include "cell.h"
+#include <string.h>
 
 struct Info {
   CellType type;
@@ -11,6 +12,7 @@ struct Info {
   double otherCharHP;
   double damageDealt;
   int direction;
+  std::string descrip;
   unsigned int row;
   unsigned int col;
 };

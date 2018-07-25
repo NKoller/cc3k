@@ -2,6 +2,6 @@
 #define _STATE_H_
 
 enum class State { PlayerHere, PlayerGone, CharacterDied, CharacterMoved, PlayerMoved, ItemUsed,
-    UpdateTextdisplay, GotAttacked};
+    UpdateTextdisplay, GotAttacked, DeclareItem};
 
 #endif

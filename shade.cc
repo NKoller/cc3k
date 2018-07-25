@@ -3,9 +3,9 @@
 int Shade::defend(Character &attacker) {
 	double damage = attacker.attack(*this);
 	status.HP -= damage;
+    if (status.HP <= 0) status.HP = 0;
 	//std::cout << "Owie! " << name << " took " << damage << " damage! ";i
 	//std::cout << status.HP << " wittle HPs left..." << std::endl;
-	checkIfDead();
     setState(State::UpdateTextdisplay);
     notifyObservers();
     return damage;

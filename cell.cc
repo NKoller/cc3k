@@ -32,6 +32,10 @@ void Cell::notify(Subject &from) {
 		//if (myChar) std::cout << "notified by player at " << in.row << " " << in.col;
 		playerDir = directionTo(in.row, in.col);
 		//if (myChar) std::cout << " direction " << playerDir << std::endl;
+        if (myItem){
+            setState(State::DeclareItem);
+            notifyObservers();
+        }
 	} else if (from.getState() == State::PlayerGone) {
 		playerDir = -1;
 	} else if (from.getState() == State::CharacterDied) {
@@ -60,13 +64,14 @@ Info Cell::getInfo(){
         itemName = 0;
     } else{
 		itemName = myItem->getName();
+        descrip = myItem->getDesc();
     }
     if (myChar == nullptr){
         characterName = 0;
     } else{
         characterName = myChar->getName();
     }
-    return Info {type, itemName, characterName, otherName, otherHP, dmgDealt, dirTo, row, col};
+    return Info {type, itemName, characterName, otherName, otherHP, dmgDealt, dirTo, descrip, row, col};
 }
 
 bool Cell::addItem(Item *i) {
@@ -134,7 +139,9 @@ bool Cell::moveChar(int dir) {
 }
 
 void Cell::charAttack(int dir) {
+    if (observers[dir]){
 	static_cast<Cell *>(observers[dir])->charDefend(*myChar, *this);
+    }
 	//std::cout << "attempting to attack " << dir << std::endl;
 }
 
@@ -167,12 +174,16 @@ void Cell::charDefend(Character &attacker, Cell &attacking_cell) {
 }
 
 void Cell::charUse(int dir) {
+    if (observers[dir]){
 	static_cast<Cell *>(observers[dir])->itemGetUsed(*myChar);
+    }
 }
 
 void Cell::itemGetUsed(Character &user) {
 	if (myItem) myItem->getUsed(user);
 	//delete myItem; player will delete it
+    setState(State::ItemUsed);
+    notifyObservers();
 	myItem = nullptr;
 	setState(State::CharacterMoved); // not really proper
 	notifyObservers();

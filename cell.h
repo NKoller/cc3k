@@ -4,6 +4,7 @@
 struct Info;
 #include "subject.h"
 #include "observer.h"
+#include <string>
 class Character;
 class Item;
 
@@ -21,6 +22,7 @@ class Cell: public Observer, public Subject {
     int otherHP = -1;
     int dmgDealt = -1;
     int dirTo = -1;
+    std::string descrip = "";
 
 public:
 	int playerDir = -1;
