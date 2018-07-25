@@ -224,6 +224,9 @@ void Floor::moveEnemies() {
 Floor::Floor(string file, Player* thePlayer) {
 	string input = readFile(file);
     myPlayer = thePlayer;
+	// Initialize display
+	td = new TextDisplay{input, myPlayer->getStats()};
+    myPlayer->attach(td);	
 	// Initialize 2-D Cell vector
 	unsigned int i = 0;
 	unsigned int row = 0;
@@ -231,20 +234,47 @@ Floor::Floor(string file, Player* thePlayer) {
 		map.emplace_back();
 		unsigned int col = 0;
 		while(input[i] != '\n' && i < input.length()) {
-			if(input[i] == ' ' || input[i] == '|' || input[i] == '-') {
+			if (input[i] == ' ' || input[i] == '|' || input[i] == '-') {
 				map[row].emplace_back(nullptr);
-			}
-			else if(input[i] == '.') {
+			} else if(input[i] == '.' || input[i] == '6' || input[i] == '7' ||
+			          input[i] == '8' || input[i] == '9' || input[i] == 'D') {
 				map[row].emplace_back(new Cell{CellType::Floor, row, col});
-			}
-			else if(input[i] == '+') {
+			} else if(input[i] == '+') {
 				map[row].emplace_back(new Cell{CellType::Door, row, col});
-			}
-			else if(input[i] == '#') {
+			} else if(input[i] == '#') {
 				map[row].emplace_back(new Cell{CellType::Passage, row, col});
-			}
-			else {
-				// throw i/o exception?
+			} else {
+				Cell *add = new Cell{CellType::Floor, row, col};
+				if(input[i] == '0') {
+					add->addItem(new RestoreHP{});
+				} else if(input[i] == '1') {
+					add->addItem(new BoostAtk{});
+				} else if(input[i] == '2') {
+					add->addItem(new BoostDef{});
+				} else if(input[i] == '3') {
+					add->addItem(new PoisonHP{});
+				} else if(input[i] == '4') {
+					add->addItem(new WoundAtk{});
+				} else if(input[i] == '5') {
+					add->addItem(new WoundDef{});
+				} else if(input[i] == '@') {
+					add->addChar(myPlayer, true);
+					player.r = row;
+					player.c = col;
+				} else if(input[i] == 'H') {	
+					add->addChar(new Human{});
+				} else if(input[i] == 'W') {	
+					add->addChar(new Dwarf{});
+				} else if(input[i] == 'L') {	
+					add->addChar(new Halfling{});
+				} else if(input[i] == 'E') {	
+					add->addChar(new Elf{});
+				} else if(input[i] == 'O') {	
+					add->addChar(new Orc{});
+				} else if(input[i] == 'M') {	
+					add->addChar(new Merchant{});
+				}
+				map[row].emplace_back(add);
 			}
 			++i;
 			++col;
@@ -252,15 +282,12 @@ Floor::Floor(string file, Player* thePlayer) {
 		++i;
 		++row;
 	}
-	// Initialize display
-	td = new TextDisplay{input, myPlayer->getStats()};
-    myPlayer->attach(td);
 	// Initialize chambers and observers
 	findChambers();
 	addObservers();
 	// Span characters and items
 	srand(time(nullptr));
-	spawn();
+	if (file == "empty.txt") spawn();
 }
 
 Floor::~Floor() {

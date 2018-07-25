@@ -50,9 +50,16 @@ bool quitPrompt(){
     return playAgainHuh(s);
 }
 
-int main(){
-    Player* thePlayer;    
-	const string file = "empty.txt";
+int main(int num_args, char *args[]) {
+	if (num_args > 2) {
+		cerr << "Format:  cc3k  OR  cc3k [inputfile]" << endl;
+		return 1;
+	}
+	string file;
+	if (num_args == 2) file = args[1];
+	else file = "empty.txt";
+
+	Player *thePlayer;
 	string s1, s2;
     int floorsBeaten = 0;
     Floor* f;

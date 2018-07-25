@@ -20,6 +20,8 @@ TextDisplay::TextDisplay(string s, Stats status){
             ++ind;
             cells.emplace_back();
         }
+		if ('0' <= s[ind] && s[ind] <= '5') s[ind] = 'P';
+		if ('6' <= s[ind] && s[ind] <= '9' || s[ind] == 'D') s[ind] = '.';
         cells[r].emplace_back(s[ind]);
         ++ind;
     }
