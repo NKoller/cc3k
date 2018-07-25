@@ -18,14 +18,10 @@ double Vampire::generalAttack(Character &defender) {
 	int trunc = damage;
 	damage = (damage > trunc)? trunc + 1 : trunc;
 
-	int missed = rand() % 2;
-	if (missed) return Character::MISSED;
-	else {
-		status.HP += 5;
-		setState(State::UpdateTextdisplay);
-		notifyObservers();
-		return damage;
-	}
+	status.HP += 5;
+	setState(State::UpdateTextdisplay);
+	notifyObservers();
+	return damage;
 }
 
 double Vampire::attack(Dwarf &defender) {
@@ -33,14 +29,10 @@ double Vampire::attack(Dwarf &defender) {
 	int trunc = damage;
 	damage = (damage > trunc)? trunc + 1 : trunc;
 
-	int missed = rand() % 2;
-	if (missed) return Character::MISSED;
-	else {
-		status.HP -= 5;
-		setState(State::UpdateTextdisplay);
-		notifyObservers();
-		return damage;
-	}
+	status.HP -= 5;
+	setState(State::UpdateTextdisplay);
+	notifyObservers();
+	return damage;
 }
 
 Vampire::Vampire():	Player{std::numeric_limits<int>::max(), Stats{50, 25, 25, 0}} {}

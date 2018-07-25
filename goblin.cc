@@ -16,14 +16,10 @@ double Goblin::generalAttack(Character &defender) {
 	int trunc = damage;
 	damage = (damage > trunc)? trunc + 1 : trunc;
 
-	int missed = rand() % 2;
-	if (missed) return Character::MISSED;
-	else {
-		if (damage >= defender.getStats().HP) {
-			status.Gold += 5;
-			setState(State::UpdateTextdisplay);
-			notifyObservers();
-		}
+	if (damage >= defender.getStats().HP) {
+		status.Gold += 5;
+		setState(State::UpdateTextdisplay);
+		notifyObservers();
 	}
 }
 
