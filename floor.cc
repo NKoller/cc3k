@@ -209,12 +209,14 @@ void Floor::moveEnemies() {
 	for (unsigned int r = 0; r < map.size(); ++r) {
 		for (unsigned int c = 0; c < map[0].size(); ++c) {
 			if (!map[r][c] || (r == player.r && c == player.c)) continue;
+			int counter = 0;
 			int dir;
 			do {
 				//std::cout << r << "move" << c << "  ";
 				dir = rand() % 8;
 				//std::cout << dir << std::endl;
-			} while (!(map[r][c]->moveChar(dir)));
+				++counter;
+			} while (!(map[r][c]->moveChar(dir)) && counter < 100);
 		}
 	}
 }

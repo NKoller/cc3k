@@ -18,3 +18,7 @@ std::string RestoreHP::getDesc() const {
 	if (RestoreHP::used) return desc;
 	else return "";
 }
+
+Stats RestoreHP::reverse() const {
+	return Stats{0, 0, 0, 0};
+}

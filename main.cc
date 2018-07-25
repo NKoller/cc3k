@@ -68,52 +68,52 @@ int main(){
 		}
 		if (s1 == "no"){
             f->movePlayer(Direction::N);
-		}	else if (s1 == "so"){
+		} else if (s1 == "so"){
             f->movePlayer(Direction::S);
-		}	else if (s1 == "ea"){
+		} else if (s1 == "ea"){
             f->movePlayer(Direction::E);
-		}	else if (s1 == "we"){
+		} else if (s1 == "we"){
             f->movePlayer(Direction::W);
-		}	else if (s1 == "ne"){
+		} else if (s1 == "ne"){
             f->movePlayer(Direction::NE);
-		}	else if (s1 == "nw"){
+		} else if (s1 == "nw"){
             f->movePlayer(Direction::NW);
-		}	else if (s1 == "se"){
+		} else if (s1 == "se"){
             f->movePlayer(Direction::SE);
-		}	else if (s1 == "sw"){
+		} else if (s1 == "sw"){
             f->movePlayer(Direction::SW);
-		}	else if (s1 == "s"){
+		} else if (s1 == "s"){
             theRace = "Shade";
             f->td->updateRace(theRace);
             cout << s1 << endl;
-		}	else if (s1 == "d"){
+		} else if (s1 == "d"){
             theRace = "Drow";
             f->td->updateRace(theRace);
 
             cout << s1 << endl;
-		}	else if (s1 == "v"){
+		} else if (s1 == "v"){
             theRace = "Vampire";
             f->td->updateRace(theRace);
 
             cout << s1 << endl;
-		}	else if (s1 == "g"){
+		} else if (s1 == "g"){
             theRace = "Goblin";
             f->td->updateRace(theRace);
 
             cout << s1 << endl;
-		}	else if (s1 == "t"){
+		} else if (s1 == "t"){
             theRace = "Troll";
             f->td->updateRace(theRace);
 
             cout << s1 << endl;
-		}	else if (s1 == "f"){
+		} else if (s1 == "f"){
             cout << s1 << endl;
-		}	else if (s1 == "r"){
+		} else if (s1 == "r"){
             cout << s1 << endl;
-        }   else if (s1 == "u"){
+        } else if (s1 == "u"){
             cin >> s2;
 			f->playerUse(toDirection(s2));
-        }   else if (s1 == "a"){
+        } else if (s1 == "a"){
             cin >> s2;
             f->playerAttack(toDirection(s2));
         }

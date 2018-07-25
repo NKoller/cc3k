@@ -6,7 +6,7 @@
 class Potion: public Item {
  public:
   Potion(Stats effect, std::string desc);
-  Stats reverse() const;
+  virtual Stats reverse() const;
 };
 
 #endif

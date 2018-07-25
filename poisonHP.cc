@@ -18,3 +18,7 @@ std::string PoisonHP::getDesc() const {
 	if (PoisonHP::used) return desc;
 	else return "";
 }
+
+Stats PoisonHP::reverse() const {
+	return Stats{0, 0, 0, 0};
+}

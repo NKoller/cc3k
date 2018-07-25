@@ -10,6 +10,7 @@ class RestoreHP: public Potion {
   static bool hasBeenUsed();
   void getUsed(Player &user) override;
   std::string getDesc() const override;
+  Stats reverse() const;
 };
 
 #endif

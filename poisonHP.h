@@ -10,6 +10,7 @@ class PoisonHP: public Potion {
   bool hasBeenUsed();
   void getUsed(Player &user) override;
   std::string getDesc() const override;
+  Stats reverse() const;
 };
 
 #endif

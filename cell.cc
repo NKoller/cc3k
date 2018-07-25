@@ -156,10 +156,12 @@ void Cell::charDefend(Character &attacker, Cell &attacking_cell) {
 			int temp = attacking_cell.playerDir;
 			attacking_cell.playerDir = -1;
 			attacking_cell.processedThisTurn = false;
+			int counter;
 			int dir;
 			do {
 				dir = rand() % 8;
-			} while (!attacking_cell.moveChar(dir));
+				++counter;
+			} while (!attacking_cell.moveChar(dir) && counter < 100);
 			attacking_cell.playerDir = temp;
 		} else {
     	    otherName = attacker.getName();
@@ -167,6 +169,7 @@ void Cell::charDefend(Character &attacker, Cell &attacking_cell) {
         	dmgDealt = dmg;
     	    setState(State::GotAttacked);
 	        notifyObservers();
+        	std::cout << "here lol" << std::endl;
         	myChar->checkIfDead();
 		}
     }
