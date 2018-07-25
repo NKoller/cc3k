@@ -1,6 +1,12 @@
 #include <iostream>
 #include <string>
 #include "floor.h"
+#include "player.h"
+#include "shade.h"
+#include "troll.h"
+#include "vampire.h"
+#include "drow.h"
+#include "goblin.h"
 using namespace std;
 
 Direction toDirection(string s) {
@@ -28,7 +34,7 @@ bool playAgainHuh(string s){
 }
 
 bool checkWin(Floor *f, int &floorsBeaten, const int MAX_FLOORS){
-    if (f->gameOver()){
+    if (f->gameWon()){
         floorsBeaten += 1;
         return (floorsBeaten == MAX_FLOORS);
     }
@@ -44,27 +50,61 @@ bool quitPrompt(){
 }
 
 int main(){
+    Player* thePlayer;    
 	const string file = "empty.txt";
 	string s1, s2;
     int floorsBeaten = 0;
-    Floor *f = new Floor{file};
-    f->td->updateFloor(floorsBeaten + 1);
+    Floor* f;
     const int MAX_FLOORS = 5;
     string theRace;
+    while (true){
+        while (true){
+        cout << "Pick a race: s/d/v/g/t";
+        cin >> s1;
+        if (s1 != "s" && s1 != "d" && s1 != "v" && s1 != "g" && s1 != "t" && s1 != "q"){
+            continue;
+        }
+        else {
+         if (s1 == "s"){
+            theRace = "Shade";
+            thePlayer = new Shade();
+            cout << s1 << endl;
+		} else if (s1 == "d"){
+            theRace = "Drow";
+            thePlayer = new Drow();
+            cout << s1 << endl;
+		} else if (s1 == "v"){
+            theRace = "Vampire";
+            thePlayer = new Vampire();
+            cout << s1 << endl;
+		} else if (s1 == "g"){
+            theRace = "Goblin";
+            thePlayer = new Goblin();
+            cout << s1 << endl;
+		} else if (s1 == "t"){
+            theRace = "Troll";
+            thePlayer = new Troll();
+            cout << s1 << endl;
+		}
+         else if (s1 == "q") return 0;
+         break;
+        }
+        } 
+                f = new Floor{file, thePlayer}; 
+                floorsBeaten = 0;
+                f->td->updateFloor(floorsBeaten + 1);
+                f->td->updateRace(theRace);
 	while (true){
 		cout << *f;
 		cin >> s1;
 		if (s1 == "q"){
 			cout << "quit" << endl;
-            if (quitPrompt()){
-                delete f; 
-                f = new Floor{file}; 
-                floorsBeaten = 0;
-                f->td->updateFloor(floorsBeaten + 1);
-                f->td->updateRace(theRace);
-                continue;
-            } //needs more
-            break;
+                delete f;
+                delete thePlayer;
+                if (quitPrompt()){
+                break;
+            }
+            return 0;
 		}
 		if (s1 == "no"){
             f->movePlayer(Direction::N);
@@ -82,30 +122,6 @@ int main(){
             f->movePlayer(Direction::SE);
 		} else if (s1 == "sw"){
             f->movePlayer(Direction::SW);
-		} else if (s1 == "s"){
-            theRace = "Shade";
-            f->td->updateRace(theRace);
-            cout << s1 << endl;
-		} else if (s1 == "d"){
-            theRace = "Drow";
-            f->td->updateRace(theRace);
-
-            cout << s1 << endl;
-		} else if (s1 == "v"){
-            theRace = "Vampire";
-            f->td->updateRace(theRace);
-
-            cout << s1 << endl;
-		} else if (s1 == "g"){
-            theRace = "Goblin";
-            f->td->updateRace(theRace);
-
-            cout << s1 << endl;
-		} else if (s1 == "t"){
-            theRace = "Troll";
-            f->td->updateRace(theRace);
-
-            cout << s1 << endl;
 		} else if (s1 == "f"){
             cout << s1 << endl;
 		} else if (s1 == "r"){
@@ -117,23 +133,30 @@ int main(){
             cin >> s2;
             f->playerAttack(toDirection(s2));
         }
-        if (f->gameOver()){
+        if (f->gameLost()){
+            delete f;
+            if (quitPrompt()){
+                break;
+            }
+            return 0;
+        }
+        if (f->gameWon()){
 			floorsBeaten += 1;
             f->td->updateFloor(floorsBeaten + 1);
 			if (floorsBeaten == MAX_FLOORS){
-				if (quitPrompt()){
                     delete f;
-               	    f = new Floor{file};
-               		floorsBeaten = 0;
-                    f->td->updateFloor(floorsBeaten + 1);
-                    f->td->updateRace(theRace);
-                   	continue;
+                    delete thePlayer;
+                    if (quitPrompt()){
+                   	break;
                	}
-				break;
+				return 0;
 			}
-			f = new Floor{file};
+            thePlayer->reversePotions();
+            thePlayer->clearObservers();
+			f = new Floor{file, thePlayer};
             f->td->updateFloor(floorsBeaten + 1);
-            f->td->updateRace(theRace);
-		}
+        }
+    }
+
     }
 }

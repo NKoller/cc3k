@@ -1,5 +1,6 @@
 #include "textdisplay.h"
 #include "info.h"
+#include "stats.h"
 #include <string>
 #include <iostream>
 #include "floor.h"
@@ -10,7 +11,7 @@
 using namespace std;
 
 
-TextDisplay::TextDisplay(string s){
+TextDisplay::TextDisplay(string s, Stats status){
     unsigned int ind = 0, r = 0;
     cells.emplace_back();
     while (ind < s.size()){
@@ -24,6 +25,10 @@ TextDisplay::TextDisplay(string s){
     }
     this->actionString = "";
     moveString = "";
+    hp = status.HP;
+    atk = status.Atk;
+    def = status.Def;
+    gold = status.Gold;
 }
 
 void TextDisplay::updateRace(string newRace){

@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include "direction.h"
+class Stats;
 
 class TextDisplay: public Observer {
     std::vector<std::vector <char>> cells;
@@ -18,7 +19,7 @@ public:
     void updateFloor (int newFloor);
     void updateRace (std::string newRace);
     void notify(Subject &cell) override;
-    TextDisplay(std::string s);
+    TextDisplay(std::string s, Stats status);
     friend std::ostream &operator<<(std::ostream &out,TextDisplay &td);
     void playerMoved(Direction dir);
 };

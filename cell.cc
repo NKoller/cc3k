@@ -26,6 +26,10 @@ int Cell::directionTo(unsigned int r, unsigned int c) const {
 	}
 }
 
+Character* Cell::getChar()const{
+    return myChar;
+}
+
 void Cell::notify(Subject &from) {
 	if (from.getState() == State::PlayerHere) {
 		Info in = static_cast<Cell *>(&from)->getInfo(); // really bad
@@ -84,6 +88,7 @@ bool Cell::addItem(Item *i) {
 }
 
 bool Cell::addChar(Character *c, bool isPlayer) {
+    if (c){
 	if (myChar || myItem) return false;
 	if (!isPlayer && type != CellType::Floor) return false;
 
@@ -100,6 +105,7 @@ bool Cell::addChar(Character *c, bool isPlayer) {
 	notifyObservers();
 	if (!isPlayer) processedThisTurn = true;
 	return true;
+    }
 }
 
 bool Cell::moveChar(int dir) {
@@ -189,4 +195,10 @@ void Cell::itemGetUsed(Character &user) {
 	myItem = nullptr;
 	setState(State::CharacterMoved); // not really proper
 	notifyObservers();
+}
+Cell::~Cell(){
+    if (!hasPlayer){
+    delete myChar;
+    }
+    delete myItem;
 }

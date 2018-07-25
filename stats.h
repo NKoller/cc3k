@@ -8,8 +8,9 @@ struct Stats {
     double Atk;
     double Def;
     double Gold;
+    Stats &operator+=(Stats &other);
 	Stats &operator+=(Stats &&other);
-	Stats operator*(int n);
+	Stats operator*(double n);
 };
 
 #endif

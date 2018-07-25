@@ -5,7 +5,7 @@
 
 class Player: public Character {
  protected:
-  std::vector<Potion *> used;
+  Stats reverse = Stats{0, 0, 0, 0};
  public:
   virtual void use(Potion &p);
   //virtual void use(Gold &g);
@@ -15,6 +15,7 @@ class Player: public Character {
   virtual int getScore() const;
   Player(int maxHP, Stats status);
   virtual ~Player();
+  void clearObservers();
 };
 
 #endif

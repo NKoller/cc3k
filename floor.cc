@@ -182,7 +182,7 @@ void Floor::spawn() {
 	Coords rand_cell = chambers[player_chamber][player_cell];
 	player.r = rand_cell.r;
 	player.c = rand_cell.c;
-	map[rand_cell.r][rand_cell.c]->addChar(new Shade{td}, true);
+	map[rand_cell.r][rand_cell.c]->addChar(myPlayer, true);
 	map[rand_cell.r][rand_cell.c]->processedThisTurn = true;
 
 	total_cells -= chambers[player_chamber].size();
@@ -221,8 +221,9 @@ void Floor::moveEnemies() {
 	}
 }
 
-Floor::Floor(string file) {
+Floor::Floor(string file, Player* thePlayer) {
 	string input = readFile(file);
+    myPlayer = thePlayer;
 	// Initialize 2-D Cell vector
 	unsigned int i = 0;
 	unsigned int row = 0;
@@ -252,7 +253,8 @@ Floor::Floor(string file) {
 		++row;
 	}
 	// Initialize display
-	td = new TextDisplay{input};
+	td = new TextDisplay{input, myPlayer->getStats()};
+    myPlayer->attach(td);
 	// Initialize chambers and observers
 	findChambers();
 	addObservers();
@@ -298,7 +300,11 @@ void Floor::movePlayer(Direction dir) {
 	moveEnemies();
 }
 
-bool Floor::gameOver() const {
+bool Floor::gameLost() const{
+    return map[player.r][player.c]->getChar() == nullptr;
+}
+
+bool Floor::gameWon() const {
 	return map[player.r][player.c]->getType() == CellType::Stairs;
 }
 

@@ -6,7 +6,7 @@ void Player::finishTurn() {}
 void Player::use(Potion &p) {
 	status += p.getEffect();
 	if (status.HP > maxHP) status.HP = maxHP;
-	used.emplace_back(&p);
+    reverse += p.reverse();
 	setState(State::UpdateTextdisplay);
 	notifyObservers();
 }
@@ -18,19 +18,17 @@ double Player::generalAttack(Character &defender) {
 }
 
 void Player::reversePotions() {
-	while (used.size()) {
-		status += used[used.size()-1]->reverse();
-		delete used[used.size()-1];
-		used.pop_back();
-	}
+    status += reverse;
 }
 
 int Player::getScore() const { return status.Gold; }
 
 Player::Player(int maxHP, Stats status): Character{'@', true, maxHP, status} {}
 
-Player::~Player() {
-	for (auto &pot : used) {
-		delete pot;
-	}
+Player::~Player() {}
+
+void Player::clearObservers(){
+    while (observers.size()) {
+        observers.pop_back();
+    }
 }

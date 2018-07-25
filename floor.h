@@ -6,6 +6,7 @@
 #include "cell.h"
 #include "textdisplay.h"
 #include "direction.h"
+#include "player.h"
 
 class Floor {
 	struct Coords {
@@ -15,7 +16,7 @@ class Floor {
 	struct Coords player;
 	std::vector<std::vector<Cell *>> map;
 	std::vector<std::vector<Coords>> chambers;
-
+Player* myPlayer;
 	static std::string readFile(std::string name);
 	void initializeChamber(std::vector<std::vector<bool>> &added,
 	                       int chamber_num, unsigned int r, unsigned int c);
@@ -32,10 +33,11 @@ class Floor {
 
 public:
     TextDisplay *td;
-	Floor(std::string file);
-	~Floor();
+	Floor(std::string file, Player* thePlayer);
+	~Floor(); 
+    bool gameWon() const;
 	void movePlayer(Direction dir);
-	bool gameOver() const;
+	bool gameLost() const;
     void playerAttack(Direction dir);
 	void playerUse(Direction dir);
 	friend std::ostream &operator<<(std::ostream &out, const Floor &f);
