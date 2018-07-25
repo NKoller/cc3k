@@ -6,7 +6,8 @@ void Player::finishTurn() {}
 void Player::use(Potion &p) {
 	status += p.getEffect();
 	if (status.HP > maxHP) status.HP = maxHP;
-	used.emplace_back(&p);
+	Potion *copy = new Potion{p};
+	used.emplace_back(copy);
 	setState(State::UpdateTextdisplay);
 	notifyObservers();
 }
