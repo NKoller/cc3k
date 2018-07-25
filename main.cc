@@ -71,7 +71,8 @@ int main(int num_args, char *args[]) {
 				while (true){
 						cout << "Pick a race: s/d/v/g/t (q to quit)" << endl;
 						cin >> s1;
-						if (s1 != "s" && s1 != "d" && s1 != "v" && s1 != "g" && s1 != "t" && s1 != "q"){
+						if (s1 != "s" && s1 != "d" && s1 != "v" &&
+						    s1 != "g" && s1 != "t" && s1 != "q"){
 								continue;
 						}
 						else {
@@ -94,8 +95,9 @@ int main(int num_args, char *args[]) {
 								else if (s1 == "q") return 0;
 								break;
 						}
-				} 
-				f = new Floor{file, thePlayer}; 
+				}
+				if (num_args == 1) f = new Floor{file, thePlayer};
+				else f = new Floor{file, thePlayer, floorsBeaten};
 				floorsBeaten = 0;
 				f->td->updateFloor(floorsBeaten + 1);
 				f->td->updateRace(theRace);
@@ -151,7 +153,8 @@ int main(int num_args, char *args[]) {
 								floorsBeaten += 1;
 								f->td->updateFloor(floorsBeaten + 1);
 								if (floorsBeaten == MAX_FLOORS){
-										cout << "GAME OVER: Your score is: " << thePlayer->getScore() << " points!" << endl;
+										cout << "GAME OVER: Your score is: " <<
+										        thePlayer->getScore() << " points!" << endl;
 										delete f;
 										delete thePlayer;
 										if (quitPrompt()){
@@ -161,7 +164,8 @@ int main(int num_args, char *args[]) {
 								}
 								thePlayer->reversePotions();
 								thePlayer->clearObservers();
-								f = new Floor{file, thePlayer};
+								if (num_args == 1) f = new Floor{file, thePlayer};
+								else f = new Floor{file, thePlayer, floorsBeaten};
 								f->td->updateFloor(floorsBeaten + 1);
 						}
 						thePlayer->finishTurn();

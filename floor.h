@@ -17,7 +17,7 @@ class Floor {
 		std::vector<std::vector<Cell *>> map;
 		std::vector<std::vector<Coords>> chambers;
 		Player* myPlayer;
-		static std::string readFile(std::string name);
+		static std::string readFile(std::string name, int file_skip);
 		void initializeChamber(std::vector<std::vector<bool>> &added,
                                int chamber_num, unsigned int r, unsigned int c);
 		void findChambers();
@@ -33,7 +33,7 @@ class Floor {
 
 	public:
 		TextDisplay *td;
-		Floor(std::string file, Player* thePlayer);
+		Floor(std::string file, Player* thePlayer, int file_skip = -1);
 		~Floor(); 
 		bool gameWon() const;
 		void movePlayer(Direction dir);

@@ -18,11 +18,22 @@
 #include <sstream>
 using namespace std;
 
-string Floor::readFile(string name) {
-		ifstream file{name};
-		stringstream result;
+string Floor::readFile(string name, int file_skip) {
+	ifstream file{name};
+	stringstream result;
+	if (file_skip == -1) {
 		result << file.rdbuf();
 		return result.str();
+	} else {
+		int lines_to_skip = file_skip * 25;
+		string line;
+		for (int i = 0; i < lines_to_skip; ++i) getline(file, line);
+		for (int j = 0; j < 25; ++j) {
+			getline(file, line);
+			result << line << endl;
+		}
+		return result.str();
+	}
 }
 
 void Floor::initializeChamber(vector<vector<bool>> &added, int chamber_num,
@@ -216,8 +227,8 @@ void Floor::moveEnemies() {
 		}
 }
 
-Floor::Floor(string file, Player* thePlayer) {
-		string input = readFile(file);
+Floor::Floor(string file, Player* thePlayer, int file_skip) {
+		string input = readFile(file, file_skip);
 		myPlayer = thePlayer;
 		// Initialize display
 		td = new TextDisplay{input, myPlayer->getStats()};
@@ -238,6 +249,8 @@ Floor::Floor(string file, Player* thePlayer) {
 								map[row].emplace_back(new Cell{CellType::Door, row, col});
 						} else if (input[i] == '#') {
 								map[row].emplace_back(new Cell{CellType::Passage, row, col});
+						} else if (input[i] == '\\') {
+								map[row].emplace_back(new Cell{CellType::Stairs, row, col});
 						} else {
 								Cell *add = new Cell{CellType::Floor, row, col};
 								if (input[i] == '0') {
