@@ -13,6 +13,8 @@ int Troll::defend(Character &attacker) {
 
 void Troll::finishTurn() {
 	status.HP += 5;
+	setState(State::UpdateTextdisplay);
+	notifyObservers();
 }
 
 Troll::Troll(): Player{120, Stats{120, 25, 15, 0}} {}

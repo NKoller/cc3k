@@ -16,6 +16,8 @@ Drow::Drow(): Player{150, Stats{150, 25, 15, 0}} {}
 
 void Drow::use(Potion &p) {
 	status += p.getEffect() * 1.5;
+	setState(State::UpdateTextdisplay);
+	notifyObservers();
 }
 
 void Drow::reversePotions() {
