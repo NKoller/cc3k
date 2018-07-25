@@ -11,6 +11,7 @@
 #include "orc.h"
 #include "merchant.h"
 #include "halfling.h"
+#include <iostream> //remove
 
 const double Character::MISSED = -1;
 const double Character::NO_ATTACK = -2;
@@ -55,6 +56,7 @@ void change(int &type, const int amt) {
 void Character::checkIfDead() {
 	if (status.HP <= 0) {
 		setState(State::CharacterDied);
+        std::cout << "call notify" << std::endl;
 		notifyObservers();
 		//std::cout << "Oh noey! " << name << " died! :(" << std::endl;
 	}

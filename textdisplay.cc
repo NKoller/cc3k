@@ -45,12 +45,16 @@ void TextDisplay::updateFloor(int newFloor){
 
 
 void TextDisplay::notify(Subject &subj){
-    if (subj.getState() == State::UpdateTextdisplay){
+    cout << "receive notify" << endl;
+    if (subj.getState() == State::UpdateTextdisplay || subj.getState() == State::CharacterDied){
+        cout << "get stats" << endl;
         Stats st = static_cast<Character *>(&subj)->getStats();
+        cout << "got stats" << endl;
         hp = st.HP;
         atk = st.Atk;
         def = st.Def;
         gold = st.Gold;
+        cout << hp << endl;
     }
     
     
@@ -159,7 +163,7 @@ ostream &operator<<(ostream &out, TextDisplay &td){
     }
     if (td.moveString != ""){
     out << "Action: " << td.moveString << endl;
-    }
+    } 
     td.moveString = "";
     td.actionString = "";
 	return out;

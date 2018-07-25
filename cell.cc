@@ -167,7 +167,6 @@ void Cell::charDefend(Character &attacker, Cell &attacking_cell) {
         	dmgDealt = dmg;
     	    setState(State::GotAttacked);
 	        notifyObservers();
-        	std::cout << "here lol" << std::endl;
         	myChar->checkIfDead();
 		}
     }
