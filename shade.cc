@@ -15,9 +15,6 @@ int Shade::getScore() const {
 	return status.Gold * 1.5;
 }
 
-Shade::Shade(Observer* myTD): Player{125, Stats{125, 25, 25, 0}, myTD} {
-    setState(State::UpdateTextdisplay);
-    notifyObservers();
-}
+Shade::Shade(Observer* myTD): Player{125, Stats{125, 25, 25, 0}, myTD} {}
 
 Shade::~Shade() {}

@@ -15,9 +15,6 @@ void Troll::finishTurn() {
 	status.HP += 5;
 }
 
-Troll::Troll(Observer* myTD): Player{120, Stats{120, 25, 15, 0}, myTD} {
-    setState(State::UpdateTextdisplay);
-    notifyObservers();
-}
+Troll::Troll(Observer* myTD): Player{120, Stats{120, 25, 15, 0}, myTD} {}
 
 Troll::~Troll() {}

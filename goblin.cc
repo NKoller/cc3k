@@ -27,10 +27,6 @@ double Goblin::generalAttack(Character &defender) {
 	}
 }
 
-Goblin::Goblin(Observer* myTD): Player{110, Stats{110, 15, 20, 0}, myTD} {
-    this->attach(myTD);
-    setState(State::UpdateTextdisplay);
-    notifyObservers();
-}
+Goblin::Goblin(Observer* myTD): Player{110, Stats{110, 15, 20, 0}, myTD} {}
 
 Goblin::~Goblin() {}
