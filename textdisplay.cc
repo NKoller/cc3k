@@ -38,13 +38,13 @@ void TextDisplay::updateRace(string newRace){
 
 void TextDisplay::updateFloor(int newFloor){
 		floor = newFloor;
-		actionString += "Player Spawned ";
+		actionString += "Player spawned ";
 		if (floor != 1){
 				stringstream ss;
 				ss << floor;
 				string temp;
 				ss >> temp;
-				actionString += " on Floor " + temp + " ";
+				actionString += "on Floor " + temp + " ";
 		}
 }
 
@@ -97,7 +97,7 @@ void TextDisplay::notify(Subject &subj){
 								} else{
 										string tempS = "PC deals " +to_string(dmgdlt) +
 										               " damage to " + in.characterName +
-										               "  (" + to_string(otherCharHP) + ") ";
+										               " (" + to_string(otherCharHP) + ") ";
 										actionString += tempS;
 								}
 						} else{

@@ -142,6 +142,7 @@ int main(int num_args, char *args[]) {
 								f->playerAttack(toDirection(s2));
 						}
 						if (f->gameLost()){
+								cout << *f;
 								delete f;
 								cout << "GAME OVER: You died!" << endl;
 								if (quitPrompt()){
@@ -164,6 +165,7 @@ int main(int num_args, char *args[]) {
 								}
 								thePlayer->reversePotions();
 								thePlayer->clearObservers();
+								delete f;
 								if (num_args == 1) f = new Floor{file, thePlayer};
 								else f = new Floor{file, thePlayer, floorsBeaten};
 								f->td->updateFloor(floorsBeaten + 1);
