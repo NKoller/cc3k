@@ -13,7 +13,7 @@ class Player: public Character {
   virtual void finishTurn();
   virtual double generalAttack(Character &defender) override;
   virtual int getScore() const;
-  Player(int maxHP, Stats status, Observer* myTD);
+  Player(int maxHP, Stats status);
   virtual ~Player();
 };
 
