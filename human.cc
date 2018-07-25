@@ -14,7 +14,9 @@ void Human::checkIfDead() {
 
 int Human::defend(Character &attacker) {
 	double damage = attacker.attack(*this);
-	status.HP -= damage;
-	if (status.HP < 0) status.HP = 0;
+	if (damage != Character::MISSED && damage != Character::NO_ATTACK) {
+		status.HP -= damage;
+		if (status.HP < 0) status.HP = 0;
+	}
     return damage;
 }

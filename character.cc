@@ -63,7 +63,11 @@ void Character::checkIfDead() {
 double Character::generalAttack(Character &defender) {
     double damage = (100.0 / (100 + defender.status.Def)) * status.Atk;
 	int trunc = damage;
-	return (damage > trunc)? trunc + 1 : trunc;
+	damage = (damage > trunc)? trunc + 1 : trunc;
+
+	int missed = rand() % 2;
+	if (missed) return Character::MISSED;
+	return damage;
 }
 
 double Character::attack(Shade &defender) {

@@ -2,12 +2,12 @@
   
 int Troll::defend(Character &attacker) {
     double damage = attacker.attack(*this);
-    status.HP -= damage;
-    //std::cout << "Owie! " << name << " took " << damage << " damage! ";
-    //std::cout << status.HP << " wittle HPs left..." << std::endl;
-    checkIfDead();
-    setState(State::UpdateTextdisplay);
-    notifyObservers();
+	if (damage != Character::MISSED && damage != Character::NO_ATTACK) {
+    	status.HP -= damage;
+    	checkIfDead();
+    	setState(State::UpdateTextdisplay);
+	    notifyObservers();
+	}
     return damage;
 }
 

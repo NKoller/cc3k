@@ -10,6 +10,7 @@ class Player: public Character {
   //virtual void use(Gold &g);
   virtual void reversePotions();
   virtual void finishTurn();
+  virtual double generalAttack(Character &defender) override;
   Player(int maxHP, Stats status, Observer* myTD);
   virtual ~Player();
 };

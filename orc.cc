@@ -7,11 +7,18 @@ Orc::~Orc() {}
 
 int Orc::defend(Character &attacker) {
 	double damage = attacker.attack(*this);
-	status.HP -= damage;
-	if (status.HP < 0) status.HP = 0;
+	if (damage != Character::MISSED && damage != Character::NO_ATTACK) {
+		status.HP -= damage;
+		if (status.HP < 0) status.HP = 0;
+	}
     return damage;
 }
 
 double Orc::attack(Goblin &defender) {
-	return generalAttack(defender) * 1.5;
+	double damage = generalAttack(defender);
+	if (damage == Character::MISSED || damage == Character::NO_ATTACK) {
+		return damage;
+	} else {
+		return generalAttack(defender) * 1.5;
+	}
 }

@@ -2,14 +2,14 @@
 #include "potion.h"
   
 int Drow::defend(Character &attacker) {
- double damage = attacker.attack(*this);
-  status.HP -= damage;
-  //std::cout << "Owie! " << name << " took " << damage << " damage! ";
-  //std::cout << status.HP << " wittle HPs left..." << std::endl;
-  checkIfDead();
-  setState(State::UpdateTextdisplay);
-  notifyObservers();
-  return damage;
+	double damage = attacker.attack(*this);
+	if (damage != Character::MISSED && damage != Character::NO_ATTACK) {
+	  	status.HP -= damage;
+		checkIfDead();
+		setState(State::UpdateTextdisplay);
+		notifyObservers();
+	}
+	return damage;
 }
 
 Drow::Drow(Observer* myTD): Player{150, Stats{150, 25, 15, 0}, myTD} {

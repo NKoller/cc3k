@@ -7,9 +7,14 @@ void Player::use(Potion &p) {
 	status += p.getEffect();
 	if (status.HP > maxHP) status.HP = maxHP;
 	used.emplace_back(&p);
-    setState(State::UpdateTextdisplay);
-    notifyObservers();
-	// update textdisplay?
+	setState(State::UpdateTextdisplay);
+	notifyObservers();
+}
+
+double Player::generalAttack(Character &defender) {
+    double damage = (100.0 / (100 + defender.getStats().Def)) * status.Atk;
+	int trunc = damage;
+	return (damage > trunc)? trunc + 1 : trunc;
 }
 
 void Player::reversePotions() {
