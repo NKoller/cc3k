@@ -6,9 +6,14 @@ void Player::finishTurn() {}
 void Player::use(Potion &p) {
 		status += p.getEffect();
 		if (status.HP > maxHP) status.HP = maxHP;
+		else if (status.HP < 0) status.HP = 0;
+		if (status.Atk < 0) status.Atk = 0;
+		if (status.Def < 0) status.Def = 0;
+		if (status.Gold < 0) status.Gold = 0;
 		reverse += p.reverse();
 		setState(State::UpdateTextdisplay);
 		notifyObservers();
+		checkIfDead();
 }
 
 double Player::generalAttack(Character &defender) {
