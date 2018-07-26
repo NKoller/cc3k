@@ -27,7 +27,7 @@ class Cell: public Observer, public Subject {
 
 	public:
 		int playerDir = -1;
-		Character* getChar()const;
+		Character* getChar() const;
 		bool processedThisTurn = false;
 		bool frozen = false;
 		Info getInfo();
@@ -38,7 +38,6 @@ class Cell: public Observer, public Subject {
 		bool addChar(Character *c, bool isPlayer = false);
 		bool moveChar(int dir);
 		void notify(Subject &from) override;
-		//void notifyDisplay()
 		void charAttack(int dir);
 		void charDefend(Character &attacker, Cell &attacking_cell);
 		void charUse(int dir);

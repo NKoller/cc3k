@@ -5,11 +5,11 @@
 
 class WoundDef: public Potion {
 		static bool used;
+		void getUsed(Player &user) override;
 
 	public:
 		WoundDef();
 		static bool hasBeenUsed();
-		void getUsed(Player &user) override;
 		std::string getDesc() const override;
 };
 

@@ -4,9 +4,10 @@
 #include "player.h"
 
 class Vampire: public Player {
-	public:
-		int defend(Character &attacker) override;
 		double generalAttack(Character &defender) override;
+
+	public:
+		int defend(Character &attacker) override;;
 		double attack(Dwarf &defender) override;
 		Vampire();
 		~Vampire();

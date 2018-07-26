@@ -8,6 +8,7 @@
 class Item {
 		char name;
 		Stats effect;
+		virtual void getUsed(Player &user) = 0;
 
 	protected:
 		std::string desc;
@@ -18,7 +19,6 @@ class Item {
 		virtual std::string getDesc() const;
 		Stats getEffect() const;
 		void getUsed(Character &user);
-		virtual void getUsed(Player &user) = 0;
 };
 
 #endif

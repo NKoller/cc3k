@@ -5,10 +5,11 @@
 
 class BoostAtk: public Potion {
 		static bool used;
+		void getUsed(Player &user) override;
+
 	public:
 		BoostAtk();
 		static bool hasBeenUsed();
-		void getUsed(Player &user) override;
 		std::string getDesc() const override;
 };
 

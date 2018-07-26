@@ -5,11 +5,11 @@
 
 class PoisonHP: public Potion {
 		static bool used;
+		void getUsed(Player &user) override;
 
 	public:
 		PoisonHP();
 		bool hasBeenUsed();
-		void getUsed(Player &user) override;
 		std::string getDesc() const override;
 		Stats reverse() const;
 };

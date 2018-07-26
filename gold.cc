@@ -5,8 +5,8 @@ double Gold::randomPile() {
 		return rpile;
 }
 
-Gold::Gold(double pile): pile{pile} {}
-
-void Gold::getUsed(Player &user) {
-		user.setGold(pile);
+void getUsed(Player &user) {
+		//user.use(*this);
 }
+
+Gold::Gold(double pile): pile{pile} {}

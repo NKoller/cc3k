@@ -295,7 +295,7 @@ Floor::Floor(string file, Player* thePlayer, int file_skip) {
 		addObservers();
 		// Spawn characters and items (unless using a premade file)
 		srand(time(nullptr));
-		if (file == "empty.txt") spawn();
+		if (file_skip == -1) spawn();
 }
 
 Floor::~Floor() {

@@ -4,15 +4,16 @@
 #include "character.h"
 
 class Player: public Character {
+	
 	protected:
 		Stats reverse = Stats{0, 0, 0, 0};
+		virtual double generalAttack(Character &defender) override;
 
 	public:
 		virtual void use(Potion &p);
 		//virtual void use(Gold &g);
-		virtual void reversePotions();
+		void reversePotions();
 		virtual void finishTurn();
-		virtual double generalAttack(Character &defender) override;
 		virtual int getScore() const;
 		Player(int maxHP, Stats status);
 		virtual ~Player();

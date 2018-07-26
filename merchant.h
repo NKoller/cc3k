@@ -5,13 +5,13 @@
 
 class Merchant: public Character {
 		static bool hostile;
-		void checkIfDead() override;
+		double generalAttack(Character &defender) override;
 
 	public:
 		Merchant();
 		~Merchant();
 		int defend(Character &attacker) override;
-		double generalAttack(Character &defender) override;
+		void checkIfDead() override;
 };
 
 #endif

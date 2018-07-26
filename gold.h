@@ -5,11 +5,12 @@
 #include "player.h"
 
 class Gold: public Item {
-		double pile; 
+		double pile;
+		virtual void getUsed(Player &user) override;
+
 	public:
 		static double randomPile();
 		Gold(double pile);
-		void getUsed(Player &user);
 };
 
 #endif

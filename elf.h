@@ -5,10 +5,11 @@
 
 class Elf: public Character {
 		bool attacking = false;
+		double generalAttack(Character &defender) override;
+
 	public:
 		Elf();
 		int defend(Character &attacker) override;
-		double generalAttack(Character &defender) override;
 		double attack(Drow &defender) override;
 };
 
