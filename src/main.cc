@@ -59,7 +59,7 @@ int main(int num_args, char *args[]) {
 		}
 		string file;
 		if (num_args == 2) file = args[1];
-		else file = "empty.txt";
+		else file = "maps/empty.txt";
 
 		Player *thePlayer;
 		string s1, s2;
@@ -96,9 +96,9 @@ int main(int num_args, char *args[]) {
 								break;
 						}
 				}
+				floorsBeaten = 0;
 				if (num_args == 1) f = new Floor{file, thePlayer};
 				else f = new Floor{file, thePlayer, floorsBeaten};
-				floorsBeaten = 0;
 				f->td->updateFloor(floorsBeaten + 1);
 				f->td->updateRace(theRace);
 				while (true){
@@ -133,6 +133,7 @@ int main(int num_args, char *args[]) {
 						} else if (s1 == "r"){
 								delete f;
 								delete thePlayer;
+                                floorsBeaten = 0;
 								break;
 						} else if (s1 == "u"){
 								cin >> s2;
